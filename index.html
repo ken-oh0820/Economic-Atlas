@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="99개국 GDP, 무역, 실업률, 인플레이션 + 실시간 환율·원자재 시세·글로벌 뉴스를 한눈에. Interactive World Economic Dashboard.">
 <meta name="keywords" content="세계경제,GDP,지도,Economic Atlas,글로벌 대시보드,환율,원유시세">
-<meta property="og:title" content="Economic Atlas — 글로벌 경제 대시보드 2025">
+<meta property="og:title" content="Economic Atlas — 글로벌 경제 대시보드 2026">
 <meta property="og:description" content="99개국 경제 데이터 + 실시간 환율·원자재 시세·뉴스를 인터랙티브 세계지도로 탐색">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
-<title>글로벌 경제 지도 — Economic Atlas 2025</title>
+<title>글로벌 경제 지도 — Economic Atlas 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -45,6 +45,9 @@ header{background:var(--header-bg);border-bottom:1px solid var(--border);padding
 .map-controls{position:absolute;bottom:16px;left:16px;display:flex;flex-direction:column;gap:4px;z-index:1001}.map-ctrl-btn{width:30px;height:30px;background:var(--ctrl-bg);border:1px solid var(--border);color:var(--text-mid);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;padding:0;backdrop-filter:blur(8px)}.map-ctrl-btn:hover{border-color:var(--accent);color:var(--accent)}#labelToggleBtn{width:auto;padding:0 8px;font-size:10px;letter-spacing:0.5px;font-family:inherit;color:var(--accent);border-color:var(--accent)}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--surface)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 .country-label-div{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--text-mid);text-shadow:0 0 4px var(--bg),0 0 8px var(--bg),1px 1px 2px rgba(0,0,0,0.8);white-space:nowrap;pointer-events:none;letter-spacing:0.5px}body.light .country-label-div{text-shadow:0 0 4px #fff,0 0 8px rgba(255,255,255,0.9);color:var(--text-mid)}
+body.light .alliance-card{border:none}body.light .alliance-card:hover{border:none;background:rgba(0,119,204,0.04)}body.light .alliance-card.active{border:none;background:rgba(0,119,204,0.06)}
+body.light .alliance-name{text-shadow:0 0 6px #fff,0 0 12px #fff}body.light .alliance-count{text-shadow:0 0 6px #fff}
+body.light .alliance-info-btn{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.1)}
 /* Ticker bar */
 .ticker-bar{background:var(--surface);border-bottom:1px solid var(--border);height:28px;display:flex;align-items:center;overflow:hidden;flex-shrink:0;position:relative;z-index:9}
 .ticker-track{display:flex;align-items:center;gap:0;animation:tickerScroll 40s linear infinite;white-space:nowrap}
@@ -79,6 +82,34 @@ header{background:var(--header-bg);border-bottom:1px solid var(--border);padding
 .last-update{font-size:7px;color:var(--text-dim);text-align:right;margin-top:6px;letter-spacing:0.3px}
 /* Mobile toggle buttons */
 .mobile-toggle{display:none;position:absolute;top:50%;transform:translateY(-50%);width:28px;height:54px;background:var(--ctrl-bg);border:1px solid var(--border);color:var(--accent);font-size:14px;cursor:pointer;z-index:1002;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:0;transition:all 0.2s}
+/* Alliance quick cards on map */
+.alliance-panel{position:absolute;top:4px;left:4px;z-index:1001;display:flex;flex-direction:column;gap:2px}
+.alliance-card{display:flex;align-items:center;gap:8px;padding:7px 12px;background:transparent;border:none;backdrop-filter:none;cursor:pointer;transition:all 0.2s;min-width:140px;position:relative}
+.alliance-card:hover{border:none;background:rgba(0,212,255,0.04)}
+.alliance-card.active{border:none;box-shadow:inset 3px 0 0 var(--accent);background:rgba(0,212,255,0.06)}
+.alliance-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.alliance-name{font-size:10px;font-weight:500;color:var(--text);letter-spacing:0.5px;text-shadow:0 0 6px var(--bg),0 0 12px var(--bg)}
+.alliance-count{font-size:8px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;text-shadow:0 0 6px var(--bg)}
+.alliance-info-btn{margin-left:auto;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:var(--text-dim);font-size:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all 0.15s;padding:0;font-family:serif;font-style:italic}
+.alliance-info-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,0.1)}
+/* Info popup */
+.alliance-popup{display:none;position:absolute;left:155px;top:0;width:300px;background:var(--tooltip-bg);border:1px solid var(--border);backdrop-filter:blur(14px);padding:14px 16px;z-index:1003;font-size:10px;line-height:1.7;color:var(--text-mid)}
+.alliance-popup.show{display:block}
+.alliance-popup-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.alliance-popup-desc{margin-bottom:10px;color:var(--text-mid);font-size:9px;line-height:1.7}
+.alliance-popup-members{font-size:8px;color:var(--text-dim);line-height:1.9;margin-bottom:10px}
+.alliance-popup-links{display:flex;gap:6px;flex-wrap:wrap}
+.alliance-link{font-size:8px;padding:3px 8px;background:var(--surface2);border:1px solid var(--border);color:var(--accent);text-decoration:none;transition:all 0.15s;letter-spacing:0.3px;display:inline-flex;align-items:center;gap:3px}
+.alliance-link:hover{border-color:var(--accent);background:rgba(0,212,255,0.08)}
+.alliance-popup-close{position:absolute;top:6px;right:8px;background:none;border:none;color:var(--text-dim);font-size:14px;cursor:pointer;padding:2px}
+.alliance-popup-close:hover{color:var(--text)}
+@media(max-width:768px){
+  .alliance-panel{top:2px;left:2px;gap:1px}
+  .alliance-card{padding:5px 9px;min-width:110px}
+  .alliance-name{font-size:9px}
+  .alliance-count{display:none}
+  .alliance-popup{left:0;top:auto;bottom:-5px;transform:translateY(100%);width:calc(100vw - 60px);max-width:300px}
+}
 .mobile-toggle:hover{background:var(--metric-active-bg);border-color:var(--accent)}
 .mobile-toggle-left{left:0;border-radius:0 6px 6px 0;border-left:none}
 .mobile-toggle-right{right:0;border-radius:6px 0 0 6px;border-right:none}
@@ -118,7 +149,7 @@ header{background:var(--header-bg);border-bottom:1px solid var(--border);padding
 </style>
 </head>
 <body>
-<header><div class="logo"><div class="logo-main">ECONOMIC ATLAS</div><div class="logo-sub"><span class="signal-dot"></span> 글로벌 경제 대시보드 2025</div></div><div class="header-stats"><div class="stat-pill"><span class="stat-label">세계 GDP</span><span class="stat-value">$117.2T</span></div><div class="stat-pill"><span class="stat-label">데이터 기준</span><span class="stat-value">2025</span></div><div class="stat-pill"><span class="stat-label">표시 국가</span><span class="stat-value" id="countryCount">—</span></div><button class="map-ctrl-btn" id="themeToggle" onclick="toggleTheme()" style="width:auto;padding:0 8px;font-size:14px">🌙</button></div></header>
+<header><div class="logo"><div class="logo-main">ECONOMIC ATLAS</div><div class="logo-sub"><span class="signal-dot"></span> 글로벌 경제 대시보드 2026</div></div><div class="header-stats"><div class="stat-pill"><span class="stat-label">세계 GDP</span><span class="stat-value">$117.2T</span></div><div class="stat-pill"><span class="stat-label">데이터 기준</span><span class="stat-value">2025</span></div><div class="stat-pill"><span class="stat-label">표시 국가</span><span class="stat-value" id="countryCount">—</span></div><button class="map-ctrl-btn" id="themeToggle" onclick="toggleTheme()" style="width:auto;padding:0 8px;font-size:14px">🌙</button></div></header>
 <div class="ticker-bar" id="tickerBar">
   <div class="live-tag"><span class="live-dot"></span>LIVE</div>
   <div style="overflow:hidden;flex:1"><div class="ticker-track" id="tickerTrack"><span class="ticker-item"><span class="ticker-label">로딩 중...</span></span></div></div>
@@ -129,7 +160,7 @@ header{background:var(--header-bg);border-bottom:1px solid var(--border);padding
 <div><div class="panel-title">경제 지표 선택</div><button class="metric-btn active" onclick="setMetric('gdp',this)"><span class="metric-icon">📊</span> GDP / 국내총생산</button><button class="metric-btn" onclick="setMetric('trade',this)"><span class="metric-icon">🚢</span> 무역 수출입</button><button class="metric-btn" onclick="setMetric('unemployment',this)"><span class="metric-icon">📉</span> 실업률</button><button class="metric-btn" onclick="setMetric('inflation',this)"><span class="metric-icon">💹</span> 인플레이션율</button></div>
 <div><div class="panel-title">범례</div><canvas id="legendCanvas" height="10"></canvas><div class="legend-labels"><span id="legendMin">$5B</span><span id="legendMax">$30T+</span></div></div>
 <div><div class="panel-title">TOP 10 순위</div><div id="rankingList"></div></div>
-<div><div class="panel-title">지도 오버레이</div><button class="overlay-btn" onclick="setOverlay('nato',this)">🔵 NATO 회원국</button><button class="overlay-btn" onclick="setOverlay('brics',this)">🟠 BRICS 정식 회원국</button><button class="overlay-btn" onclick="setOverlay('g7',this)">🟢 G7 회원국</button><button class="overlay-btn" onclick="setOverlay('polsys',this)">🟣 정치체제 구분</button><button class="overlay-btn resource" onclick="toggleResMenu(this)">🟡 천연자원 보유국</button><div id="resSubMenu"><button class="res-sub-btn" onclick="setResOverlay('oil_prod',this)">🛢️ 석유 생산량</button><button class="res-sub-btn" onclick="setResOverlay('oil_export',this)">🛢️ 석유 수출량</button><button class="res-sub-btn" onclick="setResOverlay('gas_prod',this)">💨 천연가스 생산량</button><button class="res-sub-btn" onclick="setResOverlay('gas_export',this)">💨 천연가스 수출량</button><button class="res-sub-btn" onclick="setResOverlay('uranium',this)">☢️ 우라늄</button><button class="res-sub-btn" onclick="setResOverlay('lithium',this)">🔋 리튬</button><button class="res-sub-btn" onclick="setResOverlay('rare_earth',this)">⚗️ 희토류</button><button class="res-sub-btn" onclick="setResOverlay('tungsten',this)">🪨 텅스텐</button><button class="res-sub-btn" onclick="setResOverlay('all',this)">🌐 전체</button></div><button class="overlay-btn" onclick="setOverlay('none',this)">⬜ 오버레이 해제</button><div class="overlay-legend" id="overlayLegendBox"></div></div>
+<div><div class="panel-title">지도 오버레이</div><button class="overlay-btn" onclick="setOverlay('polsys',this)">🟣 정치체제 구분</button><button class="overlay-btn resource" onclick="toggleResMenu(this)">🟡 천연자원 보유국</button><div id="resSubMenu"><button class="res-sub-btn" onclick="setResOverlay('oil_prod',this)">🛢️ 석유 생산량</button><button class="res-sub-btn" onclick="setResOverlay('oil_export',this)">🛢️ 석유 수출량</button><button class="res-sub-btn" onclick="setResOverlay('gas_prod',this)">💨 천연가스 생산량</button><button class="res-sub-btn" onclick="setResOverlay('gas_export',this)">💨 천연가스 수출량</button><button class="res-sub-btn" onclick="setResOverlay('uranium',this)">☢️ 우라늄</button><button class="res-sub-btn" onclick="setResOverlay('lithium',this)">🔋 리튬</button><button class="res-sub-btn" onclick="setResOverlay('rare_earth',this)">⚗️ 희토류</button><button class="res-sub-btn" onclick="setResOverlay('tungsten',this)">🪨 텅스텐</button><button class="res-sub-btn" onclick="setResOverlay('all',this)">🌐 전체</button></div><button class="overlay-btn" onclick="setOverlay('none',this)">⬜ 오버레이 해제</button><div class="overlay-legend" id="overlayLegendBox"></div></div>
 </div>
 <div class="map-container" id="mapContainer">
 <button class="mobile-toggle mobile-toggle-left" onclick="toggleSidebar('left')" aria-label="왼쪽 메뉴">☰</button>
@@ -137,15 +168,64 @@ header{background:var(--header-bg);border-bottom:1px solid var(--border);padding
 <div class="mobile-overlay" id="mobileOverlay" onclick="closeSidebars()"></div>
 <div class="loading-overlay" id="loadingOverlay"><div class="loading-text">LOADING MAP DATA</div><div class="loading-bar"></div><div id="loadingStatus" style="font-size:9px;color:var(--text-dim);margin-top:4px;letter-spacing:1px">지도 타일 로딩 중...</div></div>
 <div class="map-label" id="metricLabel">GDP — 국내총생산 (십억 USD)</div>
-<div class="year-watermark">2025</div>
+<div class="year-watermark">2026</div>
+<div style="position:absolute;bottom:12px;right:20px;font-size:7px;color:var(--text-dim);pointer-events:none;z-index:999;letter-spacing:0.3px;line-height:1.6;text-align:right;opacity:0.7">출처: IMF WEO (Oct 2025) · EIA · Energy Institute 2025<br>USGS MCS 2025 · WNA 2024 · OPEC</div>
 <div id="map"></div>
+<div class="alliance-panel" id="alliancePanel">
+  <div class="alliance-card" id="natoCard" onclick="toggleAllianceOverlay('nato')">
+    <div class="alliance-dot" style="background:#1a44cc"></div>
+    <div><div class="alliance-name">NATO</div><div class="alliance-count">32개국</div></div>
+    <button class="alliance-info-btn" onclick="event.stopPropagation();toggleAllianceInfo('nato')">i</button>
+    <div class="alliance-popup" id="natoPopup">
+      <button class="alliance-popup-close" onclick="event.stopPropagation();closeAllPopups()">✕</button>
+      <div class="alliance-popup-title"><div class="alliance-dot" style="background:#1a44cc"></div>NATO 북대서양조약기구</div>
+      <div class="alliance-popup-desc">1949년 창설된 군사 동맹. 유럽·북미 32개국이 집단 안보를 위해 결성. 제5조(집단방위조항)에 따라 회원국에 대한 공격은 전체에 대한 공격으로 간주합니다. 2023년 핀란드, 2024년 스웨덴이 가입했습니다.</div>
+      <div class="alliance-popup-members">🇺🇸미국 🇬🇧영국 🇫🇷프랑스 🇩🇪독일 🇮🇹이탈리아 🇨🇦캐나다 🇹🇷튀르키예 🇵🇱폴란드 🇪🇸스페인 🇳🇱네덜란드 🇧🇪벨기에 🇳🇴노르웨이 🇩🇰덴마크 🇬🇷그리스 🇵🇹포르투갈 🇨🇿체코 🇭🇺헝가리 🇷🇴루마니아 🇧🇬불가리아 🇭🇷크로아티아 🇸🇰슬로바키아 🇸🇮슬로베니아 🇪🇪에스토니아 🇱🇻라트비아 🇱🇹리투아니아 🇦🇱알바니아 🇲🇪몬테네그로 🇲🇰북마케도니아 🇫🇮핀란드 🇸🇪스웨덴 🇮🇸아이슬란드 🇱🇺룩셈부르크</div>
+      <div class="alliance-popup-links">
+        <a class="alliance-link" href="https://namu.wiki/w/NATO" target="_blank">📖 나무위키</a>
+        <a class="alliance-link" href="https://ko.wikipedia.org/wiki/%EB%B6%81%EB%8C%80%EC%84%9C%EC%96%91_%EC%A1%B0%EC%95%BD_%EA%B8%B0%EA%B5%AC" target="_blank">📖 위키백과</a>
+        <a class="alliance-link" href="https://www.nato.int/" target="_blank">🌐 공식 사이트</a>
+      </div>
+    </div>
+  </div>
+  <div class="alliance-card" id="bricsCard" onclick="toggleAllianceOverlay('brics')">
+    <div class="alliance-dot" style="background:#cc6600"></div>
+    <div><div class="alliance-name">BRICS</div><div class="alliance-count">10개국</div></div>
+    <button class="alliance-info-btn" onclick="event.stopPropagation();toggleAllianceInfo('brics')">i</button>
+    <div class="alliance-popup" id="bricsPopup">
+      <button class="alliance-popup-close" onclick="event.stopPropagation();closeAllPopups()">✕</button>
+      <div class="alliance-popup-title"><div class="alliance-dot" style="background:#cc6600"></div>BRICS 신흥경제국 협의체</div>
+      <div class="alliance-popup-desc">2006년 BRICs(브라질·러시아·인도·중국)로 시작, 2010년 남아공 합류로 BRICS가 됨. 2024년 이집트·에티오피아·이란·UAE, 2025년 인도네시아가 가입해 10개국으로 확대. 세계 인구의 약 45%, GDP의 약 35%를 차지합니다.</div>
+      <div class="alliance-popup-members">🇧🇷브라질 🇷🇺러시아 🇮🇳인도 🇨🇳중국 🇿🇦남아공 🇪🇬이집트 🇪🇹에티오피아 🇮🇷이란 🇦🇪UAE 🇮🇩인도네시아</div>
+      <div class="alliance-popup-links">
+        <a class="alliance-link" href="https://namu.wiki/w/BRICS" target="_blank">📖 나무위키</a>
+        <a class="alliance-link" href="https://ko.wikipedia.org/wiki/%EB%B8%8C%EB%A6%AD%EC%8A%A4" target="_blank">📖 위키백과</a>
+      </div>
+    </div>
+  </div>
+  <div class="alliance-card" id="g7Card" onclick="toggleAllianceOverlay('g7')">
+    <div class="alliance-dot" style="background:#22aa66"></div>
+    <div><div class="alliance-name">G7</div><div class="alliance-count">7개국</div></div>
+    <button class="alliance-info-btn" onclick="event.stopPropagation();toggleAllianceInfo('g7')">i</button>
+    <div class="alliance-popup" id="g7Popup">
+      <button class="alliance-popup-close" onclick="event.stopPropagation();closeAllPopups()">✕</button>
+      <div class="alliance-popup-title"><div class="alliance-dot" style="background:#22aa66"></div>G7 주요 7개국</div>
+      <div class="alliance-popup-desc">세계 주요 선진 7개국의 정상회담 체제. 1975년 G6(미·영·프·독·이·일)으로 시작, 1976년 캐나다 합류로 G7이 됨. 세계 GDP의 약 43%, 세계 순자산의 약 60%를 차지하며, 국제 경제·안보 정책의 핵심 조율 기구입니다.</div>
+      <div class="alliance-popup-members">🇺🇸미국 🇬🇧영국 🇫🇷프랑스 🇩🇪독일 🇮🇹이탈리아 🇯🇵일본 🇨🇦캐나다</div>
+      <div class="alliance-popup-links">
+        <a class="alliance-link" href="https://namu.wiki/w/G7" target="_blank">📖 나무위키</a>
+        <a class="alliance-link" href="https://ko.wikipedia.org/wiki/G7" target="_blank">📖 위키백과</a>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="map-controls"><button class="map-ctrl-btn" onclick="map.zoomIn()">＋</button><button class="map-ctrl-btn" onclick="map.zoomOut()">－</button><button class="map-ctrl-btn" onclick="map.setView([20,0],2.3)">⌖</button><button class="map-ctrl-btn" id="labelToggleBtn" onclick="toggleLabels()">A·Z</button></div>
 </div>
 <div class="sidebar-right" id="sidebarRight">
 <button class="sidebar-close" onclick="closeSidebars()" aria-label="닫기">✕</button>
 <div><div class="panel-title">국가 상세 정보</div><div id="countryDetail"><div class="placeholder-text">지도에서 국가를<br>클릭하세요</div></div></div>
 <div class="live-section"><div class="live-header"><div class="panel-title" style="display:flex;align-items:center;gap:5px"><span class="live-dot"></span>원자재 시세</div><button class="refresh-btn" onclick="fetchCommodities()">↻</button></div><div id="commodityPanel"><div class="data-loading">시세 로딩 중...</div></div><div class="last-update" id="commodityTime"></div></div>
-<div class="live-section"><div class="live-header"><div class="panel-title" style="display:flex;align-items:center;gap:5px"><span class="live-dot"></span>글로벌 경제 뉴스</div><button class="refresh-btn" onclick="fetchNews()">↻</button></div><div id="newsPanel" style="max-height:220px;overflow-y:auto"><div class="data-loading">뉴스 로딩 중...</div></div><div class="last-update" id="newsTime"></div></div>
+<div class="live-section"><div class="live-header"><div class="panel-title" style="display:flex;align-items:center;gap:5px"><span class="live-dot"></span>인베스팅 뉴스</div><button class="refresh-btn" onclick="fetchNews()">↻</button></div><div id="newsPanel" style="max-height:220px;overflow-y:auto"><div class="data-loading">뉴스 로딩 중...</div></div><div class="last-update" id="newsTime"></div></div>
 <div><div class="panel-title">글로벌 인사이트</div><div id="insights"></div></div>
 <div><div class="panel-title">지역별 GDP 비중</div><div id="regionChart"></div></div>
 </div>
@@ -208,9 +288,9 @@ function renderInsight(){document.getElementById('insights').innerHTML=`<div cla
 function renderRegionChart(){const regions={};Object.values(eData).forEach(d=>{regions[d.region]=(regions[d.region]||0)+d.gdp;});const total=Object.values(regions).reduce((a,b)=>a+b,0);const col=isLight?mCfg.gdp.lightColor:mCfg.gdp.darkColor;document.getElementById('regionChart').innerHTML=Object.entries(regions).sort((a,b)=>b[1]-a[1]).map(([r,v])=>`<div style="margin-bottom:7px"><div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text-mid);margin-bottom:3px"><span>${r}</span><span style="color:${col}">${(v/total*100).toFixed(1)}%</span></div><div style="height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:${(v/total*100).toFixed(1)}%;background:${col};border-radius:2px;opacity:0.8"></div></div></div>`).join('');}
 function renderAll(){renderRankings();renderLegend();renderInsight();renderRegionChart();if(selId)renderDetail(selId);}
 
-function setOverlay(mode,btn){curOverlay=mode;curResource=null;document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.res-sub-btn').forEach(b=>b.classList.remove('res-active'));document.getElementById('resSubMenu').style.display='none';if(mode!=='none')btn.classList.add('active');updateColors();renderOverlayLegend();const lbl={nato:'NATO 회원국 (32개국)',brics:'BRICS 정식 회원국 (10개국)',g7:'G7 회원국',polsys:'정치체제 구분',none:mCfg[curMetric].label};document.getElementById('metricLabel').textContent=lbl[mode]||mCfg[curMetric].label;}
+function setOverlay(mode,btn){curOverlay=mode;curResource=null;document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.res-sub-btn').forEach(b=>b.classList.remove('res-active'));document.querySelectorAll('.alliance-card').forEach(c=>c.classList.remove('active'));closeAllPopups();document.getElementById('resSubMenu').style.display='none';if(mode!=='none')btn.classList.add('active');updateColors();renderOverlayLegend();const lbl={nato:'NATO 회원국 (32개국)',brics:'BRICS 정식 회원국 (10개국)',g7:'G7 회원국',polsys:'정치체제 구분',none:mCfg[curMetric].label};document.getElementById('metricLabel').textContent=lbl[mode]||mCfg[curMetric].label;}
 function toggleResMenu(btn){const sub=document.getElementById('resSubMenu');if(sub.style.display==='none'||!sub.style.display){sub.style.display='block';}else{sub.style.display='none';curOverlay='resource';curResource='all';document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');updateColors();renderOverlayLegend();}}
-function setResOverlay(type,btn){curOverlay='resource';curResource=type;document.querySelectorAll('.res-sub-btn').forEach(b=>b.classList.remove('res-active'));btn.classList.add('res-active');document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));document.querySelector('.overlay-btn.resource').classList.add('active');updateColors();renderOverlayLegend();const r=RESOURCES[type];const labelMap={oil_prod:'🛢️ 석유 생산량 TOP 10',oil_export:'🛢️ 석유 수출량 TOP 10',gas_prod:'💨 천연가스 생산량 TOP 10',gas_export:'💨 천연가스 수출량 TOP 10'};document.getElementById('metricLabel').textContent=labelMap[type]||(r?`${r.icon} ${r.label}`:'천연자원 보유국');}
+function setResOverlay(type,btn){curOverlay='resource';curResource=type;document.querySelectorAll('.res-sub-btn').forEach(b=>b.classList.remove('res-active'));btn.classList.add('res-active');document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.alliance-card').forEach(c=>c.classList.remove('active'));closeAllPopups();document.querySelector('.overlay-btn.resource').classList.add('active');updateColors();renderOverlayLegend();const r=RESOURCES[type];const labelMap={oil_prod:'🛢️ 석유 생산량 TOP 10',oil_export:'🛢️ 석유 수출량 TOP 10',gas_prod:'💨 천연가스 생산량 TOP 10',gas_export:'💨 천연가스 수출량 TOP 10'};document.getElementById('metricLabel').textContent=labelMap[type]||(r?`${r.icon} ${r.label}`:'천연자원 보유국');}
 function renderOverlayLegend(){const el=document.getElementById('overlayLegendBox');if(curOverlay==='none'){el.innerHTML='';return;}if(curOverlay==='nato')el.innerHTML='<div class="ol-pill"><div class="ol-dot" style="background:#1a44cc"></div>NATO</div><div class="ol-pill"><div class="ol-dot" style="background:#333;border:1px solid #555"></div>비회원</div>';else if(curOverlay==='brics')el.innerHTML='<div class="ol-pill"><div class="ol-dot" style="background:#cc6600"></div>BRICS</div><div class="ol-pill"><div class="ol-dot" style="background:#333;border:1px solid #555"></div>비회원</div>';else if(curOverlay==='g7')el.innerHTML='<div class="ol-pill"><div class="ol-dot" style="background:#22aa66"></div>G7</div><div style="width:100%;margin-top:6px;font-size:8px;color:var(--text-dim);line-height:1.8">🇺🇸미국 🇨🇦캐나다 🇬🇧영국 🇫🇷프랑스 🇩🇪독일 🇮🇹이탈리아 🇯🇵일본</div>';else if(curOverlay==='polsys')el.innerHTML=Object.entries(polLabels).map(([k,v])=>`<div class="ol-pill"><div class="ol-dot" style="background:${polColors[k]}"></div>${v}</div>`).join('');else if(curOverlay==='resource'){if(curResource==='all')el.innerHTML=Object.entries(RESOURCES).map(([,r])=>`<div class="ol-pill"><div class="ol-dot" style="background:${r.color}"></div>${r.icon} ${r.label}</div>`).join('')+'<div class="ol-pill"><div class="ol-dot" style="background:#ffdd00"></div>🌐 복수</div>';else{const r=RESOURCES[curResource];if(!r)return;el.innerHTML=`<div style="width:100%;font-size:7px;color:var(--text-dim);margin-bottom:7px">${r.note}</div>`+r.top.map(t=>`<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid var(--border)"><span style="font-family:'Bebas Neue';font-size:13px;min-width:12px;color:${t.rank===1?r.color:'var(--text-dim)'}">${t.rank}</span><span style="flex:1;font-size:9px">${eData[t.id]?.flag??''} ${eData[t.id]?.name??t.id}</span><span style="font-family:'IBM Plex Mono';font-size:8px;color:${r.color}">${t.value}</span></div>`).join('');}}}
 
 function setMetric(m,btn){curMetric=m;document.querySelectorAll('.metric-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(curOverlay==='none')document.getElementById('metricLabel').textContent=mCfg[m].label;updateColors();renderAll();}
@@ -230,6 +310,38 @@ function closeSidebars(){
   document.getElementById('mobileOverlay').classList.remove('active');
   if(map) setTimeout(()=>map.invalidateSize(),350);
 }
+
+// Alliance card controls
+function closeAllPopups(){document.querySelectorAll('.alliance-popup').forEach(p=>p.classList.remove('show'));}
+function toggleAllianceInfo(key){
+  const id=key+'Popup';
+  const el=document.getElementById(id);
+  const wasOpen=el.classList.contains('show');
+  closeAllPopups();
+  if(!wasOpen) el.classList.add('show');
+}
+function toggleAllianceOverlay(mode){
+  closeAllPopups();
+  const cardMap={nato:'natoCard',brics:'bricsCard',g7:'g7Card'};
+  const wasActive=curOverlay===mode;
+  // Reset all cards
+  document.querySelectorAll('.alliance-card').forEach(c=>c.classList.remove('active'));
+  if(wasActive){
+    curOverlay='none'; curResource=null;
+    document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('metricLabel').textContent=mCfg[curMetric].label;
+    updateColors(); renderOverlayLegend();
+  } else {
+    curOverlay=mode; curResource=null;
+    document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById(cardMap[mode]).classList.add('active');
+    const lbl={nato:'NATO 회원국 (2025, 32개국)',brics:'BRICS 정식 회원국 (2025, 10개국)',g7:'G7 회원국'};
+    document.getElementById('metricLabel').textContent=lbl[mode]||'';
+    updateColors(); renderOverlayLegend();
+  }
+}
+// Close popups when clicking elsewhere on map
+document.addEventListener('click',e=>{if(!e.target.closest('.alliance-card')&&!e.target.closest('.alliance-popup'))closeAllPopups();});
 function isMobile(){return window.innerWidth<=768;}
 // Auto-close sidebar on mobile after selection
 const _origSetMetric=setMetric;
@@ -310,150 +422,191 @@ initMap();
 // LIVE DATA — Exchange Rates, Commodities, News
 // ═══════════════════════════════════════════════════════
 const TICKER_CURRENCIES = [
-  {code:'USD',label:'미국 달러',icon:'🇺🇸',multi:1},
-  {code:'JPY',label:'일본 엔(100)',icon:'🇯🇵',multi:100},
-  {code:'EUR',label:'유로',icon:'🇪🇺',multi:1},
-  {code:'CNY',label:'중국 위안',icon:'🇨🇳',multi:1},
-  {code:'GBP',label:'영국 파운드',icon:'🇬🇧',multi:1},
-  {code:'CHF',label:'스위스 프랑',icon:'🇨🇭',multi:1},
-  {code:'CAD',label:'캐나다 달러',icon:'🇨🇦',multi:1},
-  {code:'AUD',label:'호주 달러',icon:'🇦🇺',multi:1},
+  {sym:'USDKRW=X',label:'미국 달러',icon:'🇺🇸',multi:1},
+  {sym:'JPYKRW=X',label:'일본 엔(100)',icon:'🇯🇵',multi:100},
+  {sym:'EURKRW=X',label:'유로',icon:'🇪🇺',multi:1},
+  {sym:'CNYKRW=X',label:'중국 위안',icon:'🇨🇳',multi:1},
+  {sym:'GBPKRW=X',label:'영국 파운드',icon:'🇬🇧',multi:1},
+  {sym:'CHFKRW=X',label:'스위스 프랑',icon:'🇨🇭',multi:1},
+  {sym:'CADKRW=X',label:'캐나다 달러',icon:'🇨🇦',multi:1},
+  {sym:'AUDKRW=X',label:'호주 달러',icon:'🇦🇺',multi:1},
 ];
 
 let prevRates = {};
 
-async function fetchExchangeRates() {
+// ═══ Fast proxy helper — race multiple proxies with 4s timeout ═══
+async function fastFetch(url) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 4000);
+  const proxies = [
+    `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}&_=${Date.now()}`,
+  ];
   try {
-    // frankfurter.app — KRW 기준
-    const res = await fetch('https://api.frankfurter.app/latest?from=KRW');
+    const res = await Promise.any(proxies.map(p => 
+      fetch(p, {signal: controller.signal, cache:'no-store'}).then(r => {
+        if (!r.ok) throw new Error(r.status);
+        return r;
+      })
+    ));
+    clearTimeout(timeout);
+    return await res.text();
+  } catch(e) { clearTimeout(timeout); throw e; }
+}
+
+async function yahooQuote(sym) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${sym}?range=2d&interval=1d`;
+  const text = await fastFetch(url);
+  const data = JSON.parse(text);
+  const meta = data.chart.result[0].meta;
+  return { price: meta.regularMarketPrice, prevClose: meta.chartPreviousClose || meta.previousClose };
+}
+
+// ═══ Exchange Rates — instant load from open.er-api, then upgrade with Yahoo ═══
+async function fetchExchangeRates() {
+  // Phase 1: instant single-call API (open.er-api.com — free, no key, CORS ok)
+  try {
+    const res = await fetch('https://open.er-api.com/v6/latest/KRW');
     const data = await res.json();
-    // data.rates gives KRW→X (e.g. KRW→USD = 0.000689), we need X→KRW
-    const items = TICKER_CURRENCIES.map(c => {
-      const rateKrwToX = data.rates[c.code];
-      if (!rateKrwToX) return null;
-      // 1 foreign unit = ? KRW
-      const val = (1 / rateKrwToX) * c.multi;
-      const key = c.code;
-      const prev = prevRates[key];
-      // 환율 상승 = 원화 약세(빨강), 하락 = 원화 강세(초록) — 한국 관례와 반대로 보이지 않도록
-      const chgClass = prev ? (val > prev ? 'ticker-down' : val < prev ? 'ticker-up' : 'ticker-flat') : 'ticker-flat';
-      const chgSymbol = prev ? (val > prev ? '▲' : val < prev ? '▼' : '') : '';
-      prevRates[key] = val;
-      const formatted = val >= 100 ? val.toFixed(1) : val.toFixed(2);
-      const unitLabel = c.multi > 1 ? `${c.multi}${c.code}` : c.code;
-      return `<span class="ticker-item"><span class="ticker-label">${c.icon} ${c.label}</span><span class="ticker-val">₩${Number(formatted).toLocaleString()}</span>${chgSymbol?`<span class="ticker-chg ${chgClass}">${chgSymbol}</span>`:''}</span>`;
+    if (data.result === 'success') {
+      const items = TICKER_CURRENCIES.map(c => {
+        const code = c.sym.replace('KRW=X','');
+        const rateKrwToX = data.rates[code];
+        if (!rateKrwToX) return null;
+        const val = (1 / rateKrwToX) * c.multi;
+        prevRates[c.sym] = val;
+        const formatted = val >= 100 ? val.toFixed(1) : val.toFixed(2);
+        return `<span class="ticker-item"><span class="ticker-label">${c.icon} ${c.label}</span><span class="ticker-val">₩${Number(formatted).toLocaleString()}</span></span>`;
+      }).filter(Boolean).join('');
+      if (items) document.getElementById('tickerTrack').innerHTML = items + items;
+    }
+  } catch(e) {}
+
+  // Phase 2: upgrade with Yahoo Finance real-time (parallel, non-blocking)
+  try {
+    const promises = TICKER_CURRENCIES.map(async c => {
+      try {
+        const {price, prevClose} = await yahooQuote(c.sym);
+        const val = price * (c.multi === 100 ? 100 : 1);
+        const prevVal = prevClose ? prevClose * (c.multi === 100 ? 100 : 1) : null;
+        const chgPct = prevVal ? ((val - prevVal) / prevVal * 100) : 0;
+        return {...c, val, chgPct};
+      } catch(e) { return {...c, val: prevRates[c.sym] || null, chgPct: 0}; }
+    });
+    const results = await Promise.all(promises);
+    const items = results.map(r => {
+      if (!r.val) return null;
+      const prev = prevRates[r.sym];
+      const tickDir = prev ? (r.val > prev ? '▲' : r.val < prev ? '▼' : '') : '';
+      const tickClass = prev ? (r.val > prev ? 'ticker-down' : r.val < prev ? 'ticker-up' : 'ticker-flat') : 'ticker-flat';
+      prevRates[r.sym] = r.val;
+      const formatted = r.val >= 100 ? r.val.toFixed(1) : r.val.toFixed(2);
+      const chgStr = r.chgPct !== 0 ? (r.chgPct > 0 ? `+${r.chgPct.toFixed(2)}%` : `${r.chgPct.toFixed(2)}%`) : '';
+      const chgPctClass = r.chgPct > 0 ? 'ticker-down' : r.chgPct < 0 ? 'ticker-up' : 'ticker-flat';
+      return `<span class="ticker-item"><span class="ticker-label">${r.icon} ${r.label}</span><span class="ticker-val">₩${Number(formatted).toLocaleString()}</span>${chgStr?`<span class="ticker-chg ${chgPctClass}" style="font-size:7px">${chgStr}</span>`:''}${tickDir?`<span style="font-size:7px;margin-left:2px" class="${tickClass}">${tickDir}</span>`:''}</span>`;
     }).filter(Boolean).join('');
-    document.getElementById('tickerTrack').innerHTML = items + items;
-  } catch(e) {
-    console.error('Exchange rate fetch failed:', e);
-    document.getElementById('tickerTrack').innerHTML = '<span class="ticker-item"><span class="ticker-label" style="color:#ff6666">환율 데이터 로딩 실패 — 인터넷 연결 확인</span></span>';
-  }
+    if (items) document.getElementById('tickerTrack').innerHTML = items + items;
+  } catch(e) {}
 }
 
 async function fetchCommodities() {
   const panel = document.getElementById('commodityPanel');
   panel.innerHTML = '<div class="data-loading">시세 로딩 중...</div>';
+  const symbols = [
+    {sym:'CL=F',name:'WTI 원유',icon:'🛢️'},{sym:'BZ=F',name:'브렌트유',icon:'🛢️'},
+    {sym:'NG=F',name:'천연가스',icon:'💨'},{sym:'GC=F',name:'금',icon:'🥇'},
+  ];
   try {
-    // Use allorigins proxy for Yahoo Finance commodity quotes
-    const symbols = [
-      {sym:'CL=F',name:'WTI 원유',icon:'🛢️',unit:'$/bbl'},
-      {sym:'BZ=F',name:'브렌트유',icon:'🛢️',unit:'$/bbl'},
-      {sym:'NG=F',name:'천연가스',icon:'💨',unit:'$/MMBtu'},
-      {sym:'GC=F',name:'금',icon:'🥇',unit:'$/oz'},
-    ];
-    const results = [];
-    for (const s of symbols) {
+    const results = await Promise.all(symbols.map(async s => {
       try {
-        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${s.sym}?range=2d&interval=1d`;
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-        const res = await fetch(proxyUrl);
-        const proxy = await res.json();
-        const data = JSON.parse(proxy.contents);
-        const meta = data.chart.result[0].meta;
-        const price = meta.regularMarketPrice;
-        const prevClose = meta.chartPreviousClose || meta.previousClose;
+        const {price, prevClose} = await yahooQuote(s.sym);
         const chg = prevClose ? ((price - prevClose) / prevClose * 100) : 0;
-        results.push({...s, price, chg});
-      } catch(err) {
-        results.push({...s, price: null, chg: 0});
-      }
-    }
+        return {...s, price, chg};
+      } catch(e) { return {...s, price: null, chg: 0}; }
+    }));
     panel.innerHTML = results.map(r => {
-      if (!r.price) return `<div class="commodity-row"><span class="commodity-name">${r.icon} ${r.name}</span><span style="color:var(--text-dim);font-size:8px">불러오기 실패</span></div>`;
+      if (!r.price) return `<div class="commodity-row"><span class="commodity-name">${r.icon} ${r.name}</span><span style="color:var(--text-dim);font-size:8px">실패</span></div>`;
       const chgClass = r.chg > 0 ? 'ticker-up' : r.chg < 0 ? 'ticker-down' : 'ticker-flat';
       const chgStr = r.chg > 0 ? `+${r.chg.toFixed(2)}%` : `${r.chg.toFixed(2)}%`;
       return `<div class="commodity-row"><span class="commodity-name">${r.icon} ${r.name}</span><span><span class="commodity-price">$${r.price.toFixed(2)}</span> <span class="ticker-chg ${chgClass}" style="font-size:8px">${chgStr}</span></span></div>`;
     }).join('');
     document.getElementById('commodityTime').textContent = `최종 갱신: ${new Date().toLocaleTimeString('ko-KR')}`;
-  } catch(e) {
-    console.error('Commodity fetch failed:', e);
-    panel.innerHTML = '<div class="data-error">시세 데이터를 불러올 수 없습니다</div>';
-  }
+  } catch(e) { panel.innerHTML = '<div class="data-error">시세 데이터를 불러올 수 없습니다</div>'; }
 }
 
 async function fetchNews() {
   const panel = document.getElementById('newsPanel');
   panel.innerHTML = '<div class="data-loading">뉴스 로딩 중...</div>';
 
-  // RSS feeds to try in order
+  // kr.investing.com 기사를 Google News RSS 경유로 가져오기 + 폴백
   const feeds = [
-    {url:'https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtdHZHZ0pMVWlnQVAB?hl=ko&gl=KR&ceid=KR:ko', name:'Google 뉴스', topic:'경제'},
-    {url:'https://feeds.bbci.co.uk/news/business/rss.xml', name:'BBC Business'},
-    {url:'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml', name:'NYT Business'},
+    {url:'https://news.google.com/rss/search?q=site%3Akr.investing.com+%EA%B2%BD%EC%A0%9C&hl=ko&gl=KR&ceid=KR:ko', name:'인베스팅'},
+    {url:'https://news.google.com/rss/search?q=site%3Ainvesting.com+economy+OR+oil+OR+forex&hl=en&gl=US&ceid=US:en', name:'Investing'},
+    {url:'https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtdHZHZ0pMVWlnQVAB?hl=ko&gl=KR&ceid=KR:ko', name:'경제뉴스'},
+    {url:'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114', name:'CNBC'},
+    {url:'https://feeds.bbci.co.uk/news/business/rss.xml', name:'BBC'},
   ];
 
-  async function tryRss2json(feedUrl, feedName) {
-    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=10`);
-    const data = await res.json();
-    if (data.status === 'ok' && data.items?.length) return data.items.map(i=>({...i, _src: feedName}));
-    return null;
-  }
-
-  async function tryAllorigins(feedUrl, feedName) {
-    const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`);
-    const proxy = await res.json();
+  function parseXml(xmlStr, feedName) {
     const parser = new DOMParser();
-    const xml = parser.parseFromString(proxy.contents, 'text/xml');
+    const xml = parser.parseFromString(xmlStr, 'text/xml');
     const entries = xml.querySelectorAll('item, entry');
     if (!entries.length) return null;
-    return [...entries].slice(0, 10).map(el => {
+    return [...entries].slice(0, 12).map(el => {
       const title = el.querySelector('title')?.textContent || '';
-      const link = el.querySelector('link')?.textContent || el.querySelector('link')?.getAttribute('href') || '';
+      const linkEl = el.querySelector('link');
+      const link = linkEl?.textContent?.trim() || linkEl?.getAttribute('href') || '';
       const pubDate = el.querySelector('pubDate, published, updated')?.textContent || '';
       return { title, link, pubDate, _src: feedName };
     });
   }
 
-  let items = null;
-  for (const feed of feeds) {
-    if (items) break;
-    try { items = await tryRss2json(feed.url, feed.name); } catch(e) {}
-    if (items) break;
-    try { items = await tryAllorigins(feed.url, feed.name); } catch(e) {}
+  async function fetchViaProxy(feedUrl, feedName) {
+    try {
+      const text = await fastFetch(feedUrl);
+      if (!text.includes('<item') && !text.includes('<entry')) return null;
+      return parseXml(text, feedName);
+    } catch(e) { return null; }
   }
 
-  if (items && items.length) {
-    panel.innerHTML = items.slice(0, 8).map(item => {
+  let allItems = [];
+  for (const feed of feeds) {
+    try {
+      const items = await fetchViaProxy(feed.url, feed.name);
+      if (items?.length) { allItems.push(...items); break; }
+    } catch(e) {}
+  }
+
+  // 7일 이내만
+  const weekAgo = Date.now() - 7*24*60*60*1000;
+  allItems = allItems.filter(item => {
+    if (!item.pubDate) return true;
+    const d = new Date(item.pubDate);
+    return !isNaN(d) && d.getTime() > weekAgo;
+  });
+
+  if (allItems.length) {
+    allItems.sort((a,b) => new Date(b.pubDate||0) - new Date(a.pubDate||0));
+    panel.innerHTML = allItems.slice(0, 8).map(item => {
       const date = item.pubDate ? new Date(item.pubDate) : null;
       const timeStr = date && !isNaN(date) ? date.toLocaleDateString('ko-KR',{month:'short',day:'numeric'})+' '+date.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}) : '';
-      const source = item._src || item.feed?.title || '';
+      const source = item._src || '';
       const title = (item.title||'').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&#39;/g,"'").replace(/&quot;/g,'"').slice(0,90);
       const link = (item.link||'#').replace(/'/g,'%27');
       return `<div class="news-item" onclick="window.open('${link}','_blank')"><div class="news-title">${title}</div><div class="news-meta"><span class="news-source">${source}</span>${timeStr?' · '+timeStr:''}</div></div>`;
     }).join('');
     document.getElementById('newsTime').textContent = `최종 갱신: ${new Date().toLocaleTimeString('ko-KR')}`;
   } else {
-    panel.innerHTML = '<div class="data-error">뉴스를 불러올 수 없습니다.<br><span style="font-size:7px;color:var(--text-dim)">네트워크 환경에 따라 일부 RSS가 차단될 수 있습니다</span></div>';
+    panel.innerHTML = '<div class="data-error">뉴스를 불러올 수 없습니다.<br><span style="font-size:7px;color:var(--text-dim)">네트워크 환경에 따라 차단될 수 있습니다</span></div>';
   }
 }
 
 // Initial fetch + auto refresh
 function initLiveData() {
-  fetchExchangeRates();
-  fetchCommodities();
-  fetchNews();
+  // 환율 + 원자재 + 뉴스 3개 동시 로딩
+  Promise.all([fetchExchangeRates(), fetchCommodities(), fetchNews()]);
   // Auto refresh intervals
-  setInterval(fetchExchangeRates, 60000);   // Exchange rates: every 1 min
+  setInterval(fetchExchangeRates, 300000);   // Exchange rates: every 5 min
   setInterval(fetchCommodities, 300000);     // Commodities: every 5 min
   setInterval(fetchNews, 600000);            // News: every 10 min
 }
