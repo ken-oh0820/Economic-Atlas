@@ -24,7 +24,7 @@ header{background:var(--header-bg);border-bottom:1px solid var(--border);padding
 .signal-dot{width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 .header-stats{display:flex;align-items:center;gap:8px}.stat-pill{background:var(--surface2);border:1px solid var(--border);padding:5px 10px;font-size:9px;letter-spacing:1px}.stat-label{color:var(--text-dim);margin-right:5px}.stat-value{color:var(--accent);font-family:'IBM Plex Mono',monospace;font-weight:500}
 .layout{display:flex;flex:1;overflow:hidden;min-height:0}
-.sidebar-left,.sidebar-right{width:200px;flex-shrink:0;background:var(--surface);overflow-y:auto;display:flex;flex-direction:column}.sidebar-left{border-right:1px solid var(--border)}.sidebar-right{border-left:1px solid var(--border)}.sidebar-left>div,.sidebar-right>div{padding:12px;border-bottom:1px solid var(--border)}
+.sidebar-left,.sidebar-right{width:200px;flex-shrink:0;background:var(--surface);overflow-y:auto;display:flex;flex-direction:column;position:relative}.sidebar-left{border-right:1px solid var(--border)}.sidebar-right{border-left:1px solid var(--border)}.sidebar-left>div,.sidebar-right>div{padding:12px;border-bottom:1px solid var(--border)}
 .panel-title{font-size:8px;letter-spacing:2px;color:var(--text-dim);margin-bottom:9px;text-transform:uppercase}
 .metric-btn{width:100%;padding:8px 10px;background:transparent;border:1px solid var(--border);color:var(--text-mid);font-family:inherit;font-size:9px;letter-spacing:0.8px;cursor:pointer;text-align:left;transition:all 0.2s;margin-bottom:4px;display:flex;align-items:center;gap:8px}.metric-btn:hover{border-color:var(--accent);color:var(--text)}.metric-btn.active{border-color:var(--accent);background:var(--metric-active-bg);color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
 #legendCanvas{width:100%;display:block;margin-bottom:4px}.legend-labels{display:flex;justify-content:space-between;font-size:8px;color:var(--text-dim)}
@@ -77,6 +77,44 @@ header{background:var(--header-bg);border-bottom:1px solid var(--border);padding
 .data-loading{font-size:8px;color:var(--text-dim);text-align:center;padding:12px 0;letter-spacing:1px}
 .data-error{font-size:8px;color:#ff6666;text-align:center;padding:8px 0}
 .last-update{font-size:7px;color:var(--text-dim);text-align:right;margin-top:6px;letter-spacing:0.3px}
+/* Mobile toggle buttons */
+.mobile-toggle{display:none;position:absolute;top:50%;transform:translateY(-50%);width:28px;height:54px;background:var(--ctrl-bg);border:1px solid var(--border);color:var(--accent);font-size:14px;cursor:pointer;z-index:1002;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:0;transition:all 0.2s}
+.mobile-toggle:hover{background:var(--metric-active-bg);border-color:var(--accent)}
+.mobile-toggle-left{left:0;border-radius:0 6px 6px 0;border-left:none}
+.mobile-toggle-right{right:0;border-radius:6px 0 0 6px;border-right:none}
+.sidebar-close{display:none;position:absolute;top:8px;right:8px;width:24px;height:24px;background:var(--surface2);border:1px solid var(--border);color:var(--text-mid);font-size:14px;cursor:pointer;z-index:3;border-radius:3px;align-items:center;justify-content:center;padding:0}
+/* Mobile responsive */
+@media(max-width:900px){
+  .header-stats .stat-pill{display:none}
+  .header-stats .stat-pill:last-of-type{display:inline-flex}
+  .logo-sub{display:none}
+  header{height:44px;padding:0 10px}
+  .logo-main{font-size:18px;letter-spacing:3px}
+  .ticker-bar{height:24px}
+  .ticker-item{padding:0 12px;font-size:8px}
+}
+@media(max-width:768px){
+  .sidebar-left,.sidebar-right{position:fixed;top:0;bottom:0;width:260px;z-index:1100;transition:transform 0.3s ease;overflow-y:auto}
+  .sidebar-left{left:0;transform:translateX(-100%);border-right:1px solid var(--border)}
+  .sidebar-right{right:0;transform:translateX(100%);border-left:1px solid var(--border)}
+  .sidebar-left.open{transform:translateX(0)}
+  .sidebar-right.open{transform:translateX(0)}
+  .sidebar-close{display:flex}
+  .mobile-toggle{display:flex}
+  .mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1099}
+  .mobile-overlay.active{display:block}
+  .map-controls{bottom:12px;left:8px}
+  .year-watermark{font-size:50px;bottom:15px;right:10px}
+  .map-label{font-size:8px;padding:3px 10px;top:8px}
+  header{height:44px;padding:0 10px}
+  .header-stats .stat-pill{display:none}
+  .logo-main{font-size:17px;letter-spacing:3px}
+  .logo-sub{display:none}
+  .ticker-bar{height:22px}
+  .ticker-item{padding:0 10px;font-size:7px}
+  .live-tag{padding:0 8px;font-size:6px}
+  #tooltip{min-width:160px;font-size:9px;max-width:70vw}
+}
 </style>
 </head>
 <body>
@@ -86,20 +124,25 @@ header{background:var(--header-bg);border-bottom:1px solid var(--border);padding
   <div style="overflow:hidden;flex:1"><div class="ticker-track" id="tickerTrack"><span class="ticker-item"><span class="ticker-label">로딩 중...</span></span></div></div>
 </div>
 <div class="layout">
-<div class="sidebar-left">
+<div class="sidebar-left" id="sidebarLeft">
+<button class="sidebar-close" onclick="closeSidebars()" aria-label="닫기">✕</button>
 <div><div class="panel-title">경제 지표 선택</div><button class="metric-btn active" onclick="setMetric('gdp',this)"><span class="metric-icon">📊</span> GDP / 국내총생산</button><button class="metric-btn" onclick="setMetric('trade',this)"><span class="metric-icon">🚢</span> 무역 수출입</button><button class="metric-btn" onclick="setMetric('unemployment',this)"><span class="metric-icon">📉</span> 실업률</button><button class="metric-btn" onclick="setMetric('inflation',this)"><span class="metric-icon">💹</span> 인플레이션율</button></div>
 <div><div class="panel-title">범례</div><canvas id="legendCanvas" height="10"></canvas><div class="legend-labels"><span id="legendMin">$5B</span><span id="legendMax">$30T+</span></div></div>
 <div><div class="panel-title">TOP 10 순위</div><div id="rankingList"></div></div>
 <div><div class="panel-title">지도 오버레이</div><button class="overlay-btn" onclick="setOverlay('nato',this)">🔵 NATO 회원국</button><button class="overlay-btn" onclick="setOverlay('brics',this)">🟠 BRICS 정식 회원국</button><button class="overlay-btn" onclick="setOverlay('g7',this)">🟢 G7 회원국</button><button class="overlay-btn" onclick="setOverlay('polsys',this)">🟣 정치체제 구분</button><button class="overlay-btn resource" onclick="toggleResMenu(this)">🟡 천연자원 보유국</button><div id="resSubMenu"><button class="res-sub-btn" onclick="setResOverlay('oil_prod',this)">🛢️ 석유 생산량</button><button class="res-sub-btn" onclick="setResOverlay('oil_export',this)">🛢️ 석유 수출량</button><button class="res-sub-btn" onclick="setResOverlay('gas_prod',this)">💨 천연가스 생산량</button><button class="res-sub-btn" onclick="setResOverlay('gas_export',this)">💨 천연가스 수출량</button><button class="res-sub-btn" onclick="setResOverlay('uranium',this)">☢️ 우라늄</button><button class="res-sub-btn" onclick="setResOverlay('lithium',this)">🔋 리튬</button><button class="res-sub-btn" onclick="setResOverlay('rare_earth',this)">⚗️ 희토류</button><button class="res-sub-btn" onclick="setResOverlay('tungsten',this)">🪨 텅스텐</button><button class="res-sub-btn" onclick="setResOverlay('all',this)">🌐 전체</button></div><button class="overlay-btn" onclick="setOverlay('none',this)">⬜ 오버레이 해제</button><div class="overlay-legend" id="overlayLegendBox"></div></div>
 </div>
 <div class="map-container" id="mapContainer">
+<button class="mobile-toggle mobile-toggle-left" onclick="toggleSidebar('left')" aria-label="왼쪽 메뉴">☰</button>
+<button class="mobile-toggle mobile-toggle-right" onclick="toggleSidebar('right')" aria-label="오른쪽 메뉴">☰</button>
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeSidebars()"></div>
 <div class="loading-overlay" id="loadingOverlay"><div class="loading-text">LOADING MAP DATA</div><div class="loading-bar"></div><div id="loadingStatus" style="font-size:9px;color:var(--text-dim);margin-top:4px;letter-spacing:1px">지도 타일 로딩 중...</div></div>
 <div class="map-label" id="metricLabel">GDP — 국내총생산 (십억 USD)</div>
 <div class="year-watermark">2025</div>
 <div id="map"></div>
 <div class="map-controls"><button class="map-ctrl-btn" onclick="map.zoomIn()">＋</button><button class="map-ctrl-btn" onclick="map.zoomOut()">－</button><button class="map-ctrl-btn" onclick="map.setView([20,0],2.3)">⌖</button><button class="map-ctrl-btn" id="labelToggleBtn" onclick="toggleLabels()">A·Z</button></div>
 </div>
-<div class="sidebar-right">
+<div class="sidebar-right" id="sidebarRight">
+<button class="sidebar-close" onclick="closeSidebars()" aria-label="닫기">✕</button>
 <div><div class="panel-title">국가 상세 정보</div><div id="countryDetail"><div class="placeholder-text">지도에서 국가를<br>클릭하세요</div></div></div>
 <div class="live-section"><div class="live-header"><div class="panel-title" style="display:flex;align-items:center;gap:5px"><span class="live-dot"></span>원자재 시세</div><button class="refresh-btn" onclick="fetchCommodities()">↻</button></div><div id="commodityPanel"><div class="data-loading">시세 로딩 중...</div></div><div class="last-update" id="commodityTime"></div></div>
 <div class="live-section"><div class="live-header"><div class="panel-title" style="display:flex;align-items:center;gap:5px"><span class="live-dot"></span>글로벌 경제 뉴스</div><button class="refresh-btn" onclick="fetchNews()">↻</button></div><div id="newsPanel" style="max-height:220px;overflow-y:auto"><div class="data-loading">뉴스 로딩 중...</div></div><div class="last-update" id="newsTime"></div></div>
@@ -173,6 +216,28 @@ function renderOverlayLegend(){const el=document.getElementById('overlayLegendBo
 function setMetric(m,btn){curMetric=m;document.querySelectorAll('.metric-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(curOverlay==='none')document.getElementById('metricLabel').textContent=mCfg[m].label;updateColors();renderAll();}
 function toggleTheme(){isLight=!isLight;document.body.classList.toggle('light',isLight);document.getElementById('themeToggle').textContent=isLight?'☀️':'🌙';if(currentTiles)map.removeLayer(currentTiles);currentTiles=isLight?lightTiles:darkTiles;currentTiles.addTo(map);updateColors();renderLegend();renderInsight();renderRegionChart();if(selId)renderDetail(selId);renderLabels();}
 function toggleLabels(){showLabels=!showLabels;const btn=document.getElementById('labelToggleBtn');btn.style.color=showLabels?'var(--accent)':'var(--text-dim)';btn.style.borderColor=showLabels?'var(--accent)':'var(--border)';renderLabels();}
+
+// Mobile sidebar toggles
+function toggleSidebar(side){
+  closeSidebars();
+  const el=side==='left'?document.getElementById('sidebarLeft'):document.getElementById('sidebarRight');
+  el.classList.add('open');
+  document.getElementById('mobileOverlay').classList.add('active');
+}
+function closeSidebars(){
+  document.getElementById('sidebarLeft').classList.remove('open');
+  document.getElementById('sidebarRight').classList.remove('open');
+  document.getElementById('mobileOverlay').classList.remove('active');
+  if(map) setTimeout(()=>map.invalidateSize(),350);
+}
+function isMobile(){return window.innerWidth<=768;}
+// Auto-close sidebar on mobile after selection
+const _origSetMetric=setMetric;
+setMetric=function(m,btn){_origSetMetric(m,btn);if(isMobile())closeSidebars();};
+const _origSetOverlay=setOverlay;
+setOverlay=function(m,btn){_origSetOverlay(m,btn);if(isMobile())closeSidebars();};
+const _origSetResOverlay=setResOverlay;
+setResOverlay=function(t,btn){_origSetResOverlay(t,btn);};
 
 const LABEL_POS={
 // 아메리카
