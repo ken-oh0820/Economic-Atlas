@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
 <title>글로벌 경제 지도 — Economic Atlas 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/topojson-client@3"></script>
@@ -19,8 +19,31 @@
 body.light{--bg:#f0f4f8;--surface:#fff;--surface2:#e8eef5;--border:#c8d8e8;--accent:#0077cc;--accent2:#e05520;--accent3:#22a800;--accent4:#c08800;--text:#1a2a3a;--text-dim:#7a9ab8;--text-mid:#3a6080;--header-bg:rgba(240,244,248,0.98);--ctrl-bg:rgba(220,235,248,0.95);--tooltip-bg:rgba(240,244,248,0.98);--rank-border:rgba(180,210,235,0.6);--rank-hover:rgba(0,119,204,0.05);--metric-active-bg:rgba(0,119,204,0.07);--logo-shadow:0 0 18px rgba(0,119,204,0.3)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','IBM Plex Mono',sans-serif;overflow:hidden;height:100vh;display:flex;flex-direction:column}
-header{background:var(--header-bg);border-bottom:1px solid var(--border);padding:0 16px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:10;backdrop-filter:blur(8px)}
-.logo{display:flex;flex-direction:column}.logo-main{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:5px;color:var(--accent);text-shadow:var(--logo-shadow)}.logo-sub{font-size:9px;letter-spacing:2px;color:var(--text-mid);display:flex;align-items:center;gap:6px;margin-top:2px}
+header{background:var(--header-bg);border-bottom:1px solid var(--border);padding:0 16px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:10;backdrop-filter:blur(8px);position:relative}
+.header-left{display:flex;align-items:center;gap:6px;min-width:160px}
+.header-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
+.logo-main{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:5px;color:var(--accent);text-shadow:var(--logo-shadow)}.logo-sub{font-size:9px;letter-spacing:2px;color:var(--text-mid);display:flex;align-items:center;gap:6px;margin-top:1px}
+.header-right{display:flex;align-items:center;gap:8px}
+/* Font control dropdown */
+.font-ctrl-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-mid);font-size:10px;padding:4px 8px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;transition:all 0.15s;white-space:nowrap}
+.font-ctrl-btn:hover{border-color:var(--accent);color:var(--accent)}
+.font-panel{display:none;position:absolute;top:54px;left:10px;background:var(--tooltip-bg);border:1px solid var(--border);backdrop-filter:blur(14px);padding:14px;z-index:1100;min-width:220px}
+.font-panel.show{display:block}
+.font-panel-title{font-size:8px;letter-spacing:1.5px;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase}
+.font-option{display:flex;align-items:center;gap:8px;padding:6px 8px;cursor:pointer;transition:all 0.12s;border:1px solid transparent;margin-bottom:3px}
+.font-option:hover{background:rgba(0,212,255,0.04);border-color:var(--border)}
+.font-option.active{border-color:var(--accent);background:var(--metric-active-bg)}
+.font-option-name{font-size:10px;color:var(--text);flex:1}
+.font-option-preview{font-size:9px;color:var(--text-dim)}
+.font-size-row{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.font-size-label{font-size:8px;color:var(--text-dim);letter-spacing:1px;min-width:50px}
+.font-size-slider{flex:1;-webkit-appearance:none;height:3px;background:var(--border);border-radius:2px;outline:none}
+.font-size-slider::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--accent);cursor:pointer}
+.font-size-val{font-size:9px;color:var(--accent);font-family:'IBM Plex Mono',monospace;min-width:24px;text-align:right}
+.font-weight-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.font-weight-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-mid);font-size:9px;padding:3px 8px;cursor:pointer;font-family:inherit;transition:all 0.12s;flex:1;text-align:center}
+.font-weight-btn:hover{border-color:var(--accent)}
+.font-weight-btn.active{border-color:var(--accent);color:var(--accent);background:var(--metric-active-bg)}
 .signal-dot{width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 .header-stats{display:flex;align-items:center;gap:8px}.stat-pill{background:var(--surface2);border:1px solid var(--border);padding:5px 10px;font-size:9px;letter-spacing:1px}.stat-label{color:var(--text-dim);margin-right:5px}.stat-value{color:var(--accent);font-family:'IBM Plex Mono',monospace;font-weight:500}
 .layout{display:flex;flex:1;overflow:hidden;min-height:0}
@@ -44,7 +67,7 @@ header{background:var(--header-bg);border-bottom:1px solid var(--border);padding
 .leaflet-container{background:var(--bg)!important}.leaflet-control-zoom,.leaflet-control-attribution{display:none!important}
 .map-controls{position:absolute;bottom:16px;left:16px;display:flex;flex-direction:column;gap:4px;z-index:1001}.map-ctrl-btn{width:30px;height:30px;background:var(--ctrl-bg);border:1px solid var(--border);color:var(--text-mid);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;padding:0;backdrop-filter:blur(8px)}.map-ctrl-btn:hover{border-color:var(--accent);color:var(--accent)}#labelToggleBtn{width:auto;padding:0 8px;font-size:10px;letter-spacing:0.5px;font-family:inherit;color:var(--accent);border-color:var(--accent)}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--surface)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.country-label-div{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--text-mid);text-shadow:0 0 4px var(--bg),0 0 8px var(--bg),1px 1px 2px rgba(0,0,0,0.8);white-space:nowrap;pointer-events:none;letter-spacing:0.5px}body.light .country-label-div{text-shadow:0 0 4px #fff,0 0 8px rgba(255,255,255,0.9);color:var(--text-mid)}
+.country-label-div{font-family:var(--label-font,'Noto Sans KR'),sans-serif;font-size:var(--label-size,9px);font-weight:var(--label-weight,700);color:var(--text);text-shadow:0 0 5px var(--bg),0 0 10px var(--bg),1px 1px 3px rgba(0,0,0,0.9);white-space:nowrap;pointer-events:none;letter-spacing:0.3px}body.light .country-label-div{text-shadow:0 0 5px #fff,0 0 10px rgba(255,255,255,0.95),1px 1px 2px rgba(255,255,255,0.8);color:var(--text)}
 body.light .alliance-card{border:none}body.light .alliance-card:hover{border:none;background:rgba(0,119,204,0.04)}body.light .alliance-card.active{border:none;background:rgba(0,119,204,0.06)}
 body.light .alliance-name{text-shadow:0 0 6px #fff,0 0 12px #fff}body.light .alliance-count{text-shadow:0 0 6px #fff}
 body.light .alliance-info-btn{background:rgba(0,0,0,0.03);border-color:rgba(0,0,0,0.1)}
@@ -116,13 +139,14 @@ body.light .alliance-info-btn{background:rgba(0,0,0,0.03);border-color:rgba(0,0,
 .sidebar-close{display:none;position:absolute;top:8px;right:8px;width:24px;height:24px;background:var(--surface2);border:1px solid var(--border);color:var(--text-mid);font-size:14px;cursor:pointer;z-index:3;border-radius:3px;align-items:center;justify-content:center;padding:0}
 /* Mobile responsive */
 @media(max-width:900px){
-  .header-stats .stat-pill{display:none}
-  .header-stats .stat-pill:last-of-type{display:inline-flex}
+  .header-right .stat-pill{display:none}
+  .header-right .stat-pill:last-of-type{display:inline-flex}
   .logo-sub{display:none}
   header{height:44px;padding:0 10px}
   .logo-main{font-size:18px;letter-spacing:3px}
   .ticker-bar{height:24px}
   .ticker-item{padding:0 12px;font-size:8px}
+  .font-ctrl-btn span.fc-text{display:none}
 }
 @media(max-width:768px){
   .sidebar-left,.sidebar-right{position:fixed;top:0;bottom:0;width:260px;z-index:1100;transition:transform 0.3s ease;overflow-y:auto}
@@ -137,19 +161,64 @@ body.light .alliance-info-btn{background:rgba(0,0,0,0.03);border-color:rgba(0,0,
   .map-controls{bottom:12px;left:8px}
   .year-watermark{font-size:50px;bottom:15px;right:10px}
   .map-label{font-size:8px;padding:3px 10px;top:8px}
-  header{height:44px;padding:0 10px}
-  .header-stats .stat-pill{display:none}
-  .logo-main{font-size:17px;letter-spacing:3px}
+  header{height:44px;padding:0 8px}
+  .header-right .stat-pill{display:none}
+  .header-center{position:static;transform:none;flex:1;margin:0 8px}
+  .logo-main{font-size:16px;letter-spacing:2px}
   .logo-sub{display:none}
   .ticker-bar{height:22px}
   .ticker-item{padding:0 10px;font-size:7px}
   .live-tag{padding:0 8px;font-size:6px}
   #tooltip{min-width:160px;font-size:9px;max-width:70vw}
+  .font-panel{left:0;right:0;min-width:auto}
+}
 }
 </style>
 </head>
 <body>
-<header><div class="logo"><div class="logo-main">ECONOMIC ATLAS</div><div class="logo-sub"><span class="signal-dot"></span> 글로벌 경제 대시보드 2026</div></div><div class="header-stats"><div class="stat-pill"><span class="stat-label">세계 GDP</span><span class="stat-value">$117.2T</span></div><div class="stat-pill"><span class="stat-label">데이터 기준</span><span class="stat-value">2025</span></div><div class="stat-pill"><span class="stat-label">표시 국가</span><span class="stat-value" id="countryCount">—</span></div><button class="map-ctrl-btn" id="themeToggle" onclick="toggleTheme()" style="width:auto;padding:0 8px;font-size:14px">🌙</button></div></header>
+<header>
+<div class="header-left">
+  <button class="font-ctrl-btn" onclick="toggleFontPanel()">Aa <span class="fc-text">글꼴</span></button>
+  <button class="map-ctrl-btn" id="themeToggle" onclick="toggleTheme()" style="width:auto;padding:0 8px;font-size:14px">🌙</button>
+</div>
+<div class="header-center">
+  <div class="logo-main">ECONOMIC ATLAS</div>
+  <div class="logo-sub"><span class="signal-dot"></span> 글로벌 경제 대시보드 2026</div>
+</div>
+<div class="header-right">
+  <div class="stat-pill"><span class="stat-label">세계 GDP</span><span class="stat-value">$117.2T</span></div>
+  <div class="stat-pill"><span class="stat-label">데이터 기준</span><span class="stat-value">2025</span></div>
+  <div class="stat-pill"><span class="stat-label">표시 국가</span><span class="stat-value" id="countryCount">—</span></div>
+</div>
+<div class="font-panel" id="fontPanel">
+  <div class="font-panel-title">라벨 글꼴 설정</div>
+  <div class="font-option active" data-font="'Noto Sans KR',sans-serif" onclick="setLabelFont(this)">
+    <span class="font-option-name">고딕 (Noto Sans)</span>
+    <span class="font-option-preview" style="font-family:'Noto Sans KR'">대한민국</span>
+  </div>
+  <div class="font-option" data-font="'Nanum Gothic',sans-serif" onclick="setLabelFont(this)">
+    <span class="font-option-name">나눔고딕</span>
+    <span class="font-option-preview" style="font-family:'Nanum Gothic'">대한민국</span>
+  </div>
+  <div class="font-option" data-font="'Noto Serif KR',serif" onclick="setLabelFont(this)">
+    <span class="font-option-name">명조 (Noto Serif)</span>
+    <span class="font-option-preview" style="font-family:'Noto Serif KR'">대한민국</span>
+  </div>
+  <div class="font-option" data-font="'IBM Plex Mono',monospace" onclick="setLabelFont(this)">
+    <span class="font-option-name">모노 (IBM Plex)</span>
+    <span class="font-option-preview" style="font-family:'IBM Plex Mono'">Republic</span>
+  </div>
+  <div class="font-size-row">
+    <span class="font-size-label">크기</span>
+    <input type="range" class="font-size-slider" id="fontSizeSlider" min="6" max="16" value="9" oninput="setLabelSize(this.value)">
+    <span class="font-size-val" id="fontSizeVal">9px</span>
+  </div>
+  <div class="font-weight-row">
+    <button class="font-weight-btn" onclick="setLabelWeight(400,this)">보통</button>
+    <button class="font-weight-btn active" onclick="setLabelWeight(700,this)">굵게</button>
+  </div>
+</div>
+</header>
 <div class="ticker-bar" id="tickerBar">
   <div class="live-tag"><span class="live-dot"></span>LIVE</div>
   <div style="overflow:hidden;flex:1"><div class="ticker-track" id="tickerTrack"><span class="ticker-item"><span class="ticker-label">로딩 중...</span></span></div></div>
@@ -243,6 +312,8 @@ const mCfg={gdp:{label:"GDP — 국내총생산 (십억 USD)",fmt:v=>v>=1000?`$$
 
 const natoMembers=new Set(["008","056","100","124","191","203","208","233","246","250","276","300","348","352","380","428","440","442","499","528","578","616","620","642","703","705","724","752","792","807","826","840"]);
 const bricsMembers=new Set(["076","156","356","643","710","818","231","364","784","360"]);
+// GDP TOP 50 추가 정보: pop(백만명,UN2025), gni(십억$,WB2024), gniPc($,WB Atlas2024), debt(GDP%,IMF2025)
+const extraInfo={"840":{pop:341.8,gni:28230,gniPc:82580,debt:125.2},"156":{pop:1412.2,gni:19740,gniPc:13990,debt:96.4},"276":{pop:84.1,gni:4430,gniPc:52730,debt:62.7},"392":{pop:123.3,gni:5180,gniPc:42020,debt:229.5},"356":{pop:1441.7,gni:3890,gniPc:2700,debt:83.1},"826":{pop:68.3,gni:3420,gniPc:50090,debt:104.3},"250":{pop:64.8,gni:3170,gniPc:48880,debt:115.2},"380":{pop:59.2,gni:2360,gniPc:39880,debt:137.3},"076":{pop:217.6,gni:2110,gniPc:9700,debt:86.7},"124":{pop:41.0,gni:2130,gniPc:51970,debt:105.3},"643":{pop:143.5,gni:2240,gniPc:15610,debt:21.2},"724":{pop:48.1,gni:1700,gniPc:35370,debt:103.4},"484":{pop:131.7,gni:1530,gniPc:11600,debt:52.7},"410":{pop:51.7,gni:1830,gniPc:35430,debt:55.5},"036":{pop:26.6,gni:1720,gniPc:64590,debt:41.4},"792":{pop:86.3,gni:1170,gniPc:13560,debt:26.3},"360":{pop:281.6,gni:1350,gniPc:4790,debt:39.7},"528":{pop:17.9,gni:1100,gniPc:61450,debt:46.4},"682":{pop:37.1,gni:1010,gniPc:27190,debt:28.4},"616":{pop:36.8,gni:800,gniPc:21740,debt:52.4},"756":{pop:9.0,gni:890,gniPc:99080,debt:36.9},"056":{pop:11.7,gni:630,gniPc:53570,debt:106.5},"372":{pop:5.3,gni:395,gniPc:75040,debt:36.7},"752":{pop:10.5,gni:660,gniPc:62870,debt:33.7},"376":{pop:9.9,gni:560,gniPc:56530,debt:70.3},"784":{pop:10.3,gni:500,gniPc:48850,debt:29.4},"040":{pop:9.2,gni:505,gniPc:55090,debt:78.2},"764":{pop:72.0,gni:530,gniPc:7390,debt:63.3},"578":{pop:5.5,gni:510,gniPc:92800,debt:42.1},"050":{pop:174.7,gni:430,gniPc:2470,debt:40.5},"704":{pop:100.3,gni:450,gniPc:4490,debt:33.1},"608":{pop:117.3,gni:460,gniPc:3920,debt:60.1},"458":{pop:34.3,gni:430,gniPc:12530,debt:66.3},"208":{pop:5.9,gni:420,gniPc:70960,debt:42.9},"170":{pop:52.7,gni:400,gniPc:7590,debt:52.8},"710":{pop:60.4,gni:410,gniPc:6780,debt:75.2},"642":{pop:19.0,gni:370,gniPc:19330,debt:51.8},"586":{pop:240.5,gni:380,gniPc:1570,debt:69.5},"203":{pop:10.9,gni:325,gniPc:29680,debt:44.1},"364":{pop:89.2,gni:300,gniPc:3370,debt:38.1},"818":{pop:113.5,gni:340,gniPc:3000,debt:92.7},"152":{pop:19.8,gni:320,gniPc:16320,debt:40.9},"620":{pop:10.4,gni:285,gniPc:27460,debt:102.1},"604":{pop:34.4,gni:280,gniPc:8140,debt:33.5},"246":{pop:5.6,gni:305,gniPc:54700,debt:75.6},"398":{pop:20.1,gni:290,gniPc:14400,debt:22.5},"012":{pop:46.8,gni:225,gniPc:4810,debt:47.7},"566":{pop:228.9,gni:260,gniPc:1140,debt:50.7},"300":{pop:10.3,gni:250,gniPc:24380,debt:147.0},"554":{pop:5.3,gni:245,gniPc:46250,debt:46.7}};
 const polSys={"036":"democracy","040":"democracy","056":"democracy","076":"democracy","100":"democracy","124":"democracy","152":"democracy","170":"democracy","188":"democracy","191":"democracy","203":"democracy","208":"democracy","218":"democracy","246":"democracy","250":"democracy","276":"democracy","288":"democracy","300":"democracy","348":"democracy","372":"democracy","376":"democracy","380":"democracy","392":"democracy","410":"democracy","428":"democracy","440":"democracy","499":"democracy","528":"democracy","554":"democracy","578":"democracy","604":"democracy","616":"democracy","620":"democracy","642":"democracy","703":"democracy","705":"democracy","710":"democracy","724":"democracy","752":"democracy","756":"democracy","826":"democracy","840":"democracy","858":"democracy","032":"democracy","356":"democracy","404":"democracy","566":"democracy","608":"democracy","012":"hybrid","024":"hybrid","050":"hybrid","104":"hybrid","116":"hybrid","120":"hybrid","180":"hybrid","266":"hybrid","320":"hybrid","340":"hybrid","360":"hybrid","368":"hybrid","398":"hybrid","414":"hybrid","422":"hybrid","434":"hybrid","484":"hybrid","504":"hybrid","508":"hybrid","586":"hybrid","643":"hybrid","682":"hybrid","686":"hybrid","704":"hybrid","729":"hybrid","764":"hybrid","784":"hybrid","788":"hybrid","792":"hybrid","804":"hybrid","818":"hybrid","854":"hybrid","860":"hybrid","887":"hybrid","706":"hybrid","231":"hybrid","795":"hybrid","031":"hybrid","156":"socialist","192":"socialist","408":"socialist","418":"socialist","364":"hybrid"};
 const polColors={democracy:"#3388ff",hybrid:"#ff8c00",socialist:"#ee2222"},polLabels={democracy:"자유민주주의",hybrid:"혼합/권위주의",socialist:"사회주의·공산주의"};
 const g7Members=new Set(["840","124","826","250","276","380","392"]);
@@ -280,7 +351,7 @@ function updateColors(){colorScale=isLight?mCfg[curMetric].lightScale():mCfg[cur
 
 function showTip(e,iso){const d=eData[iso];if(!d)return;const tt=document.getElementById('tooltip');const badges=[natoMembers.has(iso)?'<span style="background:#1a44cc;color:#fff;font-size:8px;padding:1px 5px;border-radius:2px">NATO</span>':'',bricsMembers.has(iso)?'<span style="background:#cc6600;color:#fff;font-size:8px;padding:1px 5px;border-radius:2px">BRICS</span>':''].filter(Boolean).join(' ');const pS=polSys[iso];const pLabel=pS?`<span style="color:${polColors[pS]};font-size:9px">● ${polLabels[pS]}</span>`:'';const rl=getResourceList(iso);const resRow=rl.length?`<div class="tt-row" style="border-bottom:none;padding-top:5px;flex-wrap:wrap;gap:4px"><span style="color:var(--text-dim)">자원</span>${rl.map(r=>`<span style="background:${r.color}22;border:1px solid ${r.color}66;color:${r.color};font-size:8px;padding:1px 5px;border-radius:2px">${r.icon}${r.label}</span>`).join('')}</div>`:'';tt.innerHTML=`<div class="tt-name">${d.flag} ${d.name}</div>${(badges||pLabel)?`<div style="margin-bottom:7px;display:flex;gap:5px;align-items:center;flex-wrap:wrap">${badges}${pLabel}</div>`:''}<div class="tt-row"><span>GDP</span><span class="${curMetric==='gdp'?'tt-highlight':''}">${mCfg.gdp.fmt(d.gdp)}</span></div><div class="tt-row"><span>무역</span><span class="${curMetric==='trade'?'tt-highlight':''}">${mCfg.trade.fmt(d.trade)}</span></div><div class="tt-row"><span>실업률</span><span class="${curMetric==='unemployment'?'tt-highlight':''}">${d.unemployment}%</span></div><div class="tt-row"><span>인플레</span><span class="${curMetric==='inflation'?'tt-highlight':''}">${d.inflation}%</span></div>${resRow}`;tt.style.display='block';tt.style.left=Math.min(e.originalEvent.clientX+14,window.innerWidth-215)+'px';tt.style.top=Math.min(e.originalEvent.clientY-8,window.innerHeight-200)+'px';}
 function hideTip(){document.getElementById('tooltip').style.display='none';}
-function renderDetail(iso){const d=eData[iso];if(!d)return;const rnk=getRank(iso,'gdp');const badges=[natoMembers.has(iso)?'<span style="background:#1a44cc;color:#fff;font-size:8px;padding:2px 6px;border-radius:2px">NATO</span>':'',bricsMembers.has(iso)?'<span style="background:#cc6600;color:#fff;font-size:8px;padding:2px 6px;border-radius:2px">BRICS</span>':'',polSys[iso]?`<span style="border:1px solid ${polColors[polSys[iso]]};color:${polColors[polSys[iso]]};font-size:8px;padding:2px 6px;border-radius:2px">${polLabels[polSys[iso]]}</span>`:''].filter(Boolean).join('');document.getElementById('countryDetail').innerHTML=`<div class="country-card"><div class="country-name-big">${d.flag} ${d.name}</div><div class="country-region">${d.region}</div>${badges?`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px">${badges}</div>`:''}<div class="metric-grid"><div class="metric-card"><div class="mc-label">GDP</div><div class="mc-value gdp">${mCfg.gdp.fmt(d.gdp)}</div></div><div class="metric-card"><div class="mc-label">무역규모</div><div class="mc-value trade">${mCfg.trade.fmt(d.trade)}</div></div><div class="metric-card"><div class="mc-label">실업률</div><div class="mc-value unemp">${d.unemployment}%</div></div><div class="metric-card"><div class="mc-label">인플레이션</div><div class="mc-value infl">${d.inflation}%</div></div></div><div class="rank-badge"><span>GDP 세계 순위</span><span>#${rnk}</span></div>${(()=>{const rl=getResourceList(iso);return rl.length?`<div style="margin-top:9px;padding:8px 11px;background:var(--bg);border:1px solid var(--border)"><div style="font-size:7px;letter-spacing:1px;color:var(--text-dim);margin-bottom:7px">보유 천연자원</div><div style="display:flex;flex-wrap:wrap;gap:5px">${rl.map(r=>`<span style="background:${r.color}22;border:1px solid ${r.color}88;color:${r.color};font-size:9px;padding:2px 7px;border-radius:2px">${r.icon} ${r.label}</span>`).join('')}</div></div>`:'';})()}</div>`;}
+function renderDetail(iso){const d=eData[iso];if(!d)return;const rnk=getRank(iso,'gdp');const badges=[natoMembers.has(iso)?'<span style="background:#1a44cc;color:#fff;font-size:8px;padding:2px 6px;border-radius:2px">NATO</span>':'',bricsMembers.has(iso)?'<span style="background:#cc6600;color:#fff;font-size:8px;padding:2px 6px;border-radius:2px">BRICS</span>':'',polSys[iso]?`<span style="border:1px solid ${polColors[polSys[iso]]};color:${polColors[polSys[iso]]};font-size:8px;padding:2px 6px;border-radius:2px">${polLabels[polSys[iso]]}</span>`:''].filter(Boolean).join('');const ex=extraInfo[iso];const extraHtml=ex?`<div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px"><div style="font-size:7px;letter-spacing:1px;color:var(--text-dim);margin-bottom:6px">상세 경제지표 (WB/IMF 2024-25)</div><div class="metric-grid"><div class="metric-card"><div class="mc-label">총인구</div><div class="mc-value" style="color:var(--text)">${ex.pop>=1000?(ex.pop/1000).toFixed(1)+'억':ex.pop.toFixed(1)+'백만'}</div></div><div class="metric-card"><div class="mc-label">GNI 총액</div><div class="mc-value" style="color:#88ccff">${ex.gni>=1000?'$'+(ex.gni/1000).toFixed(1)+'T':'$'+ex.gni+'B'}</div></div><div class="metric-card"><div class="mc-label">1인당 GNI</div><div class="mc-value" style="color:#ffaa44">$${Number(ex.gniPc).toLocaleString()}</div></div><div class="metric-card"><div class="mc-label">국가채무/GDP</div><div class="mc-value" style="color:${ex.debt>100?'#ff4466':ex.debt>60?'#ffaa44':'#66dd88'}">${ex.debt}%</div></div></div></div>`:'';document.getElementById('countryDetail').innerHTML=`<div class="country-card"><div class="country-name-big">${d.flag} ${d.name}</div><div class="country-region">${d.region}</div>${badges?`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px">${badges}</div>`:''}<div class="metric-grid"><div class="metric-card"><div class="mc-label">GDP</div><div class="mc-value gdp">${mCfg.gdp.fmt(d.gdp)}</div></div><div class="metric-card"><div class="mc-label">무역규모</div><div class="mc-value trade">${mCfg.trade.fmt(d.trade)}</div></div><div class="metric-card"><div class="mc-label">실업률</div><div class="mc-value unemp">${d.unemployment}%</div></div><div class="metric-card"><div class="mc-label">인플레이션</div><div class="mc-value infl">${d.inflation}%</div></div></div><div class="rank-badge"><span>GDP 세계 순위</span><span>#${rnk}</span></div>${extraHtml}${(()=>{const rl=getResourceList(iso);return rl.length?`<div style="margin-top:9px;padding:8px 11px;background:var(--bg);border:1px solid var(--border)"><div style="font-size:7px;letter-spacing:1px;color:var(--text-dim);margin-bottom:7px">보유 천연자원</div><div style="display:flex;flex-wrap:wrap;gap:5px">${rl.map(r=>`<span style="background:${r.color}22;border:1px solid ${r.color}88;color:${r.color};font-size:9px;padding:2px 7px;border-radius:2px">${r.icon} ${r.label}</span>`).join('')}</div></div>`:'';})()} </div>`;}
 function getRank(id,key){return Object.entries(eData).sort((a,b)=>b[1][key]-a[1][key]).findIndex(([c])=>c===id)+1;}
 function renderRankings(){const cfg=mCfg[curMetric],col=isLight?cfg.lightColor:cfg.darkColor;const sorted=Object.entries(eData).sort((a,b)=>b[1][curMetric]-a[1][curMetric]).slice(0,10);const max=sorted[0][1][curMetric];document.getElementById('rankingList').innerHTML=sorted.map(([id,d],i)=>`<div class="rank-item" onclick="clickRank('${id}')"><span class="rank-num">${i+1}</span><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between"><span class="rank-name">${d.flag} ${d.name}</span><span class="rank-val" style="color:${col}">${cfg.fmt(d[curMetric])}</span></div><div class="rank-bar-bg"><div style="height:100%;width:${(d[curMetric]/max*100).toFixed(1)}%;background:${col};border-radius:2px;opacity:0.75"></div></div></div></div>`).join('');}
 function clickRank(id){selId=id;renderDetail(id);if(geoLayer)geoLayer.eachLayer(l=>{const lid=pad(l.feature.id);l.setStyle(lid===id?{weight:2.5,color:'rgba(0,212,255,0.9)'}:{weight:0.6,color:getStroke()});});}
@@ -297,6 +368,30 @@ function renderOverlayLegend(){const el=document.getElementById('overlayLegendBo
 function setMetric(m,btn){curMetric=m;document.querySelectorAll('.metric-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(curOverlay==='none')document.getElementById('metricLabel').textContent=mCfg[m].label;updateColors();renderAll();}
 function toggleTheme(){isLight=!isLight;document.body.classList.toggle('light',isLight);document.getElementById('themeToggle').textContent=isLight?'☀️':'🌙';if(currentTiles)map.removeLayer(currentTiles);currentTiles=isLight?lightTiles:darkTiles;currentTiles.addTo(map);updateColors();renderLegend();renderInsight();renderRegionChart();if(selId)renderDetail(selId);renderLabels();}
 function toggleLabels(){showLabels=!showLabels;const btn=document.getElementById('labelToggleBtn');btn.style.color=showLabels?'var(--accent)':'var(--text-dim)';btn.style.borderColor=showLabels?'var(--accent)':'var(--border)';renderLabels();}
+
+// ═══ Font control panel ═══
+function toggleFontPanel(){document.getElementById('fontPanel').classList.toggle('show');}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.font-panel')&&!e.target.closest('.font-ctrl-btn'))
+    document.getElementById('fontPanel')?.classList.remove('show');
+});
+function setLabelFont(el){
+  document.querySelectorAll('.font-option').forEach(o=>o.classList.remove('active'));
+  el.classList.add('active');
+  document.documentElement.style.setProperty('--label-font',el.dataset.font);
+  renderLabels();
+}
+function setLabelSize(val){
+  document.getElementById('fontSizeVal').textContent=val+'px';
+  document.documentElement.style.setProperty('--label-size',val+'px');
+  renderLabels();
+}
+function setLabelWeight(w,btn){
+  document.querySelectorAll('.font-weight-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.documentElement.style.setProperty('--label-weight',w);
+  renderLabels();
+}
 
 // Mobile sidebar toggles
 function toggleSidebar(side){
@@ -381,10 +476,19 @@ const LABEL_POS={
 "466":[-2,17],"854":[-2,12],"324":[-11,11],"384":[-6,7],"768":[1.1,8],"204":[2.3,9.5],
 "178":[15,-1],"108":[30,-3.5],"646":[30,-2],"072":[24,-22],"450":[47,-19],
 // 오세아니아
-"036":[134,-25],"554":[172,-41],"598":[145,-6]
+"036":[134,-25],"554":[172,-41],"598":[145,-6],
+// 추가 라벨 — 아메리카
+"328":[-59,5],"740":[-56,4],"600":[-58,-23],"214":[-70,19],"388":[-77.5,18.2],"780":[-61,10.5],"084":[-89,17],
+// 추가 라벨 — 유럽
+"233":[25,59],"428":[25,57],"440":[24,55.5],"498":[29,47],"499":[19.3,42.5],"268":[43.5,42],"051":[45,40],"442":[6.1,49.8],
+// 추가 라벨 — 아프리카
+"148":[18,15],"140":[20,6],"728":[30,7],"232":[39,15.5],"262":[43,11.5],"678":[6.6,0.2],"426":[28.5,-29.5],
+"748":[31.5,-26.5],"174":[44.2,-12],"732":[-13,24],
+// 추가 라벨 — 중동·아시아
+"760":[38,35],"275":[35.2,31.9],"144":[81,7.5],"417":[74,41.5],"762":[71,39],"626":[126,-8.5]
 };
-const smallC=new Set(["008","031","040","056","068","104","116","120","178","188","191","192","203","204","205","222","266","288","320","324","332","340","376","384","400","418","422","442","496","508","512","516","524","558","591","620","634","686","688","703","705","706","716","756","768","788","795","800","807","834","854","858","862","894","108","646","072"]);
-const extraNames={"192":"쿠바","591":"파나마","222":"엘살바도르","112":"벨라루스","688":"세르비아","807":"북마케도니아","352":"아이슬란드","400":"요르단","512":"오만","496":"몽골","834":"탄자니아","562":"니제르","466":"말리","854":"부르키나파소","324":"기니","384":"코트디부아르","768":"토고","204":"베냉","178":"콩고공화국","108":"부룬디","646":"르완다","072":"보츠와나","450":"마다가스카르","598":"파푸아뉴기니"};
+const smallC=new Set(["008","031","040","051","056","068","084","104","108","116","120","140","144","148","174","178","188","191","192","203","204","205","214","222","232","233","262","266","268","275","288","320","324","328","332","340","376","384","388","400","417","418","422","426","428","440","442","450","496","498","499","508","512","516","524","558","591","600","620","626","634","678","686","688","703","705","706","716","728","732","740","748","756","760","762","768","780","788","795","800","807","834","854","858","862","894","108","646","072"]);
+const extraNames={"192":"쿠바","591":"파나마","222":"엘살바도르","112":"벨라루스","688":"세르비아","807":"북마케도니아","352":"아이슬란드","400":"요르단","512":"오만","496":"몽골","834":"탄자니아","562":"니제르","466":"말리","854":"부르키나파소","324":"기니","384":"코트디부아르","768":"토고","204":"베냉","178":"콩고공화국","108":"부룬디","646":"르완다","072":"보츠와나","450":"마다가스카르","598":"파푸아뉴기니","328":"가이아나","740":"수리남","600":"파라과이","214":"도미니카공화국","388":"자메이카","780":"트리니다드토바고","084":"벨리즈","233":"에스토니아","428":"라트비아","440":"리투아니아","498":"몰도바","499":"몬테네그로","268":"조지아","051":"아르메니아","442":"룩셈부르크","148":"차드","140":"중앙아프리카","728":"남수단","232":"에리트레아","262":"지부티","678":"상투메프린시페","426":"레소토","748":"에스와티니","174":"코모로","732":"서사하라","760":"시리아","275":"팔레스타인","144":"스리랑카","417":"키르기스스탄","762":"타지키스탄","626":"동티모르"};
 function renderLabels(){labelMarkers.forEach(m=>map.removeLayer(m));labelMarkers=[];if(!showLabels)return;const zoom=map.getZoom(),bounds=map.getBounds();Object.entries(LABEL_POS).forEach(([iso,[lon,lat]])=>{const name=eData[iso]?.name??extraNames[iso];if(!name)return;const hasData=!!eData[iso];if(!hasData&&zoom<4)return;if(smallC.has(iso)&&zoom<4)return;if(zoom<2.2)return;const ll=L.latLng(lat,lon);if(!bounds.contains(ll))return;const label=zoom>=4?name:(name.length>5?name.slice(0,4)+'.':name);const m=L.marker(ll,{icon:L.divIcon({className:'country-label-div',html:label,iconSize:null,iconAnchor:[0,0]}),interactive:false});m.setOpacity(hasData?0.85:0.5);m.addTo(map);labelMarkers.push(m);});}
 
 function initMap(){
