@@ -516,7 +516,10 @@ async function fetchCommodities() {
   }
 }
 
-// ═══ Energy — Yahoo 프록시 시도 → 실패 시 참고 시세 표시 ═══
+// ═══ Energy — Cloudflare Worker 프록시 → 폴백: 참고 시세 ═══
+// ★ Worker 배포 후 아래 URL을 본인의 Worker URL로 교체하세요
+const WORKER_URL = 'https://economic-atlas-proxy.och6000.workers.dev';
+
 const ENERGY_FALLBACK = [
   {name:'WTI 원유',icon:'🛢️',price:67.15,unit:'$/bbl',date:'2025.03'},
   {name:'브렌트유',icon:'🛢️',price:70.58,unit:'$/bbl',date:'2025.03'},
@@ -526,41 +529,60 @@ const ENERGY_FALLBACK = [
 async function fetchEnergy() {
   const panel = document.getElementById('energyPanel');
   panel.innerHTML='<div class="data-loading">시세 로딩 중...</div>';
-  const syms = [{sym:'CL=F',name:'WTI 원유',icon:'🛢️'},{sym:'BZ=F',name:'브렌트유',icon:'🛢️'},{sym:'NG=F',name:'천연가스',icon:'💨'}];
   const items = [];
 
-  // Yahoo 프록시 시도 (성공하면 실시간)
-  await Promise.all(syms.map(async s => {
-    const pxs = [
-      'https://api.allorigins.win/get?url='+encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+s.sym+'?range=2d&interval=1d')+'&_='+Date.now(),
-      'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+s.sym+'?range=2d&interval=1d'),
-    ];
-    for (const px of pxs) {
-      try {
-        const res = await fetchT(px, 4000);
-        const text = await res.text();
-        let d; try{const j=JSON.parse(text);d=j.contents?JSON.parse(j.contents):j;}catch(_){d=JSON.parse(text);}
-        const meta=d.chart.result[0].meta;
-        const price=meta.regularMarketPrice, prevClose=meta.chartPreviousClose||meta.previousClose;
-        const chg=prevClose?((price-prevClose)/prevClose*100):0;
-        items.push({...s,price,chg,live:true}); return;
-      } catch(e) {}
-    }
-  }));
+  // 1순위: Cloudflare Worker (배포 후 작동)
+  if (!WORKER_URL.includes('YOUR_ID')) {
+    try {
+      const res = await fetchT(WORKER_URL+'/quotes?syms=CL=F,BZ=F,NG=F', 5000);
+      const data = await res.json();
+      if (data.results) {
+        const nameMap = {'CL=F':{name:'WTI 원유',icon:'🛢️'},'BZ=F':{name:'브렌트유',icon:'🛢️'},'NG=F':{name:'천연가스',icon:'💨'}};
+        data.results.forEach(r => {
+          if (r.price && nameMap[r.symbol]) {
+            const chg = r.previousClose ? ((r.price-r.previousClose)/r.previousClose*100) : 0;
+            items.push({...nameMap[r.symbol], price:r.price, chg});
+          }
+        });
+      }
+    } catch(e) {}
+  }
+
+  // 2순위: CORS 프록시 (간헐적 작동)
+  if (!items.length) {
+    const syms = [{sym:'CL=F',name:'WTI 원유',icon:'🛢️'},{sym:'BZ=F',name:'브렌트유',icon:'🛢️'},{sym:'NG=F',name:'천연가스',icon:'💨'}];
+    await Promise.all(syms.map(async s => {
+      const pxs = [
+        'https://api.allorigins.win/get?url='+encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+s.sym+'?range=2d&interval=1d')+'&_='+Date.now(),
+        'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/'+s.sym+'?range=2d&interval=1d'),
+      ];
+      for (const px of pxs) {
+        try {
+          const res = await fetchT(px, 4000);
+          const text = await res.text();
+          let d; try{const j=JSON.parse(text);d=j.contents?JSON.parse(j.contents):j;}catch(_){d=JSON.parse(text);}
+          const meta=d.chart.result[0].meta;
+          const price=meta.regularMarketPrice, prevClose=meta.chartPreviousClose||meta.previousClose;
+          const chg=prevClose?((price-prevClose)/prevClose*100):0;
+          items.push({...s,price,chg}); return;
+        } catch(e) {}
+      }
+    }));
+  }
 
   if (items.length) {
-    // 실시간 데이터 성공
     panel.innerHTML = items.map(r => {
       const cls=r.chg>0?'ticker-up':r.chg<0?'ticker-down':'ticker-flat';
       const chgStr=Math.abs(r.chg)>0.01?(r.chg>0?'+'+r.chg.toFixed(2)+'%':r.chg.toFixed(2)+'%'):'';
       return '<div class="commodity-row"><span class="commodity-name">'+r.icon+' '+r.name+'</span><span><span class="commodity-price">$'+r.price.toFixed(2)+'</span>'+(chgStr?' <span class="ticker-chg '+cls+'" style="font-size:8px">'+chgStr+'</span>':'')+'</span></div>';
     }).join('');
-    document.getElementById('energyTime').textContent='실시간 · '+new Date().toLocaleTimeString('ko-KR');
+    const src = WORKER_URL.includes('YOUR_ID') ? '프록시' : 'Worker';
+    document.getElementById('energyTime').textContent='실시간('+src+') · '+new Date().toLocaleTimeString('ko-KR');
   } else {
-    // 프록시 차단 → 참고 시세 표시
+    // 3순위: 참고 시세
     panel.innerHTML = ENERGY_FALLBACK.map(r =>
       '<div class="commodity-row"><span class="commodity-name">'+r.icon+' '+r.name+'</span><span><span class="commodity-price">$'+r.price.toFixed(2)+'</span><span style="font-size:7px;color:var(--text-dim);margin-left:4px">'+r.unit+'</span></span></div>'
-    ).join('') + '<div style="font-size:7px;color:var(--text-dim);margin-top:5px;line-height:1.5;border-top:1px solid var(--border);padding-top:5px">⚠ 프록시 차단으로 실시간 불가<br>참고 시세 ('+ENERGY_FALLBACK[0].date+')<br><span style="color:var(--accent)">Cloudflare Workers 연동 시 실시간 가능</span></div>';
+    ).join('') + '<div style="font-size:7px;color:var(--text-dim);margin-top:5px;line-height:1.5;border-top:1px solid var(--border);padding-top:5px">⚠ 실시간 연결 불가 — 참고 시세 ('+ENERGY_FALLBACK[0].date+')'+(WORKER_URL.includes('YOUR_ID')?'<br><span style="color:var(--accent)">→ Cloudflare Worker 세팅 후 실시간 가능</span>':'')+'</div>';
     document.getElementById('energyTime').textContent='참고 시세 · '+ENERGY_FALLBACK[0].date;
   }
 }
