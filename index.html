@@ -178,6 +178,7 @@ body.light .alliance-info-btn{background:rgba(0,0,0,0.03);border-color:rgba(0,0,
 <body>
 <header>
 <div class="header-left">
+  <button class="font-ctrl-btn" id="currencyToggle" onclick="toggleCurrency()" style="font-family:'IBM Plex Mono',monospace;font-weight:500;min-width:40px;text-align:center"><span id="currLabel">USD</span></button>
   <button class="font-ctrl-btn" onclick="toggleFontPanel()">Aa <span class="fc-text">글꼴</span></button>
   <button class="map-ctrl-btn" id="themeToggle" onclick="toggleTheme()" style="width:auto;padding:0 8px;font-size:14px">🌙</button>
 </div>
@@ -186,7 +187,7 @@ body.light .alliance-info-btn{background:rgba(0,0,0,0.03);border-color:rgba(0,0,
   <div class="logo-sub"><span class="signal-dot"></span> 글로벌 경제 대시보드 2026</div>
 </div>
 <div class="header-right">
-  <div class="stat-pill"><span class="stat-label">세계 GDP</span><span class="stat-value">$117.2T</span></div>
+  <div class="stat-pill"><span class="stat-label">세계 GDP</span><span class="stat-value" id="worldGdpVal">$117.2T</span></div>
   <div class="stat-pill"><span class="stat-label">데이터 기준</span><span class="stat-value">2025</span></div>
   <div class="stat-pill"><span class="stat-label">표시 국가</span><span class="stat-value" id="countryCount">—</span></div>
 </div>
@@ -308,7 +309,52 @@ function interpolateColor(a,b,t){const ha=parseInt(a.slice(1),16),hb=parseInt(b.
 function makeLogScale(d,cA,cB){const lo=Math.log(Math.max(d[0],1e-9)),hi=Math.log(Math.max(d[1],1e-9));return v=>{const t=Math.max(0,Math.min(1,(Math.log(Math.max(v,1e-9))-lo)/(hi-lo)));return interpolateColor(cA,cB,t);};}
 function makeLinScale(d,cA,cB){return v=>{const t=Math.max(0,Math.min(1,(v-d[0])/(d[1]-d[0])));return interpolateColor(cA,cB,t);};}
 
-const mCfg={gdp:{label:"GDP — 국내총생산 (십억 USD)",fmt:v=>v>=1000?`$${(v/1000).toFixed(1)}T`:`$${v}B`,darkScale:()=>makeLogScale([5,31000],"#030e1c","#00d4ff"),lightScale:()=>makeLogScale([5,31000],"#e8f4ff","#003d99"),darkNoData:"#0b1520",lightNoData:"#dde8f2",min:"$5B",max:"$30T+",darkColor:"#00d4ff",lightColor:"#0055bb",insight:"미국 $30.6T로 세계 1위 (26.1%). 중국 $19.4T로 2위. 독일이 일본을 앞서 3위. 세계 GDP 총합 $117.2T (IMF, Oct 2025)."},trade:{label:"무역 — 수출입 규모 (십억 USD)",fmt:v=>v>=1000?`$${(v/1000).toFixed(1)}T`:`$${v}B`,darkScale:()=>makeLogScale([1,6500],"#1a0800","#ffaa33"),lightScale:()=>makeLogScale([1,6500],"#fff0e8","#c03000"),darkNoData:"#0b1520",lightNoData:"#dde8f2",min:"$1B",max:"$6T+",darkColor:"#ff6b35",lightColor:"#c03000",insight:"중국 $6.45T로 세계 최대 수출국. 베트남 무역/GDP 157%로 세계 최고 수준. 네덜란드는 로테르담을 통해 유럽 최대 무역 허브."},unemployment:{label:"실업률 (%)",fmt:v=>`${v}%`,darkScale:()=>makeLinScale([0,35],"#001a08","#ffee00"),lightScale:()=>makeLinScale([0,35],"#f5fff0","#886600"),darkNoData:"#0b1520",lightNoData:"#dde8f2",min:"0%",max:"35%+",darkColor:"#ffd700",lightColor:"#886600",insight:"남아공 33%로 세계 최고 실업률. 핀란드·스페인도 10%대. 카타르·태국은 1% 미만 완전고용."},inflation:{label:"인플레이션율 (%)",fmt:v=>`${v}%`,darkScale:()=>makeLogScale([0.5,270],"#001200","#ccff00"),lightScale:()=>makeLogScale([0.5,270],"#f5fff0","#447700"),darkNoData:"#0b1520",lightNoData:"#dde8f2",min:"0%",max:"260%+",darkColor:"#39ff14",lightColor:"#447700",insight:"베네수엘라 269.9%로 세계 최고. 수단 200%. 태국·중국은 0% 수준 디플레이션 우려."}};
+// ═══ Currency toggle (USD ↔ KRW) ═══
+let curCurrency='usd'; // 'usd' or 'krw'
+let usdKrwRate=1450; // 기본값, fetchExchangeRates에서 실시간 업데이트
+
+function fmtMoney(billionsUsd){
+  if(curCurrency==='krw'){
+    const krwTril=billionsUsd*usdKrwRate/1000; // 십억USD → 조원
+    if(krwTril>=1000) return `₩${(krwTril/1000).toFixed(0)}경`;
+    if(krwTril>=1) return `₩${krwTril.toFixed(1)}조`;
+    return `₩${(krwTril*10000).toFixed(0)}억`;
+  }
+  return billionsUsd>=1000?`$${(billionsUsd/1000).toFixed(1)}T`:`$${billionsUsd}B`;
+}
+function fmtMoneyPc(usdVal){
+  if(curCurrency==='krw'){
+    const krw=usdVal*usdKrwRate;
+    if(krw>=100000000) return `₩${(krw/100000000).toFixed(1)}억`;
+    if(krw>=10000) return `₩${(krw/10000).toFixed(0)}만`;
+    return `₩${krw.toLocaleString()}`;
+  }
+  return `$${Number(usdVal).toLocaleString()}`;
+}
+function getCurrSym(){return curCurrency==='krw'?'₩':'$';}
+
+function toggleCurrency(){
+  curCurrency=curCurrency==='usd'?'krw':'usd';
+  document.getElementById('currLabel').textContent=curCurrency.toUpperCase();
+  document.getElementById('currencyToggle').style.borderColor=curCurrency==='krw'?'var(--accent)':'var(--border)';
+  document.getElementById('currencyToggle').style.color=curCurrency==='krw'?'var(--accent)':'var(--text-mid)';
+  document.getElementById('worldGdpVal').textContent=fmtMoney(117200);
+  // Refresh rankings, legend, metric label
+  renderRankings(); renderLegend();
+  // Override legend min/max for currency
+  if(curCurrency==='krw'&&(curMetric==='gdp'||curMetric==='trade')){
+    document.getElementById('legendMin').textContent=curMetric==='gdp'?fmtMoney(5):fmtMoney(1);
+    document.getElementById('legendMax').textContent=curMetric==='gdp'?fmtMoney(31000):fmtMoney(6500);
+  }
+  const lbl=curCurrency==='krw'?
+    {gdp:'GDP — 국내총생산 (조 원)',trade:'무역 — 수출입 규모 (조 원)'}:
+    {gdp:'GDP — 국내총생산 (십억 USD)',trade:'무역 — 수출입 규모 (십억 USD)'};
+  if(curMetric==='gdp'||curMetric==='trade') document.getElementById('metricLabel').textContent=lbl[curMetric]||mCfg[curMetric].label;
+  const detail=document.getElementById('countryDetail');
+  if(detail&&detail.dataset.iso) renderDetail(detail.dataset.iso);
+}
+
+const mCfg={gdp:{label:"GDP — 국내총생산 (십억 USD)",fmt:v=>fmtMoney(v),darkScale:()=>makeLogScale([5,31000],"#030e1c","#00d4ff"),lightScale:()=>makeLogScale([5,31000],"#e8f4ff","#003d99"),darkNoData:"#0b1520",lightNoData:"#dde8f2",min:"$5B",max:"$30T+",darkColor:"#00d4ff",lightColor:"#0055bb",insight:"미국 $30.6T로 세계 1위 (26.1%). 중국 $19.4T로 2위. 독일이 일본을 앞서 3위. 세계 GDP 총합 $117.2T (IMF, Oct 2025)."},trade:{label:"무역 — 수출입 규모 (십억 USD)",fmt:v=>fmtMoney(v),darkScale:()=>makeLogScale([1,6500],"#1a0800","#ffaa33"),lightScale:()=>makeLogScale([1,6500],"#fff0e8","#c03000"),darkNoData:"#0b1520",lightNoData:"#dde8f2",min:"$1B",max:"$6T+",darkColor:"#ff6b35",lightColor:"#c03000",insight:"중국 $6.45T로 세계 최대 수출국. 베트남 무역/GDP 157%로 세계 최고 수준. 네덜란드는 로테르담을 통해 유럽 최대 무역 허브."},unemployment:{label:"실업률 (%)",fmt:v=>`${v}%`,darkScale:()=>makeLinScale([0,35],"#001a08","#ffee00"),lightScale:()=>makeLinScale([0,35],"#f5fff0","#886600"),darkNoData:"#0b1520",lightNoData:"#dde8f2",min:"0%",max:"35%+",darkColor:"#ffd700",lightColor:"#886600",insight:"남아공 33%로 세계 최고 실업률. 핀란드·스페인도 10%대. 카타르·태국은 1% 미만 완전고용."},inflation:{label:"인플레이션율 (%)",fmt:v=>`${v}%`,darkScale:()=>makeLogScale([0.5,270],"#001200","#ccff00"),lightScale:()=>makeLogScale([0.5,270],"#f5fff0","#447700"),darkNoData:"#0b1520",lightNoData:"#dde8f2",min:"0%",max:"260%+",darkColor:"#39ff14",lightColor:"#447700",insight:"베네수엘라 269.9%로 세계 최고. 수단 200%. 태국·중국은 0% 수준 디플레이션 우려."}};
 
 const natoMembers=new Set(["008","056","100","124","191","203","208","233","246","250","276","300","348","352","380","428","440","442","499","528","578","616","620","642","703","705","724","752","792","807","826","840"]);
 const bricsMembers=new Set(["076","156","356","643","710","818","231","364","784","360"]);
@@ -351,7 +397,7 @@ function updateColors(){colorScale=isLight?mCfg[curMetric].lightScale():mCfg[cur
 
 function showTip(e,iso){const d=eData[iso];if(!d)return;const tt=document.getElementById('tooltip');const badges=[natoMembers.has(iso)?'<span style="background:#1a44cc;color:#fff;font-size:8px;padding:1px 5px;border-radius:2px">NATO</span>':'',bricsMembers.has(iso)?'<span style="background:#cc6600;color:#fff;font-size:8px;padding:1px 5px;border-radius:2px">BRICS</span>':''].filter(Boolean).join(' ');const pS=polSys[iso];const pLabel=pS?`<span style="color:${polColors[pS]};font-size:9px">● ${polLabels[pS]}</span>`:'';const rl=getResourceList(iso);const resRow=rl.length?`<div class="tt-row" style="border-bottom:none;padding-top:5px;flex-wrap:wrap;gap:4px"><span style="color:var(--text-dim)">자원</span>${rl.map(r=>`<span style="background:${r.color}22;border:1px solid ${r.color}66;color:${r.color};font-size:8px;padding:1px 5px;border-radius:2px">${r.icon}${r.label}</span>`).join('')}</div>`:'';tt.innerHTML=`<div class="tt-name">${d.flag} ${d.name}</div>${(badges||pLabel)?`<div style="margin-bottom:7px;display:flex;gap:5px;align-items:center;flex-wrap:wrap">${badges}${pLabel}</div>`:''}<div class="tt-row"><span>GDP</span><span class="${curMetric==='gdp'?'tt-highlight':''}">${mCfg.gdp.fmt(d.gdp)}</span></div><div class="tt-row"><span>무역</span><span class="${curMetric==='trade'?'tt-highlight':''}">${mCfg.trade.fmt(d.trade)}</span></div><div class="tt-row"><span>실업률</span><span class="${curMetric==='unemployment'?'tt-highlight':''}">${d.unemployment}%</span></div><div class="tt-row"><span>인플레</span><span class="${curMetric==='inflation'?'tt-highlight':''}">${d.inflation}%</span></div>${resRow}`;tt.style.display='block';tt.style.left=Math.min(e.originalEvent.clientX+14,window.innerWidth-215)+'px';tt.style.top=Math.min(e.originalEvent.clientY-8,window.innerHeight-200)+'px';}
 function hideTip(){document.getElementById('tooltip').style.display='none';}
-function renderDetail(iso){const d=eData[iso];if(!d)return;const rnk=getRank(iso,'gdp');const badges=[natoMembers.has(iso)?'<span style="background:#1a44cc;color:#fff;font-size:8px;padding:2px 6px;border-radius:2px">NATO</span>':'',bricsMembers.has(iso)?'<span style="background:#cc6600;color:#fff;font-size:8px;padding:2px 6px;border-radius:2px">BRICS</span>':'',polSys[iso]?`<span style="border:1px solid ${polColors[polSys[iso]]};color:${polColors[polSys[iso]]};font-size:8px;padding:2px 6px;border-radius:2px">${polLabels[polSys[iso]]}</span>`:''].filter(Boolean).join('');const ex=extraInfo[iso];const extraHtml=ex?`<div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px"><div style="font-size:7px;letter-spacing:1px;color:var(--text-dim);margin-bottom:6px">상세 경제지표 (WB/IMF 2024-25)</div><div class="metric-grid"><div class="metric-card"><div class="mc-label">총인구</div><div class="mc-value" style="color:var(--text)">${ex.pop>=1000?(ex.pop/1000).toFixed(1)+'억':ex.pop.toFixed(1)+'백만'}</div></div><div class="metric-card"><div class="mc-label">GNI 총액</div><div class="mc-value" style="color:#88ccff">${ex.gni>=1000?'$'+(ex.gni/1000).toFixed(1)+'T':'$'+ex.gni+'B'}</div></div><div class="metric-card"><div class="mc-label">1인당 GNI</div><div class="mc-value" style="color:#ffaa44">$${Number(ex.gniPc).toLocaleString()}</div></div><div class="metric-card"><div class="mc-label">국가채무/GDP</div><div class="mc-value" style="color:${ex.debt>100?'#ff4466':ex.debt>60?'#ffaa44':'#66dd88'}">${ex.debt}%</div></div></div></div>`:'';document.getElementById('countryDetail').innerHTML=`<div class="country-card"><div class="country-name-big">${d.flag} ${d.name}</div><div class="country-region">${d.region}</div>${badges?`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px">${badges}</div>`:''}<div class="metric-grid"><div class="metric-card"><div class="mc-label">GDP</div><div class="mc-value gdp">${mCfg.gdp.fmt(d.gdp)}</div></div><div class="metric-card"><div class="mc-label">무역규모</div><div class="mc-value trade">${mCfg.trade.fmt(d.trade)}</div></div><div class="metric-card"><div class="mc-label">실업률</div><div class="mc-value unemp">${d.unemployment}%</div></div><div class="metric-card"><div class="mc-label">인플레이션</div><div class="mc-value infl">${d.inflation}%</div></div></div><div class="rank-badge"><span>GDP 세계 순위</span><span>#${rnk}</span></div>${extraHtml}${(()=>{const rl=getResourceList(iso);return rl.length?`<div style="margin-top:9px;padding:8px 11px;background:var(--bg);border:1px solid var(--border)"><div style="font-size:7px;letter-spacing:1px;color:var(--text-dim);margin-bottom:7px">보유 천연자원</div><div style="display:flex;flex-wrap:wrap;gap:5px">${rl.map(r=>`<span style="background:${r.color}22;border:1px solid ${r.color}88;color:${r.color};font-size:9px;padding:2px 7px;border-radius:2px">${r.icon} ${r.label}</span>`).join('')}</div></div>`:'';})()} </div>`;}
+function renderDetail(iso){const d=eData[iso];if(!d)return;document.getElementById('countryDetail').dataset.iso=iso;const rnk=getRank(iso,'gdp');const badges=[natoMembers.has(iso)?'<span style="background:#1a44cc;color:#fff;font-size:8px;padding:2px 6px;border-radius:2px">NATO</span>':'',bricsMembers.has(iso)?'<span style="background:#cc6600;color:#fff;font-size:8px;padding:2px 6px;border-radius:2px">BRICS</span>':'',polSys[iso]?`<span style="border:1px solid ${polColors[polSys[iso]]};color:${polColors[polSys[iso]]};font-size:8px;padding:2px 6px;border-radius:2px">${polLabels[polSys[iso]]}</span>`:''].filter(Boolean).join('');const ex=extraInfo[iso];const extraHtml=ex?`<div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px"><div style="font-size:7px;letter-spacing:1px;color:var(--text-dim);margin-bottom:6px">상세 경제지표 (WB/IMF 2024-25)</div><div class="metric-grid"><div class="metric-card"><div class="mc-label">총인구</div><div class="mc-value" style="color:var(--text)">${ex.pop>=1000?(ex.pop/1000).toFixed(1)+'억':ex.pop.toFixed(1)+'백만'}</div></div><div class="metric-card"><div class="mc-label">GNI 총액</div><div class="mc-value" style="color:#88ccff">${fmtMoney(ex.gni)}</div></div><div class="metric-card"><div class="mc-label">1인당 GNI</div><div class="mc-value" style="color:#ffaa44">${fmtMoneyPc(ex.gniPc)}</div></div><div class="metric-card"><div class="mc-label">국가채무/GDP</div><div class="mc-value" style="color:${ex.debt>100?'#ff4466':ex.debt>60?'#ffaa44':'#66dd88'}">${ex.debt}%</div></div></div></div>`:'';document.getElementById('countryDetail').innerHTML=`<div class="country-card"><div class="country-name-big">${d.flag} ${d.name}</div><div class="country-region">${d.region}</div>${badges?`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px">${badges}</div>`:''}<div class="metric-grid"><div class="metric-card"><div class="mc-label">GDP</div><div class="mc-value gdp">${mCfg.gdp.fmt(d.gdp)}</div></div><div class="metric-card"><div class="mc-label">무역규모</div><div class="mc-value trade">${mCfg.trade.fmt(d.trade)}</div></div><div class="metric-card"><div class="mc-label">실업률</div><div class="mc-value unemp">${d.unemployment}%</div></div><div class="metric-card"><div class="mc-label">인플레이션</div><div class="mc-value infl">${d.inflation}%</div></div></div><div class="rank-badge"><span>GDP 세계 순위</span><span>#${rnk}</span></div>${extraHtml}${(()=>{const rl=getResourceList(iso);return rl.length?`<div style="margin-top:9px;padding:8px 11px;background:var(--bg);border:1px solid var(--border)"><div style="font-size:7px;letter-spacing:1px;color:var(--text-dim);margin-bottom:7px">보유 천연자원</div><div style="display:flex;flex-wrap:wrap;gap:5px">${rl.map(r=>`<span style="background:${r.color}22;border:1px solid ${r.color}88;color:${r.color};font-size:9px;padding:2px 7px;border-radius:2px">${r.icon} ${r.label}</span>`).join('')}</div></div>`:'';})()} </div>`;}
 function getRank(id,key){return Object.entries(eData).sort((a,b)=>b[1][key]-a[1][key]).findIndex(([c])=>c===id)+1;}
 function renderRankings(){const cfg=mCfg[curMetric],col=isLight?cfg.lightColor:cfg.darkColor;const sorted=Object.entries(eData).sort((a,b)=>b[1][curMetric]-a[1][curMetric]).slice(0,10);const max=sorted[0][1][curMetric];document.getElementById('rankingList').innerHTML=sorted.map(([id,d],i)=>`<div class="rank-item" onclick="clickRank('${id}')"><span class="rank-num">${i+1}</span><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between"><span class="rank-name">${d.flag} ${d.name}</span><span class="rank-val" style="color:${col}">${cfg.fmt(d[curMetric])}</span></div><div class="rank-bar-bg"><div style="height:100%;width:${(d[curMetric]/max*100).toFixed(1)}%;background:${col};border-radius:2px;opacity:0.75"></div></div></div></div>`).join('');}
 function clickRank(id){selId=id;renderDetail(id);if(geoLayer)geoLayer.eachLayer(l=>{const lid=pad(l.feature.id);l.setStyle(lid===id?{weight:2.5,color:'rgba(0,212,255,0.9)'}:{weight:0.6,color:getStroke()});});}
@@ -553,6 +599,9 @@ async function fetchExchangeRates() {
     const res = await fetchT(WORKER_URL+'/quotes?syms='+syms, 5000);
     const data = await res.json();
     if (data.results?.length) {
+      // Update USD/KRW rate for currency conversion
+      const usdR = data.results.find(x=>x.symbol==='USDKRW=X');
+      if (usdR?.price) usdKrwRate = usdR.price;
       const items = TICKER_CURRENCIES.map(c => {
         const r = data.results.find(x=>x.symbol===c.sym);
         if (!r || !r.price) return null;
@@ -577,6 +626,7 @@ async function fetchExchangeRates() {
     const res = await fetchT('https://open.er-api.com/v6/latest/KRW');
     const data = await res.json();
     if (data.result !== 'success') throw new Error('fail');
+    if (data.rates.USD) usdKrwRate = 1/data.rates.USD;
     const items = TICKER_CURRENCIES.map(c => {
       const code = c.sym.replace('KRW=X','');
       const rate = data.rates[code]; if (!rate) return null;
