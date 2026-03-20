@@ -65,6 +65,7 @@ header{background:var(--header-bg);border-bottom:1px solid var(--border);padding
 .insight-box{font-size:10px;color:var(--text-mid);line-height:1.7;padding:8px 10px;background:var(--surface2);border:1px solid var(--border)}.placeholder-text{text-align:center;color:var(--text-dim);font-size:11px;padding:20px 0;line-height:1.8}
 .loading-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);z-index:2000}.loading-text{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:4px;color:var(--accent)}.loading-bar{width:150px;height:2px;background:var(--border);margin-top:10px;overflow:hidden;position:relative}.loading-bar::after{content:'';position:absolute;width:50%;height:100%;background:var(--accent);animation:load 1.2s ease-in-out infinite}@keyframes load{0%{left:-50%}100%{left:100%}}
 .leaflet-container{background:var(--bg)!important}.leaflet-control-zoom,.leaflet-control-attribution{display:none!important}
+.cable-tip{background:rgba(10,14,26,0.95)!important;border:1px solid #ff4488!important;color:#e0e8f0!important;font-family:'Noto Sans KR',sans-serif!important;font-size:10px!important;line-height:1.6!important;padding:8px 10px!important;backdrop-filter:blur(8px)}
 .map-controls{position:absolute;bottom:16px;left:16px;display:flex;flex-direction:column;gap:4px;z-index:1001}.map-ctrl-btn{width:30px;height:30px;background:var(--ctrl-bg);border:1px solid var(--border);color:var(--text-mid);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;padding:0;backdrop-filter:blur(8px)}.map-ctrl-btn:hover{border-color:var(--accent);color:var(--accent)}#labelToggleBtn{width:auto;padding:0 8px;font-size:10px;letter-spacing:0.5px;font-family:inherit;color:var(--accent);border-color:var(--accent)}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--surface)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 .country-label-div{font-family:var(--label-font,'Noto Sans KR'),sans-serif;font-size:var(--label-size,9px);font-weight:var(--label-weight,700);color:var(--text);text-shadow:0 0 5px var(--bg),0 0 10px var(--bg),1px 1px 3px rgba(0,0,0,0.9);white-space:nowrap;pointer-events:none;letter-spacing:0.3px}body.light .country-label-div{text-shadow:0 0 5px #fff,0 0 10px rgba(255,255,255,0.95),1px 1px 2px rgba(255,255,255,0.8);color:var(--text)}
@@ -228,7 +229,7 @@ body.light .alliance-info-btn{background:rgba(0,0,0,0.03);border-color:rgba(0,0,
 <div class="sidebar-left" id="sidebarLeft">
 <button class="sidebar-close" onclick="closeSidebars()" aria-label="닫기">✕</button>
 <div><div class="panel-title">경제 지표 선택</div><button class="metric-btn active" onclick="setMetric('gdp',this)"><span class="metric-icon">📊</span> GDP / 국내총생산</button><button class="metric-btn" onclick="setMetric('trade',this)"><span class="metric-icon">🚢</span> 무역 수출입</button><button class="metric-btn" onclick="setMetric('unemployment',this)"><span class="metric-icon">📉</span> 실업률</button><button class="metric-btn" onclick="setMetric('inflation',this)"><span class="metric-icon">💹</span> 인플레이션율</button></div>
-<div><div class="panel-title">지도 오버레이</div><button class="overlay-btn" onclick="setOverlay('polsys',this)">🟣 정치체제 구분</button><button class="overlay-btn resource" onclick="toggleResMenu(this)">🟡 천연자원 보유국</button><div id="resSubMenu"><button class="res-sub-btn" onclick="setResOverlay('oil_prod',this)">🛢️ 석유 생산량</button><button class="res-sub-btn" onclick="setResOverlay('oil_export',this)">🛢️ 석유 수출량</button><button class="res-sub-btn" onclick="setResOverlay('gas_prod',this)">💨 천연가스 생산량</button><button class="res-sub-btn" onclick="setResOverlay('gas_export',this)">💨 천연가스 수출량</button><button class="res-sub-btn" onclick="setResOverlay('uranium',this)">☢️ 우라늄</button><button class="res-sub-btn" onclick="setResOverlay('lithium',this)">🔋 리튬</button><button class="res-sub-btn" onclick="setResOverlay('rare_earth',this)">⚗️ 희토류</button><button class="res-sub-btn" onclick="setResOverlay('tungsten',this)">🪨 텅스텐</button><button class="res-sub-btn" onclick="setResOverlay('all',this)">🌐 전체</button></div><button class="overlay-btn" onclick="setOverlay('none',this)">⬜ 오버레이 해제</button><div class="overlay-legend" id="overlayLegendBox"></div></div>
+<div><div class="panel-title">지도 오버레이</div><button class="overlay-btn" onclick="setOverlay('polsys',this)">🟣 정치체제 구분</button><button class="overlay-btn" onclick="setOverlay('powercable',this)" style="border-color:#ff4488;color:#ff4488">⚡ 해저전력케이블</button><button class="overlay-btn resource" onclick="toggleResMenu(this)">🟡 천연자원 보유국</button><div id="resSubMenu"><button class="res-sub-btn" onclick="setResOverlay('oil_prod',this)">🛢️ 석유 생산량</button><button class="res-sub-btn" onclick="setResOverlay('oil_export',this)">🛢️ 석유 수출량</button><button class="res-sub-btn" onclick="setResOverlay('gas_prod',this)">💨 천연가스 생산량</button><button class="res-sub-btn" onclick="setResOverlay('gas_export',this)">💨 천연가스 수출량</button><button class="res-sub-btn" onclick="setResOverlay('uranium',this)">☢️ 우라늄</button><button class="res-sub-btn" onclick="setResOverlay('lithium',this)">🔋 리튬</button><button class="res-sub-btn" onclick="setResOverlay('rare_earth',this)">⚗️ 희토류</button><button class="res-sub-btn" onclick="setResOverlay('tungsten',this)">🪨 텅스텐</button><button class="res-sub-btn" onclick="setResOverlay('all',this)">🌐 전체</button></div><button class="overlay-btn" onclick="setOverlay('none',this)">⬜ 오버레이 해제</button><div class="overlay-legend" id="overlayLegendBox"></div></div>
 <div><div class="panel-title">범례</div><canvas id="legendCanvas" height="10"></canvas><div class="legend-labels"><span id="legendMin">$5B</span><span id="legendMax">$30T+</span></div></div>
 <div><div class="panel-title">TOP 10 순위</div><div id="rankingList"></div></div>
 </div>
@@ -440,10 +441,10 @@ function renderInsight(){document.getElementById('insights').innerHTML=`<div cla
 function renderRegionChart(){const regions={};Object.values(eData).forEach(d=>{regions[d.region]=(regions[d.region]||0)+d.gdp;});const total=Object.values(regions).reduce((a,b)=>a+b,0);const col=isLight?mCfg.gdp.lightColor:mCfg.gdp.darkColor;document.getElementById('regionChart').innerHTML=Object.entries(regions).sort((a,b)=>b[1]-a[1]).map(([r,v])=>`<div style="margin-bottom:7px"><div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text-mid);margin-bottom:3px"><span>${r}</span><span style="color:${col}">${(v/total*100).toFixed(1)}%</span></div><div style="height:3px;background:var(--border);border-radius:2px"><div style="height:100%;width:${(v/total*100).toFixed(1)}%;background:${col};border-radius:2px;opacity:0.8"></div></div></div>`).join('');}
 function renderAll(){renderRankings();renderLegend();renderInsight();renderRegionChart();if(selId)renderDetail(selId);}
 
-function setOverlay(mode,btn){curOverlay=mode;curResource=null;document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.res-sub-btn').forEach(b=>b.classList.remove('res-active'));document.querySelectorAll('.alliance-card').forEach(c=>c.classList.remove('active'));closeAllPopups();document.getElementById('resSubMenu').style.display='none';if(mode!=='none')btn.classList.add('active');updateColors();renderOverlayLegend();const lbl={nato:'NATO 회원국 (32개국)',brics:'BRICS 정식 회원국 (10개국)',g7:'G7 회원국',polsys:'정치체제 구분',none:mCfg[curMetric].label};document.getElementById('metricLabel').textContent=lbl[mode]||mCfg[curMetric].label;}
+function setOverlay(mode,btn){curOverlay=mode;curResource=null;document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.res-sub-btn').forEach(b=>b.classList.remove('res-active'));document.querySelectorAll('.alliance-card').forEach(c=>c.classList.remove('active'));closeAllPopups();document.getElementById('resSubMenu').style.display='none';if(mode!=='none')btn.classList.add('active');updateColors();renderOverlayLegend();drawPowerCables();const lbl={nato:'NATO 회원국 (32개국)',brics:'BRICS 정식 회원국 (10개국)',g7:'G7 회원국',polsys:'정치체제 구분',powercable:'⚡ 해저전력케이블 현황 (HVDC)',none:mCfg[curMetric].label};document.getElementById('metricLabel').textContent=lbl[mode]||mCfg[curMetric].label;}
 function toggleResMenu(btn){const sub=document.getElementById('resSubMenu');if(sub.style.display==='none'||!sub.style.display){sub.style.display='block';}else{sub.style.display='none';curOverlay='resource';curResource='all';document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');updateColors();renderOverlayLegend();}}
-function setResOverlay(type,btn){curOverlay='resource';curResource=type;document.querySelectorAll('.res-sub-btn').forEach(b=>b.classList.remove('res-active'));btn.classList.add('res-active');document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.alliance-card').forEach(c=>c.classList.remove('active'));closeAllPopups();document.querySelector('.overlay-btn.resource').classList.add('active');updateColors();renderOverlayLegend();const r=RESOURCES[type];const labelMap={oil_prod:'🛢️ 석유 생산량 TOP 10',oil_export:'🛢️ 석유 수출량 TOP 10',gas_prod:'💨 천연가스 생산량 TOP 10',gas_export:'💨 천연가스 수출량 TOP 10'};document.getElementById('metricLabel').textContent=labelMap[type]||(r?`${r.icon} ${r.label}`:'천연자원 보유국');}
-function renderOverlayLegend(){const el=document.getElementById('overlayLegendBox');if(curOverlay==='none'){el.innerHTML='';return;}if(curOverlay==='nato')el.innerHTML='<div class="ol-pill"><div class="ol-dot" style="background:#1a44cc"></div>NATO</div><div class="ol-pill"><div class="ol-dot" style="background:#333;border:1px solid #555"></div>비회원</div>';else if(curOverlay==='brics')el.innerHTML='<div class="ol-pill"><div class="ol-dot" style="background:#cc6600"></div>BRICS</div><div class="ol-pill"><div class="ol-dot" style="background:#333;border:1px solid #555"></div>비회원</div>';else if(curOverlay==='g7')el.innerHTML='<div class="ol-pill"><div class="ol-dot" style="background:#22aa66"></div>G7</div><div style="width:100%;margin-top:6px;font-size:10px;color:var(--text-dim);line-height:1.8">🇺🇸미국 🇨🇦캐나다 🇬🇧영국 🇫🇷프랑스 🇩🇪독일 🇮🇹이탈리아 🇯🇵일본</div>';else if(curOverlay==='polsys')el.innerHTML=Object.entries(polLabels).map(([k,v])=>`<div class="ol-pill"><div class="ol-dot" style="background:${polColors[k]}"></div>${v}</div>`).join('');else if(curOverlay==='resource'){if(curResource==='all')el.innerHTML=Object.entries(RESOURCES).map(([,r])=>`<div class="ol-pill"><div class="ol-dot" style="background:${r.color}"></div>${r.icon} ${r.label}</div>`).join('')+'<div class="ol-pill"><div class="ol-dot" style="background:#ffdd00"></div>🌐 복수</div>';else{const r=RESOURCES[curResource];if(!r)return;el.innerHTML=`<div style="width:100%;font-size:9px;color:var(--text-dim);margin-bottom:7px">${r.note}</div>`+r.top.map(t=>`<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid var(--border)"><span style="font-family:'Bebas Neue';font-size:13px;min-width:12px;color:${t.rank===1?r.color:'var(--text-dim)'}">${t.rank}</span><span style="flex:1;font-size:10px">${eData[t.id]?.flag??''} ${eData[t.id]?.name??t.id}</span><span style="font-family:'IBM Plex Mono';font-size:10px;color:${r.color}">${t.value}</span></div>`).join('');}}}
+function setResOverlay(type,btn){curOverlay='resource';curResource=type;document.querySelectorAll('.res-sub-btn').forEach(b=>b.classList.remove('res-active'));btn.classList.add('res-active');document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.alliance-card').forEach(c=>c.classList.remove('active'));closeAllPopups();document.querySelector('.overlay-btn.resource').classList.add('active');updateColors();renderOverlayLegend();drawPowerCables();const r=RESOURCES[type];const labelMap={oil_prod:'🛢️ 석유 생산량 TOP 10',oil_export:'🛢️ 석유 수출량 TOP 10',gas_prod:'💨 천연가스 생산량 TOP 10',gas_export:'💨 천연가스 수출량 TOP 10'};document.getElementById('metricLabel').textContent=labelMap[type]||(r?`${r.icon} ${r.label}`:'천연자원 보유국');}
+function renderOverlayLegend(){const el=document.getElementById('overlayLegendBox');if(curOverlay==='none'){el.innerHTML='';return;}if(curOverlay==='nato')el.innerHTML='<div class="ol-pill"><div class="ol-dot" style="background:#1a44cc"></div>NATO</div><div class="ol-pill"><div class="ol-dot" style="background:#333;border:1px solid #555"></div>비회원</div>';else if(curOverlay==='brics')el.innerHTML='<div class="ol-pill"><div class="ol-dot" style="background:#cc6600"></div>BRICS</div><div class="ol-pill"><div class="ol-dot" style="background:#333;border:1px solid #555"></div>비회원</div>';else if(curOverlay==='g7')el.innerHTML='<div class="ol-pill"><div class="ol-dot" style="background:#22aa66"></div>G7</div><div style="width:100%;margin-top:6px;font-size:10px;color:var(--text-dim);line-height:1.8">🇺🇸미국 🇨🇦캐나다 🇬🇧영국 🇫🇷프랑스 🇩🇪독일 🇮🇹이탈리아 🇯🇵일본</div>';else if(curOverlay==='polsys')el.innerHTML=Object.entries(polLabels).map(([k,v])=>`<div class="ol-pill"><div class="ol-dot" style="background:${polColors[k]}"></div>${v}</div>`).join('');else if(curOverlay==='powercable'){const active=powerCables.filter(c=>c.status==='운영').length;const building=powerCables.filter(c=>c.status==='건설중'||c.status==='계획').length;el.innerHTML=`<div class="ol-pill"><div class="ol-dot" style="background:#ff4488"></div>운영 중 (${active}개)</div><div class="ol-pill"><div class="ol-dot" style="background:#ffaa00"></div>건설중/계획 (${building}개)</div><div style="width:100%;margin-top:8px;font-size:9px;color:var(--text-dim);line-height:1.7;border-top:1px solid var(--border);padding-top:6px"><b style="color:var(--text)">주요 제조사</b><br>🇮🇹 Prysmian · 🇫🇷 Nexans · 🇩🇰 NKT<br>🇨🇭 ABB/Hitachi · 🇯🇵 SEI(스미토모)<br>🇰🇷 LS Cable & System<br><br><b style="color:var(--text)">핵심 지역</b><br>⚡ 북해: 노르웨이↔영국·독일·네덜란드·덴마크<br>⚡ 발틱해: 스웨덴↔독일·폴란드·리투아니아<br>⚡ 지중해: 이탈리아·키프로스·이스라엘·그리스<br>⚡ 아시아: 호주→싱가포르(계획), UAE→인도(계획)</div>`;}else if(curOverlay==='resource'){if(curResource==='all')el.innerHTML=Object.entries(RESOURCES).map(([,r])=>`<div class="ol-pill"><div class="ol-dot" style="background:${r.color}"></div>${r.icon} ${r.label}</div>`).join('')+'<div class="ol-pill"><div class="ol-dot" style="background:#ffdd00"></div>🌐 복수</div>';else{const r=RESOURCES[curResource];if(!r)return;el.innerHTML=`<div style="width:100%;font-size:9px;color:var(--text-dim);margin-bottom:7px">${r.note}</div>`+r.top.map(t=>`<div style="display:flex;align-items:center;gap:6px;padding:3px 0;border-bottom:1px solid var(--border)"><span style="font-family:'Bebas Neue';font-size:13px;min-width:12px;color:${t.rank===1?r.color:'var(--text-dim)'}">${t.rank}</span><span style="flex:1;font-size:10px">${eData[t.id]?.flag??''} ${eData[t.id]?.name??t.id}</span><span style="font-family:'IBM Plex Mono';font-size:10px;color:${r.color}">${t.value}</span></div>`).join('');}}}
 
 function setMetric(m,btn){curMetric=m;document.querySelectorAll('.metric-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');if(curOverlay==='none')document.getElementById('metricLabel').textContent=mCfg[m].label;updateColors();renderAll();}
 function toggleTheme(){isLight=!isLight;document.body.classList.toggle('light',isLight);document.getElementById('themeToggle').textContent=isLight?'☀️':'🌙';if(currentTiles)map.removeLayer(currentTiles);currentTiles=isLight?lightTiles:darkTiles;currentTiles.addTo(map);updateColors();renderLegend();renderInsight();renderRegionChart();if(selId)renderDetail(selId);renderLabels();}
@@ -506,7 +507,7 @@ function toggleAllianceOverlay(mode){
     curOverlay='none'; curResource=null;
     document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));
     document.getElementById('metricLabel').textContent=mCfg[curMetric].label;
-    updateColors(); renderOverlayLegend();
+    updateColors(); renderOverlayLegend(); drawPowerCables();
   } else {
     curOverlay=mode; curResource=null;
     document.querySelectorAll('.overlay-btn').forEach(b=>b.classList.remove('active'));
@@ -849,6 +850,106 @@ async function fetchNews() {
   }else{
     panel.innerHTML='<div class="data-error">뉴스를 불러올 수 없습니다<br><span style="font-size:9px;color:var(--text-dim)">↻ 재시도</span></div>';
   }
+}
+
+// ═══ Submarine Power Cables (해저전력케이블) ═══
+const powerCables=[
+// 북해 (North Sea)
+{name:"North Sea Link",from:"노르웨이→영국",mw:1400,km:720,v:"±525kV",status:"운영",year:2021,
+ owner:"Statnett(노르웨이)/National Grid(영국)",maker:"Prysmian(이탈리아)",color:"#ff4488",
+ route:[[6.5,59.5],[4,58],[2,56],[-1,55.5]]},
+{name:"NordLink",from:"노르웨이→독일",mw:1400,km:625,v:"±500kV",status:"운영",year:2021,
+ owner:"Statnett(노르웨이)/TenneT(독일)/KfW(독일)",maker:"ABB(스위스)/Nexans(프랑스)",color:"#ff4488",
+ route:[[6.8,58.2],[6,56],[7,55],[8.5,54.3]]},
+{name:"NorNed",from:"노르웨이→네덜란드",mw:700,km:580,v:"±450kV",status:"운영",year:2008,
+ owner:"Statnett(노르웨이)/TenneT(네덜란드)",maker:"ABB(스위스)",color:"#ff4488",
+ route:[[6.6,58.3],[5,56],[5,54],[6.8,53.4]]},
+{name:"Viking Link",from:"덴마크→영국",mw:1400,km:765,v:"±525kV",status:"운영",year:2023,
+ owner:"Energinet(덴마크)/National Grid(영국)",maker:"Prysmian(이탈리아)/NKT(덴마크)",color:"#ff4488",
+ route:[[9,55.5],[7,55],[4,54.5],[1,53.5],[0,53]]},
+{name:"COBRAcable",from:"덴마크→네덜란드",mw:700,km:325,v:"±320kV",status:"운영",year:2019,
+ owner:"Energinet(덴마크)/TenneT(네덜란드)",maker:"Prysmian(이탈리아)",color:"#ff4488",
+ route:[[8.5,55.5],[7.5,55],[6.8,53.4]]},
+{name:"BritNed",from:"영국→네덜란드",mw:1000,km:260,v:"±450kV",status:"운영",year:2011,
+ owner:"National Grid(영국)/TenneT(네덜란드)",maker:"ABB(스위스)/Prysmian",color:"#ff4488",
+ route:[[1.2,51.5],[2.5,52],[3.8,52.5]]},
+{name:"Nemo Link",from:"영국→벨기에",mw:1000,km:140,v:"±400kV",status:"운영",year:2019,
+ owner:"National Grid(영국)/Elia(벨기에)",maker:"Siemens/Prysmian",color:"#ff4488",
+ route:[[1.2,51.2],[2,51.3],[3,51.3]]},
+{name:"IFA",from:"영국→프랑스",mw:2000,km:70,v:"±270kV",status:"운영",year:1986,
+ owner:"National Grid(영국)/RTE(프랑스)",maker:"다수",color:"#ff4488",
+ route:[[0.5,50.7],[0.5,50.2],[1,49.9]]},
+{name:"IFA2",from:"영국→프랑스",mw:1000,km:240,v:"±320kV",status:"운영",year:2021,
+ owner:"National Grid(영국)/RTE(프랑스)",maker:"Prysmian(이탈리아)",color:"#ff4488",
+ route:[[-1.1,50.7],[-0.5,50],[-1,49.5]]},
+// 발틱해 (Baltic Sea)
+{name:"Baltic Cable",from:"스웨덴→독일",mw:600,km:250,v:"450kV",status:"운영",year:1994,
+ owner:"Statkraft(노르웨이)",maker:"ABB(스위스)",color:"#ff4488",
+ route:[[12.7,55.5],[12,55],[12,54.5]]},
+{name:"Estlink 2",from:"에스토니아→핀란드",mw:650,km:170,v:"±450kV",status:"운영",year:2014,
+ owner:"Fingrid(핀란드)/Elering(에스토니아)",maker:"ABB(스위스)",color:"#ff4488",
+ route:[[24.8,59.4],[25,60],[25,60.2]]},
+{name:"SwePol",from:"스웨덴→폴란드",mw:600,km:245,v:"±450kV",status:"운영",year:2000,
+ owner:"Svenska Kraftnät(스웨덴)/PSE(폴란드)",maker:"ABB(스위스)",color:"#ff4488",
+ route:[[15,55.5],[16,55.5],[17,55],[17.5,54.5]]},
+{name:"NordBalt",from:"스웨덴→리투아니아",mw:700,km:450,v:"±300kV",status:"운영",year:2016,
+ owner:"Svenska Kraftnät(스웨덴)/Litgrid(리투아니아)",maker:"ABB(스위스)",color:"#ff4488",
+ route:[[16,56],[18,56],[20,55.8],[21,55.7]]},
+{name:"Cross-Skagerrak 4",from:"노르웨이→덴마크",mw:1700,km:240,v:"±500kV",status:"운영",year:2015,
+ owner:"Statnett(노르웨이)/Energinet(덴마크)",maker:"ABB/Nexans",color:"#ff4488",
+ route:[[7.5,58],[8.5,57.5],[10,57.3]]},
+// 지중해 (Mediterranean)
+{name:"Tyrrhenian Link",from:"이탈리아 본토↔시칠리아↔사르데냐",mw:1000,km:970,v:"±500kV",status:"건설중",year:"2025-26",
+ owner:"Terna(이탈리아)",maker:"Prysmian(이탈리아)",color:"#ffaa00",
+ route:[[9,39],[10,38.5],[13,37.5],[15,38]]},
+{name:"SAPEI",from:"이탈리아→사르데냐",mw:1000,km:435,v:"±500kV",status:"운영",year:2011,
+ owner:"Terna(이탈리아)",maker:"Prysmian(이탈리아)",color:"#ff4488",
+ route:[[10,43],[9.5,41],[9,40]]},
+{name:"Malta-Italy IC2",from:"이탈리아(시칠리아)→몰타",mw:200,km:100,v:"220kV",status:"건설중",year:"2027",
+ owner:"Terna(이탈리아)/Enemalta(몰타)",maker:"Nexans(프랑스)",color:"#ffaa00",
+ route:[[14.5,37],[14.5,36]]},
+{name:"SACOI 3",from:"이탈리아→코르시카→사르데냐",mw:400,km:385,v:"±200kV",status:"운영",year:1967,
+ owner:"Terna(이탈리아)/EDF(프랑스)",maker:"다수",color:"#ff4488",
+ route:[[10,43],[9.5,42.5],[9,41.5],[9,40]]},
+{name:"EuroAsia IC",from:"이스라엘→키프로스→그리스(크레타)",mw:2000,km:1520,v:"±500kV",status:"계획",year:"2029",
+ owner:"EuroAsia Interconnector Ltd(키프로스)",maker:"미정",color:"#ffaa00",
+ route:[[34.8,32.5],[33.5,34],[33,35],[26,35.5]]},
+{name:"EuroAfrica IC",from:"이집트→키프로스→그리스",mw:2000,km:1396,v:"±500kV",status:"계획",year:"2029+",
+ owner:"EuroAfrica Interconnector(키프로스)",maker:"미정",color:"#ffaa00",
+ route:[[30,31.5],[32,33],[33,35],[26,35.5]]},
+// 아시아-태평양
+{name:"AAPL (호주-싱가포르)",from:"호주→인도네시아→싱가포르",mw:3000,km:4500,v:"HVDC",status:"계획",year:"2030s",
+ owner:"Sun Cable(호주)/SoftBank(일본)",maker:"미정",color:"#ffaa00",
+ route:[[131,-13],[120,-8],[114,-5],[108,-3],[104,1.3]]},
+{name:"UAE-India HVDC",from:"UAE→인도",mw:2000,km:2000,v:"HVDC",status:"계획",year:"2030",
+ owner:"ADNOC(UAE)/Reliance(인도)",maker:"미정",color:"#ffaa00",
+ route:[[54,24.5],[58,22],[64,23],[70,21]]},
+{name:"Kii Channel HVDC",from:"일본(혼슈↔시코쿠)",mw:2800,km:100,v:"±500kV",status:"운영",year:2000,
+ owner:"TEPCO/Kansai Electric(일본)",maker:"SEI(스미토모, 일본)",color:"#ff4488",
+ route:[[135,34.3],[134.5,34],[134,33.8]]},
+// 북미
+{name:"Neptune Cable",from:"미국(NJ→롱아일랜드)",mw:660,km:105,v:"±500kV",status:"운영",year:2007,
+ owner:"Anbaric(미국)",maker:"ABB/Prysmian",color:"#ff4488",
+ route:[[-74.1,40.5],[-73.5,40.5],[-73.1,40.7]]},
+];
+let powerCableLayers=[];
+function drawPowerCables(){
+  powerCableLayers.forEach(l=>map.removeLayer(l));powerCableLayers=[];
+  if(curOverlay!=='powercable')return;
+  powerCables.forEach(c=>{
+    const latlngs=c.route.map(([lng,lat])=>[lat,lng]);
+    const isPlanned=c.status==='계획'||c.status==='건설중';
+    const line=L.polyline(latlngs,{color:c.color,weight:isPlanned?2:2.5,opacity:isPlanned?0.55:0.8,dashArray:isPlanned?'8,5':null,smoothFactor:1.5});
+    line.bindTooltip(`<b style="color:${c.color}">${c.name}</b><br>${c.from}<br>${c.mw}MW · ${c.km} · ${c.status}(${c.year})<br><span style="color:#aaa">${c.owner}</span>`,{sticky:true,className:'cable-tip'});
+    line.on('mouseover',function(){this.setStyle({weight:4,opacity:1});});
+    line.on('mouseout',function(){this.setStyle({weight:isPlanned?2:2.5,opacity:isPlanned?0.55:0.8});});
+    line.addTo(map);powerCableLayers.push(line);
+    // Landing dots
+    [c.route[0],c.route[c.route.length-1]].forEach(([lng,lat])=>{
+      const dot=L.circleMarker([lat,lng],{radius:4,color:c.color,fillColor:'#fff',fillOpacity:0.9,weight:2});
+      dot.addTo(map);powerCableLayers.push(dot);
+    });
+  });
 }
 
 function initLiveData() {
