@@ -212,6 +212,8 @@ tr.hi td { background: rgba(91, 123, 139, 0.15); font-weight: 700; }
 .chart-line { fill: none; stroke: var(--primary); stroke-width: 2; }
 .chart-area { fill: rgba(91, 123, 139, 0.15); }
 .chart-dot { fill: var(--primary); }
+.chart-hit { fill: transparent; cursor: crosshair; }
+.chart-point:hover .chart-dot { fill: var(--accent); stroke: var(--bg); stroke-width: 2; }
 .chart-grid-line { stroke: var(--border); stroke-dasharray: 2; }
 .chart-label { font-size: 10px; fill: var(--text3); }
 .no-data { text-align: center; padding: 60px 20px; color: var(--text2); }
@@ -1598,6 +1600,17 @@ function renderFRNotes() {
   document.getElementById('frNotes').innerHTML = `<div class="tbl-box"><h3>연방준비권 발행 및 담보</h3><p class="tbl-sub">Federal Reserve Notes Outstanding and Collateral · 단위: 백만 달러</p><table><thead><tr><th>연방준비은행</th><th>발행액</th><th>담보</th><th>금 증서</th></tr></thead><tbody>${notes.map(n => `<tr><td><div class="bil"><span class="kr">${n.kr}</span><span class="en">${n.name}</span></div></td><td class="val">${fmt(n.outstanding)}</td><td class="val">${fmt(n.collateral)}</td><td class="val">${fmt(n.gold)}</td></tr>`).join('')}</tbody></table></div><div class="info"><h4>연방준비권 담보 요건</h4><p style="color:var(--text2);line-height:1.6">연방준비권(미국 달러 지폐)은 발행액의 100% 이상을 담보로 보유해야 합니다. 담보는 주로 미국 국채, MBS 등 적격 증권과 금 증서로 구성됩니다.</p></div>`;
 }
 
+function svgEsc(s) {
+  return String(s == null ? '' : s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+}
+function chartValueLabel(v) {
+  return '$' + (v / 1e6).toFixed(2) + 'T';
+}
+function chartPointTitle(p) {
+  var wow = p.wow == null ? 'N/A' : fmtChg(Math.round(p.wow));
+  return `${p.date}\nValue: ${chartValueLabel(p.value)}\nWoW: ${wow}`;
+}
+
 function renderCharts() {
   if (savedDataList.length < 2) {
     document.getElementById('charts').innerHTML = `<div class="no-data"><h3>데이터가 부족합니다</h3><p>추이 차트를 보려면 최소 2개 이상의 데이터가 필요합니다.</p><p style="margin-top:16px;color:var(--text3)">현재 저장된 데이터: ${savedDataList.length}개</p></div>`;
@@ -1632,10 +1645,10 @@ function renderCharts() {
     var change = last - first, changePct = (change / first) * 100;
     var w = 360, h = 150, padL = 10, padR = 10, padT = 10, padB = 30;
     var chartW = w - padL - padR, chartH = h - padT - padB;
-    var points = data.map((d, i) => ({x:padL+(i/(data.length-1))*chartW,y:padT+chartH-((d.value-min)/range)*chartH,...d}));
+    var points = data.map((d, i) => ({x:padL+(i/(data.length-1))*chartW,y:padT+chartH-((d.value-min)/range)*chartH,wow:i===0?null:d.value-data[i-1].value,...d}));
     var pathD = points.map((p, i) => `${i===0?'M':'L'} ${p.x} ${p.y}`).join(' ');
     var areaD = pathD + ` L ${points[points.length-1].x} ${h-padB} L ${padL} ${h-padB} Z`;
-    html += `<div class="chart-card"><h4>${m.kr}</h4><div class="sub">${m.en}</div><div class="chart-stats"><div class="chart-stat"><div class="label">현재</div><div class="value">$${(last/1e6).toFixed(2)}T</div></div><div class="chart-stat"><div class="label">변동</div><div class="change ${chgClass(change)}">${fmtChg(Math.round(change))} (${fmtPct(changePct)})</div></div></div><svg class="chart-svg" viewBox="0 0 ${w} ${h}"><path class="chart-area" d="${areaD}" /><path class="chart-line" d="${pathD}" />${points.map(p => `<circle class="chart-dot" cx="${p.x}" cy="${p.y}" r="4" />`).join('')}<text class="chart-label" x="${padL}" y="${h-8}">${data[0].date.split(',')[0]}</text><text class="chart-label" x="${w-padR}" y="${h-8}" text-anchor="end">${data[data.length-1].date.split(',')[0]}</text></svg></div>`;
+    html += `<div class="chart-card"><h4>${m.kr}</h4><div class="sub">${m.en}</div><div class="chart-stats"><div class="chart-stat"><div class="label">현재</div><div class="value">$${(last/1e6).toFixed(2)}T</div></div><div class="chart-stat"><div class="label">변동</div><div class="change ${chgClass(change)}">${fmtChg(Math.round(change))} (${fmtPct(changePct)})</div></div></div><svg class="chart-svg" viewBox="0 0 ${w} ${h}"><path class="chart-area" d="${areaD}" /><path class="chart-line" d="${pathD}" />${points.map(p => `<g class="chart-point"><circle class="chart-dot" cx="${p.x}" cy="${p.y}" r="4" /><circle class="chart-hit" cx="${p.x}" cy="${p.y}" r="11"><title>${svgEsc(chartPointTitle(p))}</title></circle></g>`).join('')}<text class="chart-label" x="${padL}" y="${h-8}">${data[0].date.split(',')[0]}</text><text class="chart-label" x="${w-padR}" y="${h-8}" text-anchor="end">${data[data.length-1].date.split(',')[0]}</text></svg></div>`;
   });
   html += '</div>';
   document.getElementById('charts').innerHTML = html;
