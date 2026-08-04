@@ -892,27 +892,39 @@ async function fetchUsNewsSource(sourceKey){
     'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(source.feed),
     'https://corsproxy.io/?'+encodeURIComponent(source.feed)
   ];
-  const attempts=proxyUrls.map(async url=>{
-    const res=await fetchT(url,6500);
-    if(!res.ok)throw new Error('feed '+res.status);
-    const text=await res.text();
-    if(url.includes('rss2json')){
-      const data=JSON.parse(text);
-      if(data.status!=='ok'||!data.items?.length)throw new Error('empty json feed');
-      return data.items.slice(0,12).map(item=>({
-        title:stripNewsHtml(item.title||'').replace(/\s+-\s+(Reuters|The Wall Street Journal|WSJ(?:\.com)?)$/i,'').trim(),
-        link:String(item.link||'').trim(),
-        pubDate:item.pubDate||'',
-        summary:stripNewsHtml(item.description||item.content||''),
-        sourceKey,
-        source:source.name
-      })).filter(item=>item.title&&/^https?:\/\//i.test(item.link));
-    }
-    return parseUsNewsFeed(text,sourceKey);
-  });
-  const items=await Promise.any(attempts);
-  if(!items.length)throw new Error('empty feed');
-  return items;
+  for(const url of proxyUrls){
+    try{
+      const res=await fetchT(url,6500);
+      if(!res.ok)continue;
+      const text=await res.text();
+      let items=[];
+      if(url.includes('rss2json')){
+        const data=JSON.parse(text);
+        if(data.status!=='ok'||!data.items?.length)continue;
+        items=data.items.slice(0,12).map(item=>({
+          title:stripNewsHtml(item.title||'').replace(/\s+-\s+(Reuters|The Wall Street Journal|WSJ(?:\.com)?)$/i,'').trim(),
+          link:String(item.link||'').trim(),
+          pubDate:item.pubDate||'',
+          summary:stripNewsHtml(item.description||item.content||''),
+          sourceKey,
+          source:source.name
+        })).filter(item=>item.title&&/^https?:\/\//i.test(item.link));
+      }else{
+        items=parseUsNewsFeed(text,sourceKey);
+      }
+      if(items.length)return items;
+    }catch(error){}
+  }
+  throw new Error('empty feed');
+}
+function readUsNewsCache(){
+  try{
+    const cached=JSON.parse(localStorage.getItem('economicAtlasUsNewsCache')||'null');
+    return cached&&Array.isArray(cached.items)?cached:{items:[],savedAt:0};
+  }catch(error){return {items:[],savedAt:0};}
+}
+function writeUsNewsCache(items){
+  try{localStorage.setItem('economicAtlasUsNewsCache',JSON.stringify({items,savedAt:Date.now()}));}catch(error){}
 }
 function usNewsTime(value){
   const date=new Date(value||'');
@@ -959,7 +971,20 @@ function setUsNewsFilter(sourceKey){
 }
 async function fetchUsNewsDesk(force=false){
   if(usNewsLoading)return;
-  if(!force&&usNewsItems.length&&Date.now()-usNewsFetchedAt<300000){renderUsNewsDesk();return;}
+  const cached=readUsNewsCache();
+  if(!usNewsItems.length&&cached.items.length&&Date.now()-cached.savedAt<7200000){
+    usNewsItems=cached.items;
+    usNewsFetchedAt=cached.savedAt;
+  }
+  if(!force&&usNewsItems.length&&Date.now()-usNewsFetchedAt<300000){
+    const cachedStatus=document.getElementById('usNewsStatus');
+    if(cachedStatus&&cachedStatus.textContent==='피드 대기 중'){
+      cachedStatus.className='us-news-status ok';
+      cachedStatus.textContent='CACHE · '+usNewsItems.length+' HEADLINES · KST '+new Date(usNewsFetchedAt).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+    }
+    renderUsNewsDesk();
+    return;
+  }
   const content=document.getElementById('usNewsContent');
   const status=document.getElementById('usNewsStatus');
   const refresh=document.getElementById('usNewsRefresh');
@@ -970,13 +995,17 @@ async function fetchUsNewsDesk(force=false){
   status.textContent='5개 출처 갱신 중';
   content.innerHTML='<div class="us-news-loading">미국 주요 뉴스 피드를 불러오는 중...</div>';
   const entries=Object.keys(US_NEWS_SOURCES);
+  const previousItems=usNewsItems.slice();
   const settled=await Promise.allSettled(entries.map(fetchUsNewsSource));
-  usNewsItems=dedupeNews(settled.flatMap(result=>result.status==='fulfilled'?result.value.map(item=>({...item,_src:item.source})):[]).map(item=>({...item,url:item.link}))).map(item=>({...item,link:item.link||item.url}))
+  const failedSources=entries.filter((key,index)=>settled[index].status!=='fulfilled');
+  const fallbackItems=previousItems.filter(item=>failedSources.includes(item.sourceKey));
+  usNewsItems=dedupeNews(settled.flatMap(result=>result.status==='fulfilled'?result.value.map(item=>({...item,_src:item.source})):[]).concat(fallbackItems).map(item=>({...item,url:item.link}))).map(item=>({...item,link:item.link||item.url}))
     .sort((a,b)=>new Date(b.pubDate||0)-new Date(a.pubDate||0));
   usNewsFetchedAt=Date.now();
   const liveSources=settled.filter(result=>result.status==='fulfilled').length;
   status.className='us-news-status '+(liveSources===entries.length?'ok':'warn');
-  status.textContent=liveSources+'/'+entries.length+' SOURCES · '+usNewsItems.length+' HEADLINES · KST '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+  status.textContent=liveSources+'/'+entries.length+' LIVE'+(fallbackItems.length?' · CACHE '+failedSources.length:'')+' · '+usNewsItems.length+' HEADLINES · KST '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+  if(usNewsItems.length)writeUsNewsCache(usNewsItems);
   usNewsLoading=false;
   refresh.disabled=false;
   renderUsNewsDesk();
