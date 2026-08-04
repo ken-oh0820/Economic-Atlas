@@ -150,6 +150,7 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
 .indicator-dashboard{flex:1;overflow:auto;background:var(--bg);padding:18px 18px 28px}.dashboard-shell{max-width:1480px;margin:0 auto}.dashboard-top{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px}.dashboard-kicker{font-size:10px;letter-spacing:2px;color:var(--accent);font-family:'IBM Plex Mono',monospace;margin-bottom:6px}.dashboard-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:5px;color:var(--text)}.dashboard-sub{font-size:11px;color:var(--text-mid);line-height:1.7;margin-top:4px}.dashboard-status{border:1px solid var(--border);background:var(--surface);padding:9px 12px;font-size:10px;color:var(--text-mid);font-family:'IBM Plex Mono',monospace;white-space:nowrap}.indicator-grid{display:grid;grid-template-columns:repeat(4,minmax(170px,1fr));gap:10px;margin-bottom:16px}.indicator-card{background:var(--surface);border:1px solid var(--border);padding:12px;min-height:112px}.indicator-group{font-size:9px;letter-spacing:1.4px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px}.indicator-name{font-size:13px;color:var(--text);font-weight:600;margin-bottom:8px}.indicator-value{font-family:'IBM Plex Mono',monospace;font-size:22px;color:var(--accent);margin-bottom:6px}.indicator-note{font-size:10px;color:var(--text-mid);line-height:1.5}.dashboard-sections{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}.dashboard-panel{background:var(--surface);border:1px solid var(--border);padding:14px}.dashboard-panel-title{font-size:10px;letter-spacing:2px;color:var(--text-dim);margin-bottom:12px;text-transform:uppercase}.watch-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.watch-row{display:flex;justify-content:space-between;gap:10px;border:1px solid var(--rank-border);padding:9px 10px;font-size:11px;color:var(--text-mid)}.watch-row span:last-child{font-family:'IBM Plex Mono',monospace;color:var(--text)}.roadmap-list{font-size:11px;color:var(--text-mid);line-height:1.9}.roadmap-list b{color:var(--text)}
 .fed-dashboard{flex:1;display:none;flex-direction:column;background:var(--bg);min-height:0}.fed-frame-toolbar{height:38px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 14px;border-bottom:1px solid var(--border);background:var(--surface);font-size:10px;color:var(--text-mid);font-family:'IBM Plex Mono',monospace}.fed-frame-title{color:var(--text);letter-spacing:1.4px}.fed-open-link{color:var(--accent);text-decoration:none;border:1px solid var(--border);padding:5px 8px;background:var(--surface2)}.fed-open-link:hover{border-color:var(--accent)}.fed-frame{flex:1;width:100%;border:0;background:#05080d;min-height:0}
 .sites-dashboard{display:none;flex:1;overflow:auto;background:var(--bg);padding:18px 18px 28px}.sites-shell{max-width:1320px;margin:0 auto}.sites-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.sites-panel{background:var(--surface);border:1px solid var(--border);padding:14px;min-height:220px}.sites-panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid var(--rank-border);padding-bottom:10px;margin-bottom:10px}.sites-country{font-size:18px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px}.sites-note{font-size:10px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;text-align:right}.site-link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.site-card{display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:150px;border:1px solid var(--rank-border);background:rgba(0,0,0,.08);padding:12px;color:var(--text);transition:border-color .16s,background .16s,transform .16s}.site-card:hover{border-color:var(--accent);background:rgba(0,212,255,.055);transform:translateY(-1px)}.site-card.disabled{opacity:.55;pointer-events:none}.site-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.site-name{font-size:14px;font-weight:800;color:var(--text)}.site-desc{font-size:10px;color:var(--text-mid);line-height:1.55;margin-top:4px}.site-help-btn{width:26px;height:26px;border:1px solid var(--text-mid);background:rgba(255,255,255,.02);color:var(--text);font-size:14px;font-weight:900;line-height:1;cursor:pointer;font-family:'IBM Plex Mono',monospace;flex:0 0 auto}.site-help-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.08)}.site-tag{font-size:9px;color:var(--accent);font-family:'IBM Plex Mono',monospace;letter-spacing:.8px;text-decoration:none;align-self:flex-start}.site-tag:hover{text-decoration:underline}.site-empty{border:1px dashed var(--rank-border);padding:14px;color:var(--text-dim);font-size:11px;line-height:1.7;min-height:132px;display:flex;align-items:center}.site-help-modal{position:fixed;inset:0;z-index:6200;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.62);backdrop-filter:blur(6px)}.site-help-modal.show{display:flex}.site-help-dialog{width:min(760px,100%);max-height:86vh;overflow:auto;background:var(--tooltip-bg);border:1px solid var(--border);box-shadow:0 18px 60px rgba(0,0,0,.42);padding:18px}.site-help-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid var(--rank-border);padding-bottom:12px;margin-bottom:12px}.site-help-kicker{font-size:10px;color:var(--accent);font-family:'IBM Plex Mono',monospace;letter-spacing:1.6px}.site-help-title{font-size:22px;font-weight:900;color:var(--text);margin-top:4px}.site-help-close{width:30px;height:30px;border:1px solid var(--border);background:var(--surface2);color:var(--text-mid);cursor:pointer;font-size:18px}.site-help-close:hover{border-color:var(--accent);color:var(--accent)}.site-help-body{font-size:11px;color:var(--text-mid);line-height:1.75}.site-help-section{margin-top:14px}.site-help-section:first-child{margin-top:0}.site-help-section h4{font-size:12px;color:var(--text);margin-bottom:6px;letter-spacing:.8px}.site-help-section ul{padding-left:16px}.site-help-section li{margin:4px 0}.site-help-terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.site-help-term{border:1px solid var(--rank-border);background:rgba(0,0,0,.12);padding:8px}.site-help-term b{display:block;color:var(--text);font-size:10px;margin-bottom:3px}.site-help-note{border-left:3px solid var(--accent4);padding:8px 10px;background:rgba(255,215,0,.05);color:var(--text-mid);margin-top:12px}
+.us-news-desk{margin-top:12px;background:var(--surface);border:1px solid var(--border);padding:14px}.us-news-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-bottom:12px;border-bottom:1px solid var(--rank-border)}.us-news-title{font-size:18px;font-weight:900;color:var(--text);letter-spacing:.6px}.us-news-sub{font-size:10px;color:var(--text-mid);line-height:1.65;margin-top:5px}.us-news-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.us-news-status{font-size:9px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;white-space:nowrap}.us-news-status.ok{color:var(--accent)}.us-news-status.warn{color:#ffcc00}.us-news-refresh{width:30px;height:30px;border:1px solid var(--border);background:var(--surface2);color:var(--accent);font-size:15px;cursor:pointer}.us-news-refresh:hover{border-color:var(--accent);background:rgba(0,212,255,.08)}.us-news-refresh:disabled{opacity:.45;cursor:wait}.us-news-tabs{display:flex;gap:6px;flex-wrap:wrap;padding:12px 0}.us-news-tab{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text-mid);font-size:10px;font-family:'IBM Plex Mono',monospace;padding:7px 9px;cursor:pointer}.us-news-tab:hover,.us-news-tab.active{border-color:var(--accent);color:var(--accent);background:rgba(0,212,255,.07)}.us-news-count{min-width:17px;text-align:center;color:var(--text-dim);font-size:8px}.us-news-tab.active .us-news-count{color:var(--accent)}.us-news-source-link{margin-left:auto;color:var(--accent);border:1px solid rgba(0,212,255,.28);text-decoration:none;font-size:9px;font-family:'IBM Plex Mono',monospace;padding:7px 9px;white-space:nowrap}.us-news-source-link:hover{border-color:var(--accent);background:rgba(0,212,255,.08)}.us-news-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);border-top:1px solid var(--rank-border);min-height:330px}.us-news-lead{display:flex;flex-direction:column;justify-content:space-between;gap:18px;padding:18px 18px 16px 2px;border-right:1px solid var(--rank-border);text-decoration:none;color:inherit}.us-news-lead:hover .us-news-lead-title{color:var(--accent)}.us-news-kicker{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:9px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace}.us-news-source{color:var(--accent);font-weight:700;letter-spacing:.8px}.us-news-lead-title{font-size:24px;line-height:1.35;color:var(--text);font-weight:900;margin-top:12px;transition:color .15s}.us-news-summary{font-size:11px;color:var(--text-mid);line-height:1.75;margin-top:12px;max-width:620px}.us-news-open{font-size:9px;color:var(--accent);font-family:'IBM Plex Mono',monospace;letter-spacing:.8px}.us-news-list{display:flex;flex-direction:column;padding-left:16px}.us-news-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:start;padding:12px 2px;border-bottom:1px solid var(--rank-border);text-decoration:none;color:inherit}.us-news-row:last-child{border-bottom:0}.us-news-row:hover .us-news-row-title{color:var(--accent)}.us-news-index{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--text-dim);line-height:1}.us-news-row-title{font-size:11px;color:var(--text);line-height:1.55;font-weight:700;transition:color .15s}.us-news-row-meta{font-size:8px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;margin-top:4px}.us-news-row-arrow{color:var(--text-dim);font-size:12px}.us-news-loading,.us-news-empty{grid-column:1/-1;display:flex;align-items:center;justify-content:center;min-height:300px;color:var(--text-dim);font-size:10px;line-height:1.8;text-align:center;font-family:'IBM Plex Mono',monospace}.us-news-empty a{color:var(--accent)}
 .market-refresh-btn{background:var(--surface2);border:1px solid var(--border);color:var(--accent);font-size:10px;padding:7px 10px;cursor:pointer;font-family:'IBM Plex Mono',monospace;white-space:nowrap}.market-refresh-btn:hover{border-color:var(--accent);background:rgba(0,212,255,.08)}.dashboard-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.dashboard-status.ok{color:var(--accent);border-color:rgba(0,212,255,.45)}.dashboard-status.warn{color:#ffcc00;border-color:rgba(255,204,0,.45)}.dashboard-status.error{color:#ff6666;border-color:rgba(255,102,102,.45)}.indicator-card{position:relative}.indicator-card.row-break{grid-column:1}.indicator-card[data-chart-key],.watch-row[data-chart-key]{cursor:pointer;transition:border-color .16s,background .16s,transform .16s}.indicator-card[data-chart-key]:hover,.indicator-card.chart-active{border-color:var(--accent);background:rgba(0,212,255,.055)}.indicator-card[data-chart-key]:hover{transform:translateY(-1px)}.watch-row[data-chart-key]:hover,.watch-row.chart-active{border-color:var(--accent);background:rgba(0,212,255,.045)}.indicator-value.loading{color:var(--text-dim);font-size:15px}.indicator-change{font-family:'IBM Plex Mono',monospace;font-size:11px;min-height:16px}.indicator-source{font-size:9px;color:var(--text-dim);margin-top:6px;line-height:1.4}.market-up{color:#00ff88}.market-down{color:#ff4d6d}.market-flat{color:var(--text-dim)}.watch-row span:last-child.loading{color:var(--text-dim)}.market-chart-panel{margin-bottom:16px}.market-chart-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}.market-chart-head>div:first-child{min-width:0}.market-chart-meta{font-size:10px;color:var(--text-mid);font-family:'IBM Plex Mono',monospace;line-height:1.5;word-break:keep-all}.chart-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;flex-shrink:0}.chart-range-tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.chart-range-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text-mid);font-size:10px;padding:5px 8px;font-family:'IBM Plex Mono',monospace;cursor:pointer}.chart-range-btn.active,.chart-range-btn:hover{border-color:var(--accent);color:var(--accent)}.tradingview-link{background:rgba(0,212,255,.06);border:1px solid var(--border);color:var(--accent);font-size:10px;padding:5px 9px;font-family:'IBM Plex Mono',monospace;text-decoration:none;white-space:nowrap}.tradingview-link:hover{border-color:var(--accent);background:rgba(0,212,255,.12)}.market-chart-canvas{height:280px;border:1px solid var(--rank-border);background:rgba(0,0,0,.15);position:relative;overflow:hidden}.market-chart-canvas svg{width:100%;height:100%;display:block}.chart-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:11px;font-family:'IBM Plex Mono',monospace}.chart-axis{fill:var(--text-dim);font-size:9px;font-family:'IBM Plex Mono',monospace}.chart-axis.value{text-anchor:end}.chart-axis.date{text-anchor:middle}.chart-grid{stroke:rgba(120,160,200,.16);stroke-width:1}.source-list{display:grid;gap:7px}.source-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--rank-border);padding:7px 0;font-size:11px;color:var(--text-mid)}.source-row span:last-child{font-family:'IBM Plex Mono',monospace;color:var(--text-dim);text-align:right}.source-row.ok span:last-child{color:var(--accent)}.source-row.warn span:last-child{color:#ffcc00}.source-row.error span:last-child{color:#ff6666}
 .site-help-example{border:1px solid var(--rank-border);background:rgba(0,0,0,.16);padding:8px;margin-top:8px;overflow:auto}.site-help-example img{display:block;width:100%;min-width:620px;height:auto}.site-help-caption{font-size:9px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;margin-top:6px}
 .site-help-dialog{width:min(1180px,96vw);max-height:90vh}.site-help-example img{min-width:1200px}
@@ -160,7 +161,8 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
 .bond-panel{margin-bottom:16px}.bond-country{border-top:1px solid var(--rank-border);padding-top:10px;margin-top:10px}.bond-country:first-of-type{border-top:none;padding-top:0;margin-top:0}.bond-country-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.bond-country-name{font-size:13px;color:var(--text);font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:7px}.bond-flag{font-size:17px;line-height:1}.bond-country-note{font-size:9px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;text-align:right}.bond-grid{display:grid;grid-template-columns:repeat(8,minmax(94px,1fr));gap:7px}.bond-card{border:1px solid var(--rank-border);background:rgba(0,0,0,.08);padding:9px;min-height:112px}.bond-card.spread{background:rgba(0,212,255,.035)}.bond-tenor{display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#07121d;letter-spacing:.3px;border-radius:4px;padding:4px 8px;margin-bottom:8px;box-shadow:0 0 12px rgba(0,212,255,.16)}.bond-tenor-3m{background:linear-gradient(90deg,#38f5ff,#00b7ff);border:1px solid rgba(56,245,255,.55)}.bond-tenor-1y{background:linear-gradient(90deg,#56d6ff,#3f8cff);border:1px solid rgba(86,214,255,.55);color:#061326}.bond-tenor-2y{background:linear-gradient(90deg,#7196ff,#505dff);border:1px solid rgba(113,150,255,.55);color:#f4f8ff}.bond-tenor-5y{background:linear-gradient(90deg,#b46cff,#7d5cff);border:1px solid rgba(180,108,255,.55);color:#fff}.bond-tenor-10y{background:linear-gradient(90deg,#8dff7a,#28d66f);border:1px solid rgba(141,255,122,.55);color:#04160b}.bond-tenor-20y{background:linear-gradient(90deg,#ffd45f,#ff9f1a);border:1px solid rgba(255,212,95,.55);color:#1d1000}.bond-tenor-30y{background:linear-gradient(90deg,#ff7da8,#ff4d6d);border:1px solid rgba(255,125,168,.55);color:#fff}.bond-card.spread .bond-tenor{color:#120c00;background:linear-gradient(90deg,#ffcc00,#ff9f1a);border:1px solid rgba(255,204,0,.55);box-shadow:0 0 12px rgba(255,204,0,.14)}.bond-value{font-family:'IBM Plex Mono',monospace;font-size:17px;color:var(--accent);margin-bottom:5px}.bond-change{display:grid;gap:2px;margin-bottom:5px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text-dim);line-height:1.25}.bond-change-row{display:flex;align-items:center;justify-content:space-between;gap:6px}.bond-change-row b{font-weight:700}.bond-change.no-data b{color:var(--warning);font-size:8px}.bond-source{font-size:9px;color:var(--text-dim);line-height:1.35}.bond-card[data-chart-key]{cursor:pointer;transition:border-color .16s,background .16s,transform .16s}.bond-card[data-chart-key]:hover,.bond-card.chart-active{border-color:var(--accent);background:rgba(0,212,255,.055)}.bond-card[data-chart-key]:hover{transform:translateY(-1px)}
 @media(max-width:1180px){.bond-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:980px){.main-menu-title{font-size:48px}.main-menu-grid{grid-template-columns:1fr}.indicator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.indicator-card.row-break,.macro-card.row-break{grid-column:auto}.dashboard-sections,.sites-grid{grid-template-columns:1fr}#usMacroGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.bond-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rate-schedule-grid{grid-template-columns:1fr}.site-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){.main-menu{padding:18px}.main-menu-title{font-size:38px;letter-spacing:5px}.indicator-grid,.watch-list,.bond-grid,.site-link-grid,.site-help-terms{grid-template-columns:1fr}.dashboard-top{align-items:flex-start;flex-direction:column}.indicator-dashboard,.sites-dashboard{padding:14px 12px 24px}.site-help-modal{padding:12px}.site-help-dialog{padding:14px}}
+@media(max-width:980px){.us-news-layout{grid-template-columns:1fr}.us-news-lead{border-right:0;border-bottom:1px solid var(--rank-border);padding-right:2px}.us-news-list{padding-left:0}}
+@media(max-width:560px){.main-menu{padding:18px}.main-menu-title{font-size:38px;letter-spacing:5px}.indicator-grid,.watch-list,.bond-grid,.site-link-grid,.site-help-terms{grid-template-columns:1fr}.dashboard-top,.us-news-head{align-items:flex-start;flex-direction:column}.indicator-dashboard,.sites-dashboard{padding:14px 12px 24px}.site-help-modal{padding:12px}.site-help-dialog{padding:14px}.us-news-actions{width:100%;justify-content:space-between}.us-news-source-link{margin-left:0}.us-news-lead-title{font-size:19px}.us-news-row{grid-template-columns:28px minmax(0,1fr) auto}}
 
 /* Mobile toggle buttons */
 .mobile-toggle{display:none;position:absolute;top:50%;transform:translateY(-50%);width:28px;height:54px;background:var(--ctrl-bg);border:1px solid var(--border);color:var(--accent);font-size:14px;cursor:pointer;z-index:1002;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:0;transition:all 0.2s}
@@ -270,7 +272,7 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
       </button>
       <button class="main-menu-card" onclick="switchView('sites')">
         <span class="menu-card-index">04</span>
-        <span><div class="menu-card-title">투자 관련 사이트</div><div class="menu-card-desc">미국과 한국 투자 리서치에 자주 쓰는 외부 사이트를 국가별로 모아둔 링크 허브입니다.</div></span>
+        <span><div class="menu-card-title">투자 관련 사이트</div><div class="menu-card-desc">투자 리서치 도구와 Reuters·WSJ·백악관 등 미국 주요 뉴스를 함께 보는 정보 허브입니다.</div></span>
         <span class="menu-card-enter">OPEN SITE HUB →</span>
       </button>
     </div>
@@ -538,9 +540,9 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
       <div>
         <div class="dashboard-kicker">INVESTMENT LINKS · RESEARCH HUB</div>
         <div class="dashboard-title">투자 관련 사이트</div>
-        <div class="dashboard-sub">미국과 한국 투자 리서치에 자주 쓰는 외부 사이트를 국가별로 정리합니다.</div>
+        <div class="dashboard-sub">투자 리서치 도구와 미국 주요 매체의 최신 시장 뉴스를 한 화면에서 확인합니다.</div>
       </div>
-      <div class="dashboard-status ok">SITE HUB · 3 LINKS</div>
+      <div class="dashboard-status ok">3 TOOLS · 5 NEWS SOURCES</div>
     </div>
     <div class="sites-grid">
       <section class="sites-panel">
@@ -580,6 +582,31 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
         <div class="site-empty">한국 투자 관련 사이트는 다음 단계에서 추가할 자리입니다.</div>
       </section>
     </div>
+    <section class="us-news-desk" aria-labelledby="usNewsDeskTitle">
+      <div class="us-news-head">
+        <div>
+          <div class="dashboard-kicker">UNITED STATES · MARKET INTELLIGENCE</div>
+          <div class="us-news-title" id="usNewsDeskTitle">US MARKET NEWS DESK</div>
+          <div class="us-news-sub">Reuters, Investing.com, 백악관, Washington Post, WSJ의 최신 헤드라인을 한국시간 기준으로 모아봅니다.</div>
+        </div>
+        <div class="us-news-actions">
+          <span class="us-news-status" id="usNewsStatus">피드 대기 중</span>
+          <button class="us-news-refresh" id="usNewsRefresh" type="button" onclick="fetchUsNewsDesk(true)" title="뉴스 새로고침" aria-label="뉴스 새로고침">↻</button>
+        </div>
+      </div>
+      <div class="us-news-tabs" id="usNewsTabs" role="tablist" aria-label="뉴스 출처 선택">
+        <button class="us-news-tab active" type="button" data-source="all" onclick="setUsNewsFilter('all',this)" aria-pressed="true">ALL <span class="us-news-count">0</span></button>
+        <button class="us-news-tab" type="button" data-source="reuters" onclick="setUsNewsFilter('reuters',this)" aria-pressed="false">REUTERS <span class="us-news-count">0</span></button>
+        <button class="us-news-tab" type="button" data-source="investing" onclick="setUsNewsFilter('investing',this)" aria-pressed="false">INVESTING <span class="us-news-count">0</span></button>
+        <button class="us-news-tab" type="button" data-source="whitehouse" onclick="setUsNewsFilter('whitehouse',this)" aria-pressed="false">WHITE HOUSE <span class="us-news-count">0</span></button>
+        <button class="us-news-tab" type="button" data-source="washingtonpost" onclick="setUsNewsFilter('washingtonpost',this)" aria-pressed="false">WASHINGTON POST <span class="us-news-count">0</span></button>
+        <button class="us-news-tab" type="button" data-source="wsj" onclick="setUsNewsFilter('wsj',this)" aria-pressed="false">WSJ <span class="us-news-count">0</span></button>
+        <a class="us-news-source-link" id="usNewsSourceLink" href="https://www.reuters.com/markets/" target="_blank" rel="noopener noreferrer">OPEN NEWS SOURCES ↗</a>
+      </div>
+      <div class="us-news-layout" id="usNewsContent" aria-live="polite">
+        <div class="us-news-loading">뉴스 메뉴를 열면 최신 헤드라인을 불러옵니다.</div>
+      </div>
+    </section>
   </div>
 </div>
 <div class="site-help-modal" id="siteHelpModal" onclick="if(event.target===this)closeSiteHelp()">
@@ -831,12 +858,136 @@ function closeSiteHelp(){
   document.getElementById('siteHelpModal').classList.remove('show');
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSiteHelp();});
+const US_NEWS_SOURCES={
+  reuters:{name:'Reuters',site:'https://www.reuters.com/markets/',feed:'https://news.google.com/rss/search?q=when%3A2d%20site%3Areuters.com%20(markets%20OR%20economy%20OR%20Federal%20Reserve)&hl=en-US&gl=US&ceid=US%3Aen'},
+  investing:{name:'Investing.com',site:'https://www.investing.com/news/',feed:'https://www.investing.com/rss/news.rss'},
+  whitehouse:{name:'The White House',site:'https://www.whitehouse.gov/news/',feed:'https://www.whitehouse.gov/news/feed/'},
+  washingtonpost:{name:'Washington Post',site:'https://www.washingtonpost.com/business/',feed:'https://feeds.washingtonpost.com/rss/business'},
+  wsj:{name:'The Wall Street Journal',site:'https://www.wsj.com/news/markets',feed:'https://news.google.com/rss/search?q=when%3A7d%20site%3Awsj.com&hl=en-US&gl=US&ceid=US%3Aen'}
+};
+let usNewsItems=[],usNewsFilter='all',usNewsLoading=false,usNewsFetchedAt=0;
+function parseUsNewsFeed(text,sourceKey){
+  const source=US_NEWS_SOURCES[sourceKey];
+  const xml=new DOMParser().parseFromString(text,'text/xml');
+  if(xml.querySelector('parsererror'))throw new Error('invalid rss');
+  return [...xml.querySelectorAll('item, entry')].slice(0,12).map(item=>{
+    const linkEl=item.querySelector('link');
+    const rawTitle=stripNewsHtml(item.querySelector('title')?.textContent||'');
+    const title=rawTitle.replace(/\s+-\s+(Reuters|The Wall Street Journal|WSJ(?:\.com)?)$/i,'').trim();
+    return {
+      title,
+      link:(linkEl?.textContent||linkEl?.getAttribute('href')||'').trim(),
+      pubDate:item.querySelector('pubDate, published, updated')?.textContent||'',
+      summary:stripNewsHtml(item.querySelector('description, summary')?.textContent||''),
+      sourceKey,
+      source:source.name
+    };
+  }).filter(item=>item.title&&/^https?:\/\//i.test(item.link));
+}
+async function fetchUsNewsSource(sourceKey){
+  const source=US_NEWS_SOURCES[sourceKey];
+  const proxyUrls=[
+    'https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(source.feed)+'&count=12',
+    'https://api.allorigins.win/raw?url='+encodeURIComponent(source.feed)+'&_='+Date.now(),
+    'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(source.feed),
+    'https://corsproxy.io/?'+encodeURIComponent(source.feed)
+  ];
+  const attempts=proxyUrls.map(async url=>{
+    const res=await fetchT(url,6500);
+    if(!res.ok)throw new Error('feed '+res.status);
+    const text=await res.text();
+    if(url.includes('rss2json')){
+      const data=JSON.parse(text);
+      if(data.status!=='ok'||!data.items?.length)throw new Error('empty json feed');
+      return data.items.slice(0,12).map(item=>({
+        title:stripNewsHtml(item.title||'').replace(/\s+-\s+(Reuters|The Wall Street Journal|WSJ(?:\.com)?)$/i,'').trim(),
+        link:String(item.link||'').trim(),
+        pubDate:item.pubDate||'',
+        summary:stripNewsHtml(item.description||item.content||''),
+        sourceKey,
+        source:source.name
+      })).filter(item=>item.title&&/^https?:\/\//i.test(item.link));
+    }
+    return parseUsNewsFeed(text,sourceKey);
+  });
+  const items=await Promise.any(attempts);
+  if(!items.length)throw new Error('empty feed');
+  return items;
+}
+function usNewsTime(value){
+  const date=new Date(value||'');
+  if(isNaN(date))return '시간 미표기';
+  return date.toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+function updateUsNewsTabs(){
+  document.querySelectorAll('.us-news-tab').forEach(button=>{
+    const key=button.dataset.source;
+    const count=key==='all'?usNewsItems.length:usNewsItems.filter(item=>item.sourceKey===key).length;
+    button.querySelector('.us-news-count').textContent=count;
+    button.classList.toggle('active',key===usNewsFilter);
+    button.setAttribute('aria-pressed',key===usNewsFilter?'true':'false');
+  });
+  const sourceLink=document.getElementById('usNewsSourceLink');
+  if(sourceLink){
+    if(usNewsFilter==='all'){
+      sourceLink.href='https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGxqYUdjU0FtVnVLQUFQAQ?hl=en-US&gl=US&ceid=US%3Aen';
+      sourceLink.textContent='OPEN NEWS SOURCES ↗';
+    }else{
+      sourceLink.href=US_NEWS_SOURCES[usNewsFilter].site;
+      sourceLink.textContent='OPEN '+US_NEWS_SOURCES[usNewsFilter].name.toUpperCase()+' ↗';
+    }
+  }
+}
+function renderUsNewsDesk(){
+  updateUsNewsTabs();
+  const content=document.getElementById('usNewsContent');
+  if(!content)return;
+  const items=(usNewsFilter==='all'?usNewsItems:usNewsItems.filter(item=>item.sourceKey===usNewsFilter)).slice(0,30);
+  if(!items.length){
+    const source=usNewsFilter==='all'?null:US_NEWS_SOURCES[usNewsFilter];
+    content.innerHTML='<div class="us-news-empty">'+(source?'현재 '+escHtml(source.name)+' 피드를 불러오지 못했습니다.<br><a href="'+escHtml(source.site)+'" target="_blank" rel="noopener noreferrer">매체 홈페이지에서 직접 확인 ↗</a>':'불러온 뉴스가 없습니다. 잠시 후 새로고침해 주세요.')+'</div>';
+    return;
+  }
+  const lead=items[0];
+  const summary=lead.summary&&lead.summary!==lead.title?lead.summary.slice(0,260):'최신 기사 원문에서 자세한 내용을 확인할 수 있습니다.';
+  content.innerHTML='<a class="us-news-lead" href="'+escHtml(lead.link)+'" target="_blank" rel="noopener noreferrer"><div><div class="us-news-kicker"><span class="us-news-source">'+escHtml(lead.source)+'</span><span>KST '+escHtml(usNewsTime(lead.pubDate))+'</span></div><div class="us-news-lead-title">'+escHtml(lead.title)+'</div><div class="us-news-summary">'+escHtml(summary)+'</div></div><span class="us-news-open">READ ORIGINAL ↗</span></a><div class="us-news-list">'+items.slice(1,11).map((item,index)=>'<a class="us-news-row" href="'+escHtml(item.link)+'" target="_blank" rel="noopener noreferrer"><span class="us-news-index">'+String(index+2).padStart(2,'0')+'</span><span><span class="us-news-row-title">'+escHtml(item.title)+'</span><span class="us-news-row-meta">'+escHtml(item.source)+' · KST '+escHtml(usNewsTime(item.pubDate))+'</span></span><span class="us-news-row-arrow">↗</span></a>').join('')+'</div>';
+}
+function setUsNewsFilter(sourceKey){
+  if(sourceKey!=='all'&&!US_NEWS_SOURCES[sourceKey])return;
+  usNewsFilter=sourceKey;
+  renderUsNewsDesk();
+}
+async function fetchUsNewsDesk(force=false){
+  if(usNewsLoading)return;
+  if(!force&&usNewsItems.length&&Date.now()-usNewsFetchedAt<300000){renderUsNewsDesk();return;}
+  const content=document.getElementById('usNewsContent');
+  const status=document.getElementById('usNewsStatus');
+  const refresh=document.getElementById('usNewsRefresh');
+  if(!content||!status)return;
+  usNewsLoading=true;
+  refresh.disabled=true;
+  status.className='us-news-status';
+  status.textContent='5개 출처 갱신 중';
+  content.innerHTML='<div class="us-news-loading">미국 주요 뉴스 피드를 불러오는 중...</div>';
+  const entries=Object.keys(US_NEWS_SOURCES);
+  const settled=await Promise.allSettled(entries.map(fetchUsNewsSource));
+  usNewsItems=dedupeNews(settled.flatMap(result=>result.status==='fulfilled'?result.value.map(item=>({...item,_src:item.source})):[]).map(item=>({...item,url:item.link}))).map(item=>({...item,link:item.link||item.url}))
+    .sort((a,b)=>new Date(b.pubDate||0)-new Date(a.pubDate||0));
+  usNewsFetchedAt=Date.now();
+  const liveSources=settled.filter(result=>result.status==='fulfilled').length;
+  status.className='us-news-status '+(liveSources===entries.length?'ok':'warn');
+  status.textContent=liveSources+'/'+entries.length+' SOURCES · '+usNewsItems.length+' HEADLINES · KST '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+  usNewsLoading=false;
+  refresh.disabled=false;
+  renderUsNewsDesk();
+}
 function switchView(view){
   document.body.classList.remove('menu-mode','map-mode','dashboard-mode','fed-mode','sites-mode');
   document.body.classList.add(view==='dashboard'?'dashboard-mode':view==='fed'?'fed-mode':view==='sites'?'sites-mode':view==='map'?'map-mode':'menu-mode');
   if(view==='map'&&map) setTimeout(()=>map.invalidateSize(),80);
   if(view==='dashboard') setTimeout(()=>{renderRateDecisionSchedules();bindMarketChartClicks();fetchMarketDashboard(true);fetchUsMacroDashboard();fetchGlobalRateDashboard();fetchBondYieldDashboard();showMarketChart(currentMarketChartKey);},80);
   if(view==='fed'){const f=document.getElementById('fedFrame');if(f&&f.getAttribute('src')==='about:blank')f.src=f.dataset.src;}
+  if(view==='sites')setTimeout(()=>fetchUsNewsDesk(),80);
 }
 function updateDesktopPanelButtons(){
   const l=document.getElementById('leftDesktopToggle'),r=document.getElementById('rightDesktopToggle');
@@ -2543,6 +2694,7 @@ function initLiveData() {
   setInterval(fetchCommodities, 300000);     // 귀금속: 5분
   setInterval(fetchEnergy, 300000);          // 에너지: 5분
   setInterval(fetchNews, 600000);            // 뉴스: 10분
+  setInterval(()=>{if(document.body.classList.contains('sites-mode'))fetchUsNewsDesk(true);},600000); // 미국 뉴스 데스크: 10분
   marketTimer=setInterval(fetchMarketDashboard, 60000); // 지표: 1분
   setInterval(fetchUsMacroDashboard, 900000); // 미국 매크로: 15분
   setInterval(fetchGlobalRateDashboard, 900000); // 글로벌 금리: 15분
