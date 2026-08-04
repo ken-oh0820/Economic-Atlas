@@ -892,30 +892,30 @@ async function fetchUsNewsSource(sourceKey){
     'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(source.feed),
     'https://corsproxy.io/?'+encodeURIComponent(source.feed)
   ];
-  for(const url of proxyUrls){
-    try{
-      const res=await fetchT(url,6500);
-      if(!res.ok)continue;
-      const text=await res.text();
-      let items=[];
-      if(url.includes('rss2json')){
-        const data=JSON.parse(text);
-        if(data.status!=='ok'||!data.items?.length)continue;
-        items=data.items.slice(0,12).map(item=>({
-          title:stripNewsHtml(item.title||'').replace(/\s+-\s+(Reuters|The Wall Street Journal|WSJ(?:\.com)?)$/i,'').trim(),
-          link:String(item.link||'').trim(),
-          pubDate:item.pubDate||'',
-          summary:stripNewsHtml(item.description||item.content||''),
-          sourceKey,
-          source:source.name
-        })).filter(item=>item.title&&/^https?:\/\//i.test(item.link));
-      }else{
-        items=parseUsNewsFeed(text,sourceKey);
-      }
-      if(items.length)return items;
-    }catch(error){}
+  async function readProxy(url){
+    const res=await fetchT(url,url.includes('rss2json')?5000:6500);
+    if(!res.ok)throw new Error('feed '+res.status);
+    const text=await res.text();
+    let items=[];
+    if(url.includes('rss2json')){
+      const data=JSON.parse(text);
+      if(data.status!=='ok'||!data.items?.length)throw new Error('empty json feed');
+      items=data.items.slice(0,12).map(item=>({
+        title:stripNewsHtml(item.title||'').replace(/\s+-\s+(Reuters|The Wall Street Journal|WSJ(?:\.com)?)$/i,'').trim(),
+        link:String(item.link||'').trim(),
+        pubDate:item.pubDate||'',
+        summary:stripNewsHtml(item.description||item.content||''),
+        sourceKey,
+        source:source.name
+      })).filter(item=>item.title&&/^https?:\/\//i.test(item.link));
+    }else{
+      items=parseUsNewsFeed(text,sourceKey);
+    }
+    if(!items.length)throw new Error('empty feed');
+    return items;
   }
-  throw new Error('empty feed');
+  try{return await readProxy(proxyUrls[0]);}catch(error){}
+  try{return await Promise.any(proxyUrls.slice(1).map(readProxy));}catch(error){throw new Error('empty feed');}
 }
 function readUsNewsCache(){
   try{
