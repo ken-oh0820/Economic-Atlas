@@ -158,12 +158,13 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
 .sentiment-extreme-fear{color:#ff3344}.sentiment-fear{color:#ff9f1a}.sentiment-neutral{color:#dce3ea}.sentiment-greed{color:#9dff57}.sentiment-extreme-greed{color:#00d46a}
 .macro-panel{margin-bottom:16px}.macro-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}.macro-sub{font-size:10px;color:var(--text-mid);line-height:1.5}.macro-badge{font-size:10px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;border:1px solid var(--border);background:var(--surface2);padding:6px 9px;white-space:nowrap}.macro-badge.ok{color:var(--accent);border-color:rgba(0,212,255,.45)}.macro-badge.warn{color:#ffcc00;border-color:rgba(255,204,0,.45)}.macro-grid{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:8px}#usMacroGrid{grid-template-columns:repeat(4,minmax(130px,1fr))}.macro-card{border:1px solid var(--rank-border);background:rgba(0,0,0,.08);padding:10px;min-height:96px}.macro-card.row-break{grid-column:1}.macro-group{font-size:9px;color:var(--text-dim);letter-spacing:1.1px;text-transform:uppercase;margin-bottom:6px}.macro-name{font-size:12px;color:var(--text);font-weight:600;margin-bottom:6px}.macro-value{font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--accent);margin-bottom:4px}.macro-change{font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:1.5;min-height:30px}.macro-source{font-size:9px;color:var(--text-dim);margin-top:6px;line-height:1.4}
 .macro-card[data-chart-key]{cursor:pointer;transition:border-color .16s,background .16s,transform .16s}.macro-card[data-chart-key]:hover,.macro-card.chart-active{border-color:var(--accent);background:rgba(0,212,255,.045)}.macro-card[data-chart-key]:hover{transform:translateY(-1px)}
+.basis-monitor{margin-top:18px;padding-top:15px;border-top:1px solid var(--rank-border)}.basis-monitor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:10px}.basis-monitor-title{font-size:12px;font-weight:800;color:var(--text);letter-spacing:1.5px}.basis-monitor-sub{font-size:9px;color:var(--text-mid);line-height:1.55;margin-top:5px;max-width:880px}.basis-risk-badge{font-size:9px;font-family:'IBM Plex Mono',monospace;letter-spacing:.7px;padding:6px 8px;border:1px solid var(--border);color:var(--text-dim);white-space:nowrap}.basis-risk-badge.calm{color:#00ff88;border-color:rgba(0,255,136,.4)}.basis-risk-badge.watch{color:#ffcc00;border-color:rgba(255,204,0,.45)}.basis-risk-badge.alert{color:#ff4d6d;border-color:rgba(255,77,109,.48)}.basis-scroll{overflow-x:auto;border-top:1px solid var(--rank-border);border-bottom:1px solid var(--rank-border);background:linear-gradient(90deg,rgba(0,212,255,.035),rgba(255,255,255,.01) 45%,rgba(255,204,0,.025))}.basis-strip{display:grid;grid-template-columns:repeat(5,minmax(190px,1fr));min-width:960px}.basis-metric{position:relative;min-width:0;padding:14px 13px 13px}.basis-metric:before{content:"";position:absolute;left:13px;right:13px;top:0;height:2px;background:var(--basis-tone,var(--accent))}.basis-metric.info{--basis-tone:#00d4ff}.basis-metric.calm{--basis-tone:#00ff88}.basis-metric.watch{--basis-tone:#ffcc00}.basis-metric.alert{--basis-tone:#ff4d6d}.basis-index{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--basis-tone);letter-spacing:1px;margin-bottom:7px}.basis-name{font-size:11px;color:var(--text);font-weight:800;line-height:1.35;min-height:30px}.basis-value{font-family:'IBM Plex Mono',monospace;font-size:19px;color:var(--basis-tone);margin-top:8px;white-space:nowrap}.basis-change{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text-mid);line-height:1.5;min-height:28px;margin-top:4px}.basis-reading{font-size:9px;color:var(--text-mid);line-height:1.55;min-height:44px;margin-top:7px}.basis-source{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--accent);text-decoration:none;margin-top:8px}.basis-source:hover{text-decoration:underline}.basis-method-note{font-size:8px;color:var(--text-dim);line-height:1.5;margin-top:9px}.basis-interpretation{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;padding:12px 2px 10px}.basis-guide-item{font-size:9px;color:var(--text-mid);line-height:1.55}.basis-guide-item b{display:block;color:var(--text);font-size:9px;margin-bottom:4px}.basis-formula{display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1px solid var(--rank-border);padding-top:10px}.basis-formula-code{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#ffcc00;line-height:1.6}.basis-formula-note{font-size:9px;color:var(--text-mid);line-height:1.55;text-align:right;max-width:520px}
 .rate-schedule-panel{margin-bottom:16px;padding:0;overflow:hidden}.rate-schedule-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(90deg,rgba(0,212,255,.08),rgba(255,255,255,.02));border:0;color:var(--text);padding:14px;cursor:pointer;text-align:left}.rate-schedule-title{font-size:12px;font-weight:800;letter-spacing:1.8px;color:var(--text);text-transform:uppercase}.rate-schedule-sub{font-size:10px;color:var(--text-mid);line-height:1.5;margin-top:5px}.rate-schedule-caret{font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:14px;flex-shrink:0}.rate-schedule-body{max-height:0;opacity:0;overflow:hidden;transition:max-height .28s ease,opacity .2s ease,padding .28s ease;padding:0 14px}.rate-schedule-panel.open .rate-schedule-body{max-height:760px;opacity:1;padding:0 14px 14px}.rate-schedule-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.rate-schedule-card{border:1px solid var(--rank-border);background:rgba(0,0,0,.1);padding:11px}.rate-schedule-country{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.rate-schedule-country b{font-size:13px;color:var(--text)}.rate-schedule-link{font-size:9px;color:var(--accent);text-decoration:none;border:1px solid rgba(0,212,255,.34);padding:4px 6px;font-family:'IBM Plex Mono',monospace;white-space:nowrap}.rate-schedule-link:hover{background:rgba(0,212,255,.08);border-color:var(--accent)}.rate-schedule-section{margin-top:9px}.rate-schedule-section-title{font-size:9px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase}.rate-schedule-list{display:grid;gap:5px}.rate-schedule-item{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;border-bottom:1px solid rgba(74,104,141,.24);padding-bottom:5px;font-size:10px;color:var(--text-mid)}.rate-schedule-item .rate-date{color:var(--text);font-weight:800}.rate-schedule-item .rate-time{font-family:'IBM Plex Mono',monospace;text-align:right;color:var(--accent)}.rate-schedule-tag{font-size:8px;font-family:'IBM Plex Mono',monospace;border:1px solid rgba(120,160,200,.25);color:var(--text-dim);padding:2px 4px}.rate-schedule-item.past .rate-schedule-tag{color:#ffcc00;border-color:rgba(255,204,0,.42)}.rate-schedule-item.upcoming .rate-schedule-tag{color:#00d4ff;border-color:rgba(0,212,255,.42)}.rate-schedule-item.placeholder{grid-template-columns:1fr;color:var(--text-dim);font-style:italic}.rate-schedule-note{font-size:9px;color:var(--text-dim);line-height:1.5;margin-top:10px}
 .bond-panel{margin-bottom:16px}.bond-country{border-top:1px solid var(--rank-border);padding-top:10px;margin-top:10px}.bond-country:first-of-type{border-top:none;padding-top:0;margin-top:0}.bond-country-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.bond-country-name{font-size:13px;color:var(--text);font-weight:800;letter-spacing:1px;display:flex;align-items:center;gap:7px}.bond-flag{font-size:17px;line-height:1}.bond-country-note{font-size:9px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;text-align:right}.bond-grid{display:grid;grid-template-columns:repeat(8,minmax(94px,1fr));gap:7px}.bond-card{border:1px solid var(--rank-border);background:rgba(0,0,0,.08);padding:9px;min-height:112px}.bond-card.spread{background:rgba(0,212,255,.035)}.bond-tenor{display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#07121d;letter-spacing:.3px;border-radius:4px;padding:4px 8px;margin-bottom:8px;box-shadow:0 0 12px rgba(0,212,255,.16)}.bond-tenor-3m{background:linear-gradient(90deg,#38f5ff,#00b7ff);border:1px solid rgba(56,245,255,.55)}.bond-tenor-1y{background:linear-gradient(90deg,#56d6ff,#3f8cff);border:1px solid rgba(86,214,255,.55);color:#061326}.bond-tenor-2y{background:linear-gradient(90deg,#7196ff,#505dff);border:1px solid rgba(113,150,255,.55);color:#f4f8ff}.bond-tenor-5y{background:linear-gradient(90deg,#b46cff,#7d5cff);border:1px solid rgba(180,108,255,.55);color:#fff}.bond-tenor-10y{background:linear-gradient(90deg,#8dff7a,#28d66f);border:1px solid rgba(141,255,122,.55);color:#04160b}.bond-tenor-20y{background:linear-gradient(90deg,#ffd45f,#ff9f1a);border:1px solid rgba(255,212,95,.55);color:#1d1000}.bond-tenor-30y{background:linear-gradient(90deg,#ff7da8,#ff4d6d);border:1px solid rgba(255,125,168,.55);color:#fff}.bond-card.spread .bond-tenor{color:#120c00;background:linear-gradient(90deg,#ffcc00,#ff9f1a);border:1px solid rgba(255,204,0,.55);box-shadow:0 0 12px rgba(255,204,0,.14)}.bond-value{font-family:'IBM Plex Mono',monospace;font-size:17px;color:var(--accent);margin-bottom:5px}.bond-change{display:grid;gap:2px;margin-bottom:5px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--text-dim);line-height:1.25}.bond-change-row{display:flex;align-items:center;justify-content:space-between;gap:6px}.bond-change-row b{font-weight:700}.bond-change.no-data b{color:var(--warning);font-size:8px}.bond-source{font-size:9px;color:var(--text-dim);line-height:1.35}.bond-card[data-chart-key]{cursor:pointer;transition:border-color .16s,background .16s,transform .16s}.bond-card[data-chart-key]:hover,.bond-card.chart-active{border-color:var(--accent);background:rgba(0,212,255,.055)}.bond-card[data-chart-key]:hover{transform:translateY(-1px)}
 @media(max-width:1180px){.bond-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:980px){.main-menu-title{font-size:48px}.main-menu-grid{grid-template-columns:1fr}.indicator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.indicator-card.row-break,.macro-card.row-break{grid-column:auto}.dashboard-sections,.sites-grid{grid-template-columns:1fr}#usMacroGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.bond-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rate-schedule-grid{grid-template-columns:1fr}.site-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:980px){.main-menu-title{font-size:48px}.main-menu-grid{grid-template-columns:1fr}.indicator-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.indicator-card.row-break,.macro-card.row-break{grid-column:auto}.dashboard-sections,.sites-grid{grid-template-columns:1fr}#usMacroGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.bond-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rate-schedule-grid{grid-template-columns:1fr}.site-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.basis-interpretation{grid-template-columns:repeat(2,minmax(0,1fr))}.basis-formula{align-items:flex-start;flex-direction:column}.basis-formula-note{text-align:left}}
 @media(max-width:980px){.us-news-layout{grid-template-columns:1fr}.us-news-lead{border-right:0;border-bottom:1px solid var(--rank-border);padding-right:2px}.us-news-list{padding-left:0}}
-@media(max-width:560px){.main-menu{padding:18px}.main-menu-title{font-size:38px;letter-spacing:5px}.indicator-grid,.watch-list,.bond-grid,.site-link-grid,.site-help-terms{grid-template-columns:1fr}.dashboard-top,.us-news-head{align-items:flex-start;flex-direction:column}.indicator-dashboard,.sites-dashboard{padding:14px 12px 24px}.site-help-modal{padding:12px}.site-help-dialog{padding:14px}.us-news-actions{width:100%;justify-content:space-between}.us-news-source-link{margin-left:0}.us-news-lead-title{font-size:19px}.us-news-row{grid-template-columns:28px minmax(0,1fr) auto}}
+@media(max-width:560px){.main-menu{padding:18px}.main-menu-title{font-size:38px;letter-spacing:5px}.indicator-grid,.watch-list,.bond-grid,.site-link-grid,.site-help-terms{grid-template-columns:1fr}.dashboard-top,.us-news-head,.basis-monitor-head{align-items:flex-start;flex-direction:column}.indicator-dashboard,.sites-dashboard{padding:14px 12px 24px}.site-help-modal{padding:12px}.site-help-dialog{padding:14px}.us-news-actions{width:100%;justify-content:space-between}.us-news-source-link{margin-left:0}.us-news-lead-title{font-size:19px}.us-news-row{grid-template-columns:28px minmax(0,1fr) auto}.basis-interpretation{grid-template-columns:1fr}}
 
 /* Mobile toggle buttons */
 .mobile-toggle{display:none;position:absolute;top:50%;transform:translateY(-50%);width:28px;height:54px;background:var(--ctrl-bg);border:1px solid var(--border);color:var(--accent);font-size:14px;cursor:pointer;z-index:1002;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:0;transition:all 0.2s}
@@ -450,6 +451,31 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
       <div class="macro-grid" id="usMacroGrid">
         <div class="macro-card"><div class="data-loading">미국 지표 연결 중...</div></div>
       </div>
+      <section class="basis-monitor" aria-labelledby="basisMonitorTitle">
+        <div class="basis-monitor-head">
+          <div>
+            <div class="basis-monitor-title" id="basisMonitorTitle">TREASURY CASH-FUTURES BASIS RISK MONITOR</div>
+            <div class="basis-monitor-sub">미 국채 현물-선물 차익거래의 수익 유인, 조달비용, 헤지펀드 포지션, 전체 포지션 규모와 시장 유동성 스트레스를 함께 봅니다.</div>
+          </div>
+          <div class="basis-risk-badge" id="basisRiskStatus">BASIS RISK · CONNECTING</div>
+        </div>
+        <div class="basis-scroll">
+          <div class="basis-strip" id="treasuryBasisStrip">
+            <div class="basis-metric info"><div class="data-loading">Basis 지표 연결 중...</div></div>
+          </div>
+        </div>
+        <div class="basis-interpretation">
+          <div class="basis-guide-item"><b>① Basis / OABNOC</b>연준의 연율 수익률 방식에서는 양(+)의 basis가 커질수록 long-basis 유인이 강해집니다. 데이터 공급자에 따라 부호 정의가 반대일 수 있습니다.</div>
+          <div class="basis-guide-item"><b>② SOFR · Repo</b>SOFR 자체보다 IORB 대비 스프레드를 봅니다. 스프레드 급등은 국채 담보 조달비용과 레버리지 유지 부담이 커졌다는 신호입니다.</div>
+          <div class="basis-guide-item"><b>③ Leveraged Funds Net</b>순숏 규모가 커질수록 현물 매수-선물 매도 포지션이 붐볐을 가능성이 큽니다. 급격한 숏 축소는 포지션 청산 신호일 수 있습니다.</div>
+          <div class="basis-guide-item"><b>④ Futures Open Interest</b>미결제약정이 빠르게 늘면 시장에 쌓인 총 포지션이 커집니다. 절대 수준보다 주간 증가율과 롤오버 시기를 함께 확인합니다.</div>
+          <div class="basis-guide-item"><b>⑤ Treasury Liquidity</b>무료 실시간 직접 유동성 지표가 없어 MOVE를 스트레스 프록시로 씁니다. MOVE 상승은 변동성 확대와 강제 청산 충격 가능성을 뜻합니다.</div>
+        </div>
+        <div class="basis-formula">
+          <div class="basis-formula-code">BASIS ↑ + REPO STRESS ↑ + HF SHORT ↑ + MOVE ↑ = UNWIND RISK ↑</div>
+          <div class="basis-formula-note">Basis만 확대되면 차익거래 기회일 수 있습니다. 하지만 조달비용과 변동성이 함께 오르고 헤지펀드 순숏이 큰 상태라면 국채 매도와 선물 숏커버가 동시에 발생할 위험이 커집니다.</div>
+        </div>
+      </section>
     </div>
     <div class="dashboard-panel rate-schedule-panel" id="rateSchedulePanel">
       <button class="rate-schedule-toggle" id="rateScheduleToggle" type="button" onclick="toggleRateSchedule()" aria-expanded="false" aria-controls="rateScheduleBody">
@@ -1027,7 +1053,7 @@ function switchView(view){
   document.body.classList.remove('menu-mode','map-mode','dashboard-mode','fed-mode','sites-mode');
   document.body.classList.add(view==='dashboard'?'dashboard-mode':view==='fed'?'fed-mode':view==='sites'?'sites-mode':view==='map'?'map-mode':'menu-mode');
   if(view==='map'&&map) setTimeout(()=>map.invalidateSize(),80);
-  if(view==='dashboard') setTimeout(()=>{renderRateDecisionSchedules();bindMarketChartClicks();fetchMarketDashboard(true);fetchUsMacroDashboard();fetchGlobalRateDashboard();fetchBondYieldDashboard();showMarketChart(currentMarketChartKey);},80);
+  if(view==='dashboard') setTimeout(()=>{renderRateDecisionSchedules();bindMarketChartClicks();fetchMarketDashboard(true);fetchUsMacroDashboard();fetchTreasuryBasisMonitor();fetchGlobalRateDashboard();fetchBondYieldDashboard();showMarketChart(currentMarketChartKey);},80);
   if(view==='fed'){const f=document.getElementById('fedFrame');if(f&&f.getAttribute('src')==='about:blank')f.src=f.dataset.src;}
   if(view==='sites')setTimeout(()=>fetchUsNewsDesk(),80);
 }
@@ -1722,6 +1748,20 @@ const US_MACRO_FALLBACK=[
   {key:'inflation',group:'GDP',name:'인플레이션',value:'2.6%',change:'MoM 0.2% · YoY 2.6%',cls:'market-up',source:'FRED cached',date:'2026-05',note:'PCE 물가 · 전월비/전년비'},
   {key:'gdpdef',group:'GDP',name:'GDP 디플레이터 증가율',value:'2.1%',change:'QoQ ann 2.1% · YoY 2.4%',cls:'market-up',source:'FRED cached',date:'2026-Q1',note:'분기 연율'}
 ];
+const TREASURY_BASIS_LINKS={
+  basis:'https://doi.org/10.17016/2380-7172.3458',
+  repo:'https://www.newyorkfed.org/markets/reference-rates/sofr',
+  position:'https://www.financialresearch.gov/hedge-fund-monitor/datasets/tff-single/',
+  openInterest:'https://publicreporting.cftc.gov/stories/s/TFF-Futures-Only/98ig-3k9y/',
+  liquidity:'https://www.tradingview.com/symbols/TVC-MOVE/'
+};
+const TREASURY_BASIS_FALLBACK={
+  repo:{sofr:3.68,iorb:3.65,date:'2026-08-31',source:'FRED cached'},
+  position:{value:-776362078904.29,prev:-782729978531.05,date:'2026-08-18',source:'OFR cached'},
+  openInterest:{value:25946325,change:2370975,date:'2026-08-25',source:'CFTC cached'},
+  liquidity:{value:75.3,changePct:6.14,date:'2026-09-01',source:'TradingView cached'}
+};
+let treasuryBasisLoading=false;
 const GLOBAL_RATE_ITEMS=[
   {rank:1,key:'us',country:'미국',name:'Fed Funds',series:'FEDFUNDS',fallback:'3.50-3.75%',change:'FOMC target range',source:'Fed/FRED',date:'2026-06',note:'글로벌 할인율·달러 유동성'},
   {rank:2,key:'jp',country:'일본',name:'BOJ 정책금리',series:'IRSTCB01JPM156N',fallback:'1.00%',change:'Yen carry trade',source:'BOJ/FRED',date:'2026-06',note:'엔 캐리 트레이드 핵심'},
@@ -2169,6 +2209,109 @@ async function fetchBondYieldDashboard(){
   const live=ok+tvOk;
   const msg=live===0?'BOND CURVE · CACHED VALUES':'BOND CURVE · '+live+' LIVE'+(tvOk?' / TV '+tvOk:'')+(fail?' / CACHED '+fail:'');
   setBondYieldStatus(live?'ok':'warn',msg);
+}
+function treasuryRiskTone(points){return points>=2?'alert':points===1?'watch':'calm';}
+function treasurySigned(value,dec=1,suffix=''){
+  if(typeof value!=='number'||!isFinite(value))return '—';
+  return (value>0?'+':'')+value.toFixed(dec)+suffix;
+}
+function treasuryMetricHtml(item,index){
+  return `<div class="basis-metric ${escHtml(item.tone||'info')}"><div class="basis-index">0${index} · ${escHtml(item.signal||'MONITOR')}</div><div class="basis-name">${escHtml(item.name)}</div><div class="basis-value">${escHtml(item.value)}</div><div class="basis-change">${escHtml(item.change)}</div><div class="basis-reading">${escHtml(item.reading)}</div><a class="basis-source" href="${escHtml(item.url)}" target="_blank" rel="noopener">${escHtml(item.source)} ↗</a>${item.method?`<div class="basis-method-note">${escHtml(item.method)}</div>`:''}</div>`;
+}
+function renderTreasuryBasisMonitor(data=TREASURY_BASIS_FALLBACK,liveCount=0){
+  const strip=document.getElementById('treasuryBasisStrip');
+  const status=document.getElementById('basisRiskStatus');
+  if(!strip)return;
+  const repo=data.repo||TREASURY_BASIS_FALLBACK.repo;
+  const position=data.position||TREASURY_BASIS_FALLBACK.position;
+  const oi=data.openInterest||TREASURY_BASIS_FALLBACK.openInterest;
+  const liquidity=data.liquidity||TREASURY_BASIS_FALLBACK.liquidity;
+  const repoSpread=(Number(repo.sofr)-Number(repo.iorb))*100;
+  const repoRisk=repoSpread>=20?2:repoSpread>=10?1:0;
+  const shortBillions=Math.abs(Number(position.value))/1e9;
+  const prevShortBillions=Math.abs(Number(position.prev))/1e9;
+  const shortDelta=shortBillions-prevShortBillions;
+  const shortDeltaText=(shortDelta>0?'+$':shortDelta<0?'-$':'$')+Math.abs(shortDelta).toFixed(1)+'B';
+  const positionRisk=shortBillions>=1000?2:shortBillions>=700?1:0;
+  const oiPrev=Number(oi.value)-Number(oi.change||0);
+  const oiWow=oiPrev?Number(oi.change||0)/oiPrev*100:0;
+  const oiRisk=Math.abs(oiWow)>=7?2:Math.abs(oiWow)>=3?1:0;
+  const move=Number(liquidity.value);
+  const moveRisk=move>=120?2:move>=80?1:0;
+  const riskScore=repoRisk+positionRisk+oiRisk+moveRisk;
+  const level=riskScore>=5?'alert':riskScore>=2?'watch':'calm';
+  const levelText=level==='alert'?'ALERT':level==='watch'?'WATCH':'CALM';
+  const items=[
+    {name:'Cash-Futures Basis / OABNOC',value:'MODEL ONLY',change:'무료 공식 실시간 값 없음',reading:'양(+)의 연율 basis 확대 = long-basis 수익 유인 증가',tone:'info',signal:'METHODOLOGY',source:'FED METHOD',url:TREASURY_BASIS_LINKS.basis,method:'CTD 가격·전환계수·옵션가치·term repo가 필요합니다. OFR/J.P. Morgan 방식은 부호가 반대일 수 있습니다.'},
+    {name:'SOFR · Repo Funding',value:Number(repo.sofr).toFixed(2)+'%',change:'SOFR-IORB '+treasurySigned(repoSpread,0,'bp')+' · IORB '+Number(repo.iorb).toFixed(2)+'%',reading:repoRisk===2?'조달 스트레스 높음':repoRisk===1?'조달비용 상승 주의':'조달 스트레스 낮음',tone:treasuryRiskTone(repoRisk),signal:repoRisk?'FUNDING WATCH':'FUNDING OK',source:(repo.source||'NY FED')+' · '+String(repo.date||'').slice(0,10),url:TREASURY_BASIS_LINKS.repo},
+    {name:'Leveraged Funds Futures Net',value:'-$'+shortBillions.toFixed(0)+'B',change:'순숏 전주 대비 '+shortDeltaText,reading:positionRisk===2?'순숏 포지션 과밀 위험':positionRisk===1?'Basis 포지션 집중 구간':'순숏 규모 안정 구간',tone:treasuryRiskTone(positionRisk),signal:positionRisk===2?'CROWDED':positionRisk===1?'ELEVATED':'NORMAL',source:(position.source||'OFR/CFTC')+' · '+String(position.date||'').slice(0,10),url:TREASURY_BASIS_LINKS.position},
+    {name:'Treasury Futures Open Interest',value:(Number(oi.value)/1e6).toFixed(2)+'M',change:'WoW '+treasurySigned(oiWow,1,'%')+' · '+treasurySigned(Number(oi.change)/1e6,2,'M'),reading:oiRisk===2?'전체 포지션 규모 급변':oiRisk===1?'포지션 증가 속도 주의':'포지션 변화 안정',tone:treasuryRiskTone(oiRisk),signal:oiRisk===2?'FAST CHANGE':oiRisk===1?'BUILDING':'STABLE',source:(oi.source||'CFTC')+' · '+String(oi.date||'').slice(0,10),url:TREASURY_BASIS_LINKS.openInterest,method:'만기별 계약 단위가 다르므로 절대값보다 주간 변화율을 우선 봅니다.'},
+    {name:'Treasury Liquidity · MOVE Proxy',value:move.toFixed(1),change:'Daily '+treasurySigned(Number(liquidity.changePct||0),2,'%'),reading:moveRisk===2?'변동성·유동성 충격 위험':moveRisk===1?'국채시장 스트레스 주의':'국채 변동성 안정',tone:treasuryRiskTone(moveRisk),signal:moveRisk===2?'STRESS':moveRisk===1?'WATCH':'LIQUID',source:(liquidity.source||'TradingView')+' · '+String(liquidity.date||'').slice(0,10),url:TREASURY_BASIS_LINKS.liquidity,method:'직접 유동성 지수가 아니라 국채 옵션 변동성 프록시입니다.'}
+  ];
+  strip.innerHTML=items.map((item,index)=>treasuryMetricHtml(item,index+1)).join('');
+  if(status){status.className='basis-risk-badge '+level;status.textContent='BASIS RISK · '+levelText+' · '+liveCount+'/4 SOURCES';}
+}
+async function fetchTreasuryRepoSignal(){
+  const [sofrData,iorbData]=await Promise.all([fetchFredCsvData('SOFR',6000),fetchFredCsvData('IORB',6000)]);
+  const sofr=sofrData?.points?.at(-1),iorb=iorbData?.points?.at(-1);
+  if(!sofr||!iorb)throw new Error('repo data unavailable');
+  return {sofr:sofr.v,iorb:iorb.v,date:new Date(Math.min(sofr.t,iorb.t)).toISOString().slice(0,10),source:'NY Fed/FRED'};
+}
+async function fetchTreasuryLeveragedPosition(){
+  const start=new Date(Date.now()-370*24*60*60*1000).toISOString().slice(0,10);
+  const mnemonic='TFF-LF_TREAS_NET_POS10YREQV';
+  const url='https://data.financialresearch.gov/hf/v1/series/full?mnemonic='+encodeURIComponent(mnemonic)+'&start_date='+start+'&remove_nulls=true';
+  const res=await fetchT(url,7000);if(!res.ok)throw new Error('ofr response');
+  const rows=(await res.json())?.[mnemonic]?.timeseries?.aggregation||[];
+  const points=rows.map(row=>({date:row[0],value:Number(row[1])})).filter(row=>isFinite(row.value));
+  const last=points.at(-1),prev=points.at(-2);if(!last||!prev)throw new Error('ofr data unavailable');
+  return {value:last.value,prev:prev.value,date:last.date,source:'OFR/CFTC'};
+}
+async function fetchTreasuryOpenInterest(){
+  const params=new URLSearchParams({
+    '$select':'report_date_as_yyyy_mm_dd,contract_market_name,open_interest_all,change_in_open_interest_all',
+    '$where':"commodity_subgroup_name='Interest Rates - U.S. Treasury'",
+    '$order':'report_date_as_yyyy_mm_dd DESC',
+    '$limit':'20'
+  });
+  const res=await fetchT('https://publicreporting.cftc.gov/resource/gpe5-46if.json?'+params,7000);if(!res.ok)throw new Error('cftc response');
+  const rows=await res.json();const latestDate=rows?.[0]?.report_date_as_yyyy_mm_dd;if(!latestDate)throw new Error('cftc data unavailable');
+  const latest=rows.filter(row=>row.report_date_as_yyyy_mm_dd===latestDate&&!String(row.contract_market_name||'').includes('MICRO'));
+  const value=latest.reduce((sum,row)=>sum+Number(row.open_interest_all||0),0);
+  const change=latest.reduce((sum,row)=>sum+Number(row.change_in_open_interest_all||0),0);
+  if(!value)throw new Error('cftc values unavailable');
+  return {value,change,date:latestDate.slice(0,10),source:'CFTC TFF'};
+}
+async function fetchTreasuryLiquidityProxy(){
+  const quotes=await fetchTradingViewBondQuotes(['TVC:MOVE']);const q=quotes.get('TVC:MOVE');
+  if(!q)throw new Error('move unavailable');
+  return {value:q.value,changePct:q.pct,date:q.date,source:'TradingView MOVE'};
+}
+async function fetchTreasuryBasisSnapshot(){
+  const res=await fetchT('data/treasury-basis.json?_='+Date.now(),5000);if(!res.ok)throw new Error('basis snapshot unavailable');
+  const data=await res.json();
+  if(!data?.repo||!data?.position||!data?.openInterest||!data?.liquidity)throw new Error('basis snapshot incomplete');
+  return data;
+}
+async function fetchTreasuryBasisMonitor(){
+  if(treasuryBasisLoading)return;
+  treasuryBasisLoading=true;
+  renderTreasuryBasisMonitor(TREASURY_BASIS_FALLBACK,0);
+  try{
+    try{
+      const snapshot=await fetchTreasuryBasisSnapshot();
+      renderTreasuryBasisMonitor(snapshot,4);
+      return;
+    }catch(e){}
+    const settled=await Promise.allSettled([fetchTreasuryRepoSignal(),fetchTreasuryLeveragedPosition(),fetchTreasuryOpenInterest(),fetchTreasuryLiquidityProxy()]);
+    const data={
+      repo:settled[0].status==='fulfilled'?settled[0].value:TREASURY_BASIS_FALLBACK.repo,
+      position:settled[1].status==='fulfilled'?settled[1].value:TREASURY_BASIS_FALLBACK.position,
+      openInterest:settled[2].status==='fulfilled'?settled[2].value:TREASURY_BASIS_FALLBACK.openInterest,
+      liquidity:settled[3].status==='fulfilled'?settled[3].value:TREASURY_BASIS_FALLBACK.liquidity
+    };
+    renderTreasuryBasisMonitor(data,settled.filter(result=>result.status==='fulfilled').length);
+  }finally{treasuryBasisLoading=false;}
 }
 async function fetchUsMacroDashboard(){
   setMacroStatus('warn','US MACRO · UPDATING');
@@ -2767,7 +2910,7 @@ function initLiveData() {
   bindMarketChartClicks();
   renderGlobalRates();
   renderBondYields();
-  Promise.all([fetchExchangeRates(), fetchCommodities(), fetchEnergy(), fetchNews(), fetchMarketDashboard(), fetchUsMacroDashboard(), fetchGlobalRateDashboard(), fetchBondYieldDashboard()]);
+  Promise.all([fetchExchangeRates(), fetchCommodities(), fetchEnergy(), fetchNews(), fetchMarketDashboard(), fetchUsMacroDashboard(), fetchTreasuryBasisMonitor(), fetchGlobalRateDashboard(), fetchBondYieldDashboard()]);
   showMarketChart(currentMarketChartKey);
   setInterval(fetchExchangeRates, 300000);   // 환율: 5분
   setInterval(fetchCommodities, 300000);     // 귀금속: 5분
@@ -2776,6 +2919,7 @@ function initLiveData() {
   setInterval(()=>{if(document.body.classList.contains('sites-mode'))fetchUsNewsDesk(true);},600000); // 미국 뉴스 데스크: 10분
   marketTimer=setInterval(fetchMarketDashboard, 60000); // 지표: 1분
   setInterval(fetchUsMacroDashboard, 900000); // 미국 매크로: 15분
+  setInterval(fetchTreasuryBasisMonitor, 300000); // Treasury basis 위험: 5분
   setInterval(fetchGlobalRateDashboard, 900000); // 글로벌 금리: 15분
   setInterval(fetchBondYieldDashboard, 900000); // 국채 커브: 15분
 }

@@ -1,0 +1,27 @@
+{
+  "updatedAt": "2026-09-01T13:10:00.000Z",
+  "repo": {
+    "sofr": 3.68,
+    "iorb": 3.65,
+    "date": "2026-08-31",
+    "source": "NY Fed/FRED"
+  },
+  "position": {
+    "value": -776362078904.29,
+    "prev": -782729978531.05,
+    "date": "2026-08-18",
+    "source": "OFR/CFTC"
+  },
+  "openInterest": {
+    "value": 25946325,
+    "change": 2370975,
+    "date": "2026-08-25",
+    "source": "CFTC TFF"
+  },
+  "liquidity": {
+    "value": 75.3193,
+    "changePct": 6.135093813190906,
+    "date": "2026-09-01",
+    "source": "TradingView MOVE"
+  }
+}
