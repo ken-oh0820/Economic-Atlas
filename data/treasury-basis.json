@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T13:10:00.000Z",
+  "updatedAt": "2026-09-01T21:00:13.281Z",
   "repo": {
     "sofr": 3.68,
     "iorb": 3.65,
@@ -19,8 +19,8 @@
     "source": "CFTC TFF"
   },
   "liquidity": {
-    "value": 75.3193,
-    "changePct": 6.135093813190906,
+    "value": 77.8754,
+    "changePct": 3.3936852838515503,
     "date": "2026-09-01",
     "source": "TradingView MOVE"
   }
