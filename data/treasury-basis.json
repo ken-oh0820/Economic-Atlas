@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-01T21:00:13.281Z",
+  "updatedAt": "2026-09-02T04:29:22.595Z",
   "repo": {
     "sofr": 3.68,
     "iorb": 3.65,
@@ -21,7 +21,7 @@
   "liquidity": {
     "value": 77.8754,
     "changePct": 3.3936852838515503,
-    "date": "2026-09-01",
+    "date": "2026-09-02",
     "source": "TradingView MOVE"
   }
 }
