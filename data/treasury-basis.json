@@ -1,9 +1,9 @@
 {
-  "updatedAt": "2026-09-03T00:13:31.861Z",
+  "updatedAt": "2026-09-03T14:32:58.132Z",
   "repo": {
-    "sofr": 3.66,
+    "sofr": 3.65,
     "iorb": 3.65,
-    "date": "2026-09-01",
+    "date": "2026-09-02",
     "source": "NY Fed/FRED"
   },
   "position": {
