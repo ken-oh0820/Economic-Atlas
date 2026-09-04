@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-04T12:34:26.248Z",
+  "updatedAt": "2026-09-04T21:26:45.970Z",
   "repo": {
     "sofr": 3.66,
     "iorb": 3.65,
@@ -13,14 +13,14 @@
     "source": "OFR/CFTC"
   },
   "openInterest": {
-    "value": 25946325,
-    "change": 2370975,
-    "date": "2026-08-25",
+    "value": 22716747,
+    "change": -3229578,
+    "date": "2026-09-01",
     "source": "CFTC TFF"
   },
   "liquidity": {
-    "value": 74.6812,
-    "changePct": -6.312748311762277,
+    "value": 73.1045,
+    "changePct": -2.1112408477635634,
     "date": "2026-09-04",
     "source": "TradingView MOVE"
   },
