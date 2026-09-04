@@ -1,4 +1,4 @@
-name: Update Treasury Basis Data
+name: Update Treasury Basis and Mortgage Data
 
 on:
   schedule:
@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Fetch official Treasury basis risk data
+      - name: Fetch official Treasury basis and mortgage data
         run: node scripts/update-treasury-basis.mjs
       - name: Commit updated snapshot
         run: |

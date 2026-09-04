@@ -3,15 +3,18 @@ import { readFile, writeFile } from 'node:fs/promises';
 const outputPath = new URL('../data/treasury-basis.json', import.meta.url);
 const previous = JSON.parse(await readFile(outputPath, 'utf8'));
 
-function latestFredPoint(text) {
-  const points = text.trim().split(/\r?\n/).slice(1).map(row => {
+function fredPoints(text) {
+  return text.trim().split(/\r?\n/).slice(1).map(row => {
     const split = row.indexOf(',');
     if (split < 0) return null;
     const date = row.slice(0, split).trim();
     const value = Number(row.slice(split + 1).trim());
     return date && Number.isFinite(value) ? { date, value } : null;
   }).filter(Boolean);
-  return points.at(-1);
+}
+
+function latestFredPoint(text) {
+  return fredPoints(text).at(-1);
 }
 
 async function fetchText(url, init = {}) {
@@ -37,6 +40,23 @@ async function fetchRepo() {
     iorb: iorb.value,
     date: sofr.date < iorb.date ? sofr.date : iorb.date,
     source: 'NY Fed/FRED',
+  };
+}
+
+async function fetchMortgage() {
+  const text = await fetchText('https://fred.stlouisfed.org/graph/fredgraph.csv?id=MORTGAGE30US');
+  const points = fredPoints(text);
+  const last = points.at(-1);
+  const prev = points.at(-2);
+  if (!last || !prev) throw new Error('FRED mortgage series unavailable');
+  const target = new Date(`${last.date}T00:00:00Z`).getTime() - 30 * 86400000;
+  const month = [...points].reverse().find(point => new Date(`${point.date}T00:00:00Z`).getTime() <= target) || prev;
+  return {
+    value: last.value,
+    prev: prev.value,
+    month: month.value,
+    date: last.date,
+    source: 'Freddie Mac/FRED',
   };
 }
 
@@ -91,20 +111,21 @@ async function fetchLiquidity() {
   };
 }
 
-const results = await Promise.allSettled([fetchRepo(), fetchPosition(), fetchOpenInterest(), fetchLiquidity()]);
+const results = await Promise.allSettled([fetchRepo(), fetchPosition(), fetchOpenInterest(), fetchLiquidity(), fetchMortgage()]);
 const next = {
   updatedAt: previous.updatedAt,
   repo: results[0].status === 'fulfilled' ? results[0].value : previous.repo,
   position: results[1].status === 'fulfilled' ? results[1].value : previous.position,
   openInterest: results[2].status === 'fulfilled' ? results[2].value : previous.openInterest,
   liquidity: results[3].status === 'fulfilled' ? results[3].value : previous.liquidity,
+  mortgage: results[4].status === 'fulfilled' ? results[4].value : previous.mortgage,
 };
 
 const signature = value => JSON.stringify({ ...value, updatedAt: '' });
 if (signature(next) !== signature(previous)) {
   next.updatedAt = new Date().toISOString();
   await writeFile(outputPath, `${JSON.stringify(next, null, 2)}\n`);
-  console.log(`Treasury basis snapshot updated: ${results.filter(result => result.status === 'fulfilled').length}/4 sources`);
+  console.log(`Market rate snapshot updated: ${results.filter(result => result.status === 'fulfilled').length}/5 sources`);
 } else {
   console.log('Treasury basis snapshot is already current');
 }

@@ -23,5 +23,12 @@
     "changePct": -6.312748311762277,
     "date": "2026-09-04",
     "source": "TradingView MOVE"
+  },
+  "mortgage": {
+    "value": 6.71,
+    "prev": 6.66,
+    "month": 6.66,
+    "date": "2026-09-03",
+    "source": "Freddie Mac/FRED"
   }
 }
