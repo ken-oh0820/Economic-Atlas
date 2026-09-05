@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-04T21:26:45.970Z",
+  "updatedAt": "2026-09-05T00:02:55.876Z",
   "repo": {
     "sofr": 3.66,
     "iorb": 3.65,
@@ -21,7 +21,7 @@
   "liquidity": {
     "value": 73.1045,
     "changePct": -2.1112408477635634,
-    "date": "2026-09-04",
+    "date": "2026-09-05",
     "source": "TradingView MOVE"
   },
   "mortgage": {
