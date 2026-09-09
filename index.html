@@ -14,7 +14,7 @@
 <meta name="twitter:description" content="세계 경제 지도, 실시간 시장 지표, 환율, 원자재, 뉴스, FED 대차대조표를 한 곳에서 확인하는 대시보드">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
 <title>Ken's Economic Dashboard</title>
-<link rel="stylesheet" href="assets/company-financials.css?v=20260909">
+<link rel="stylesheet" href="assets/company-financials.css?v=20260909-licensed">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -448,15 +448,15 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
       </div>
     </div>
     <div class="indicator-grid">
-      <div class="indicator-card" data-chart-key="sp500" role="button" tabindex="0"><div class="indicator-group">글로벌 자산</div><div class="indicator-name">S&P 500</div><div class="indicator-value loading" id="ind-sp500">연결 중</div><div class="indicator-change" id="chg-sp500">—</div><div class="indicator-note">미국 대표지수</div><div class="indicator-source" id="src-sp500">TradingView Scan</div></div>
-      <div class="indicator-card" data-chart-key="nasdaq" role="button" tabindex="0"><div class="indicator-group">글로벌 자산</div><div class="indicator-name">나스닥</div><div class="indicator-value loading" id="ind-nasdaq">연결 중</div><div class="indicator-change" id="chg-nasdaq">—</div><div class="indicator-note">성장주·기술주 위험선호</div><div class="indicator-source" id="src-nasdaq">TradingView Scan</div></div>
+      <div class="indicator-card" data-chart-key="sp500" role="button" tabindex="0"><div class="indicator-group">글로벌 자산</div><div class="indicator-name">S&P 500</div><div class="indicator-value loading" id="ind-sp500">연결 중</div><div class="indicator-change" id="chg-sp500">—</div><div class="indicator-note">미국 대표지수</div><div class="indicator-source" id="src-sp500">TradingView 공식 위젯</div></div>
+      <div class="indicator-card" data-chart-key="nasdaq" role="button" tabindex="0"><div class="indicator-group">글로벌 자산</div><div class="indicator-name">나스닥</div><div class="indicator-value loading" id="ind-nasdaq">연결 중</div><div class="indicator-change" id="chg-nasdaq">—</div><div class="indicator-note">성장주·기술주 위험선호</div><div class="indicator-source" id="src-nasdaq">TradingView 공식 위젯</div></div>
       <div class="indicator-card" data-chart-key="gold" role="button" tabindex="0"><div class="indicator-group">안전자산</div><div class="indicator-name">금</div><div class="indicator-value loading" id="ind-gold">연결 중</div><div class="indicator-change" id="chg-gold">—</div><div class="indicator-note">USD/온스 · 실질금리 민감</div><div class="indicator-source" id="src-gold">Worker/Yahoo</div></div>
       <div class="indicator-card" data-chart-key="btc" role="button" tabindex="0"><div class="indicator-group">위험자산</div><div class="indicator-name">비트코인</div><div class="indicator-value loading" id="ind-btc">연결 중</div><div class="indicator-change" id="chg-btc">—</div><div class="indicator-note">BTC/USD · 유동성 민감</div><div class="indicator-source" id="src-btc">CoinGecko</div></div>
-      <div class="indicator-card" data-chart-key="kospi" role="button" tabindex="0"><div class="indicator-group">한국 증시</div><div class="indicator-name">코스피</div><div class="indicator-value loading" id="ind-kospi">연결 중</div><div class="indicator-change" id="chg-kospi">—</div><div class="indicator-note">한국 대표지수</div><div class="indicator-source" id="src-kospi">TradingView Scan</div></div>
-      <div class="indicator-card" data-chart-key="kosdaq" role="button" tabindex="0"><div class="indicator-group">한국 증시</div><div class="indicator-name">코스닥</div><div class="indicator-value loading" id="ind-kosdaq">연결 중</div><div class="indicator-change" id="chg-kosdaq">—</div><div class="indicator-note">성장주·중소형주 흐름</div><div class="indicator-source" id="src-kosdaq">TradingView Scan</div></div>
+      <div class="indicator-card" data-chart-key="kospi" role="button" tabindex="0"><div class="indicator-group">한국 증시</div><div class="indicator-name">코스피</div><div class="indicator-value loading" id="ind-kospi">연결 중</div><div class="indicator-change" id="chg-kospi">—</div><div class="indicator-note">한국 대표지수</div><div class="indicator-source" id="src-kospi">TradingView 공식 위젯</div></div>
+      <div class="indicator-card" data-chart-key="kosdaq" role="button" tabindex="0"><div class="indicator-group">한국 증시</div><div class="indicator-name">코스닥</div><div class="indicator-value loading" id="ind-kosdaq">연결 중</div><div class="indicator-change" id="chg-kosdaq">—</div><div class="indicator-note">성장주·중소형주 흐름</div><div class="indicator-source" id="src-kosdaq">TradingView 공식 위젯</div></div>
       <div class="indicator-card row-break" data-chart-key="fng" role="button" tabindex="0"><div class="indicator-group">시장 심리</div><div class="indicator-name">CNN 공포탐욕지수</div><div class="indicator-value loading" id="ind-fng">연결 중</div><div class="indicator-change" id="chg-fng">—</div><div class="indicator-note">미국 주식시장 심리 · 0~100</div><div class="indicator-source" id="src-fng">CNN · Worker 필요</div></div>
       <div class="indicator-card" data-chart-key="cfng" role="button" tabindex="0"><div class="indicator-group">크립토 심리</div><div class="indicator-name">암호화폐 공포탐욕</div><div class="indicator-value loading" id="ind-cfng">연결 중</div><div class="indicator-change" id="chg-cfng">—</div><div class="indicator-note">Crypto Fear & Greed · 0~100</div><div class="indicator-source" id="src-cfng">Alternative.me</div></div>
-      <div class="indicator-card" data-chart-key="vix" role="button" tabindex="0"><div class="indicator-group">변동성</div><div class="indicator-name">VIX</div><div class="indicator-value loading" id="ind-vix">연결 중</div><div class="indicator-change" id="chg-vix">—</div><div class="indicator-note">20↓ 안정 · 30↑ 경계</div><div class="indicator-source" id="src-vix">TradingView Scan</div></div>
+      <div class="indicator-card" data-chart-key="vix" role="button" tabindex="0"><div class="indicator-group">변동성</div><div class="indicator-name">VIX</div><div class="indicator-value loading" id="ind-vix">연결 중</div><div class="indicator-change" id="chg-vix">—</div><div class="indicator-note">20↓ 안정 · 30↑ 경계</div><div class="indicator-source" id="src-vix">TradingView 공식 위젯</div></div>
     </div>
     <div class="dashboard-panel macro-panel">
       <div class="macro-head">
@@ -1677,20 +1677,6 @@ const MARKET_ITEMS=[
   {key:'usdjpy',symbol:'JPY=X',watch:'watch-usdjpy',dec:2,prefix:'¥'},
   {key:'eurusd',symbol:'EURUSD=X',watch:'watch-eurusd',dec:4,prefix:'$'},
 ];
-const MARKET_TV_SYMBOLS={
-  '^GSPC':'SP:SPX',
-  '^IXIC':'NASDAQ:IXIC',
-  'GC=F':'TVC:GOLD',
-  'BTC-USD':'BITSTAMP:BTCUSD',
-  '^KS11':'KRX:KOSPI',
-  '^KQ11':'KRX:KOSDAQ',
-  '^VIX':'TVC:VIX',
-  'DX-Y.NYB':'TVC:DXY',
-  'CL=F':'NYMEX:CL1!',
-  'BZ=F':'ICEEUR:BRN1!',
-  'JPY=X':'FX_IDC:USDJPY',
-  'EURUSD=X':'FX_IDC:EURUSD'
-};
 const DUBAI_CRUDE_FALLBACK={value:72.40,date:'2026-06',source:'참고값'};
 const HY_SPREAD_FALLBACK={value:3.15,date:'2026-06',source:'FRED fallback'};
 let marketLoading=false,marketTimer=null;
@@ -1835,7 +1821,6 @@ const TREASURY_BASIS_FALLBACK={
   repo:{sofr:3.68,iorb:3.65,date:'2026-08-31',source:'FRED cached'},
   position:{value:-776362078904.29,prev:-782729978531.05,date:'2026-08-18',source:'OFR cached'},
   openInterest:{value:25946325,change:2370975,date:'2026-08-25',source:'CFTC cached'},
-  liquidity:{value:75.3,changePct:6.14,date:'2026-09-01',source:'TradingView cached'}
 };
 let treasuryBasisLoading=false;
 const GLOBAL_RATE_ITEMS=[
@@ -1909,7 +1894,7 @@ const BOND_YIELD_GROUPS=[
     '20y':{series:'DGS20',value:4.97,d1:0.06,m1:-0.09,date:'2026-06-22',source:'FRED cached'},
     '30y':{series:'DGS30',value:4.95,d1:0.05,m1:-0.12,date:'2026-06-22',source:'FRED cached'}
   }},
-  {key:'kr',flag:'🇰🇷',name:'한국 국채',note:'TradingView live · 10년 FRED 보조 · Investing 링크',tenors:{
+  {key:'kr',flag:'🇰🇷',name:'한국 국채',note:'10년 FRED · 나머지 만기 원문 확인',tenors:{
     '3m':{value:2.65,source:'Investing 참고'},
     '1y':{value:2.86,source:'Investing 참고'},
     '2y':{value:3.02,source:'Investing 참고'},
@@ -1918,7 +1903,7 @@ const BOND_YIELD_GROUPS=[
     '20y':{value:4.18,source:'Investing 참고'},
     '30y':{value:4.10,source:'Investing 참고'}
   }},
-  {key:'jp',flag:'🇯🇵',name:'일본 국채',note:'TradingView live · 10년 FRED 보조 · Investing 링크',tenors:{
+  {key:'jp',flag:'🇯🇵',name:'일본 국채',note:'10년 FRED · 나머지 만기 원문 확인',tenors:{
     '3m':{value:1.00,source:'Investing 참고'},
     '1y':{value:1.05,source:'Investing 참고'},
     '2y':{value:1.10,source:'Investing 참고'},
@@ -1927,7 +1912,7 @@ const BOND_YIELD_GROUPS=[
     '20y':{value:3.10,source:'Investing 참고'},
     '30y':{value:3.35,source:'Investing 참고'}
   }},
-  {key:'br',flag:'🇧🇷',name:'브라질 국채',note:'TradingView live(1Y~10Y) · Investing 링크',tenors:{
+  {key:'br',flag:'🇧🇷',name:'브라질 국채',note:'만기별 금리 원문 확인',tenors:{
     '3m':{value:14.70,source:'Investing 참고'},
     '1y':{value:13.95,source:'Investing 참고'},
     '2y':{value:13.35,source:'Investing 참고'},
@@ -2132,7 +2117,7 @@ function cloneBondYieldGroups(){
   return BOND_YIELD_GROUPS.map(group=>({
     ...group,
     mortgage:group.mortgage?{...group.mortgage}:undefined,
-    tenors:Object.fromEntries(Object.entries(group.tenors).map(([key,item])=>[key,{...item}]))
+    tenors:Object.fromEntries(Object.entries(group.tenors).map(([key,item])=>[key,item.series?{...item}:{...item,value:null,d1:null,m1:null,source:'원문 확인',noDataText:'원문 확인'}]))
   }));
 }
 function bondValueText(v,suffix='%'){
@@ -2170,48 +2155,7 @@ function bondPointDelta(points,last,days){
   const prior=[...points].reverse().find(p=>p.t<=target&&typeof p.v==='number'&&isFinite(p.v));
   return prior?last.v-prior.v:null;
 }
-function tvBondSymbol(groupKey,tenorKey){
-  return BOND_TV_SYMBOLS[groupKey]?.[tenorKey]||'';
-}
-async function fetchTradingViewBondQuotes(symbols){
-  const unique=[...new Set(symbols.filter(Boolean))];
-  if(!unique.length)return new Map();
-  try{
-    const res=await fetchT('https://scanner.tradingview.com/global/scan',6500,{
-      method:'POST',
-      body:JSON.stringify({
-        symbols:{tickers:unique,query:{types:[]}},
-        columns:['close','change_abs','change','name','description']
-      })
-    });
-    const data=await res.json();
-    const today=new Date().toISOString().slice(0,10);
-    return new Map((data?.data||[]).map(row=>{
-      const d=row.d||[];
-      const value=Number(d[0]),d1=Number(d[1]),pct=Number(d[2]);
-      if(!isFinite(value))return null;
-      return [row.s,{value,d1:isFinite(d1)?d1:null,pct:isFinite(pct)?pct:null,date:today,source:'TradingView'}];
-    }).filter(Boolean));
-  }catch(e){
-    return new Map();
-  }
-}
-async function fetchTradingViewMarketQuotes(){
-  const tvQuotes=await fetchTradingViewBondQuotes(Object.values(MARKET_TV_SYMBOLS));
-  const byYahoo={};
-  Object.entries(MARKET_TV_SYMBOLS).forEach(([symbol,tvSymbol])=>{
-    const q=tvQuotes.get(tvSymbol);if(!q)return;
-    byYahoo[symbol]={
-      price:q.value,
-      prev:typeof q.d1==='number'?q.value-q.d1:null,
-      changePct:q.pct,
-      source:'TradingView',
-      time:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})
-    };
-  });
-  return byYahoo;
-}
-function renderBondYields(groups=BOND_YIELD_GROUPS){
+function renderBondYields(groups=cloneBondYieldGroups()){
   const box=document.getElementById('bondYieldGrid');if(!box)return;
   box.innerHTML=groups.map(group=>{
     const tenors=BOND_TENORS.map(tenor=>{
@@ -2244,7 +2188,7 @@ async function fetchBondYieldDashboard(){
   setBondYieldStatus('warn','BOND CURVE · UPDATING');
   const groups=cloneBondYieldGroups();
   renderBondYields(groups);
-  let ok=0,fail=0,tvOk=0;
+  let ok=0,fail=0;
   try{
     const snapshot=await fetchTreasuryBasisSnapshot();
     const mortgage=snapshot?.mortgage;
@@ -2261,31 +2205,8 @@ async function fetchBondYieldDashboard(){
       renderBondYields(groups);
     }
   }catch(e){}
-  const tvSymbols=[];
-  groups.forEach(group=>BOND_TENORS.forEach(tenor=>{
-    const sym=tvBondSymbol(group.key,tenor.key);
-    if(sym)tvSymbols.push(sym);
-  }));
-  const tvQuotes=await fetchTradingViewBondQuotes(tvSymbols);
-  groups.forEach(group=>BOND_TENORS.forEach(tenor=>{
-    const item=group.tenors[tenor.key];
-    const quote=tvQuotes.get(tvBondSymbol(group.key,tenor.key));
-    if(!item||!quote)return;
-    item.value=quote.value;
-    item.d1=quote.d1;
-    item.d1Label='전일';
-    item.cls=quote.d1>0?'market-up':quote.d1<0?'market-down':'market-flat';
-    item.source=quote.source;
-    item.date=quote.date;
-    tvOk++;
-  }));
-  if(tvOk){
-    renderBondYields(groups);
-    setBondYieldStatus('ok','BOND CURVE · '+tvOk+' LIVE / TV '+tvOk);
-  }
   await Promise.all(groups.flatMap(group=>BOND_TENORS.map(async tenor=>{
     const item=group.tenors[tenor.key];
-    if(tvQuotes.has(tvBondSymbol(group.key,tenor.key)))return;
     if(!item?.series)return;
     try{
       const data=await fetchFredCsvData(item.series,4500);
@@ -2326,8 +2247,8 @@ async function fetchBondYieldDashboard(){
     }catch(e){fail++;}
   }));
   renderBondYields(groups);
-  const live=ok+tvOk;
-  const msg=live===0?'BOND CURVE · CACHED VALUES':'BOND CURVE · '+live+' LIVE'+(tvOk?' / TV '+tvOk:'')+(fail?' / CACHED '+fail:'');
+  const live=ok;
+  const msg=live===0?'BOND CURVE · CACHED / SOURCE LINKS':'BOND CURVE · '+live+' UPDATED'+(fail?' / CACHED '+fail:'')+' · OTHER TENORS: SOURCE LINKS';
   setBondYieldStatus(live?'ok':'warn',msg);
 }
 function treasuryRiskTone(points){return points>=2?'alert':points===1?'watch':'calm';}
@@ -2345,7 +2266,6 @@ function renderTreasuryBasisMonitor(data=TREASURY_BASIS_FALLBACK,liveCount=0){
   const repo=data.repo||TREASURY_BASIS_FALLBACK.repo;
   const position=data.position||TREASURY_BASIS_FALLBACK.position;
   const oi=data.openInterest||TREASURY_BASIS_FALLBACK.openInterest;
-  const liquidity=data.liquidity||TREASURY_BASIS_FALLBACK.liquidity;
   const repoSpread=(Number(repo.sofr)-Number(repo.iorb))*100;
   const repoRisk=repoSpread>=20?2:repoSpread>=10?1:0;
   const shortBillions=Math.abs(Number(position.value))/1e9;
@@ -2356,20 +2276,15 @@ function renderTreasuryBasisMonitor(data=TREASURY_BASIS_FALLBACK,liveCount=0){
   const oiPrev=Number(oi.value)-Number(oi.change||0);
   const oiWow=oiPrev?Number(oi.change||0)/oiPrev*100:0;
   const oiRisk=Math.abs(oiWow)>=7?2:Math.abs(oiWow)>=3?1:0;
-  const move=Number(liquidity.value);
-  const moveRisk=move>=120?2:move>=80?1:0;
-  const riskScore=repoRisk+positionRisk+oiRisk+moveRisk;
-  const level=riskScore>=5?'alert':riskScore>=2?'watch':'calm';
-  const levelText=level==='alert'?'ALERT':level==='watch'?'WATCH':'CALM';
   const items=[
     {name:'Cash-Futures Basis / OABNOC',value:'계산 데이터 미지원',compact:true,change:'계산 방법·해석만 제공',reading:'양(+)의 연율 basis 확대 = long-basis 수익 유인 증가',tone:'info',signal:'METHODOLOGY',source:'FED METHOD',url:TREASURY_BASIS_LINKS.basis,method:'CTD 가격·전환계수·옵션가치·term repo가 필요합니다. OFR/J.P. Morgan 방식은 부호가 반대일 수 있습니다.'},
     {name:'SOFR · Repo Funding',value:Number(repo.sofr).toFixed(2)+'%',change:'SOFR-IORB '+treasurySigned(repoSpread,0,'bp')+' · IORB '+Number(repo.iorb).toFixed(2)+'%',reading:repoRisk===2?'조달 스트레스 높음':repoRisk===1?'조달비용 상승 주의':'조달 스트레스 낮음',tone:treasuryRiskTone(repoRisk),signal:repoRisk?'FUNDING WATCH':'FUNDING OK',source:(repo.source||'NY FED')+' · '+String(repo.date||'').slice(0,10),url:TREASURY_BASIS_LINKS.repo},
     {name:'Leveraged Funds Futures Net',value:'-$'+shortBillions.toFixed(0)+'B',change:'순숏 전주 대비 '+shortDeltaText,reading:positionRisk===2?'순숏 포지션 과밀 위험':positionRisk===1?'Basis 포지션 집중 구간':'순숏 규모 안정 구간',tone:treasuryRiskTone(positionRisk),signal:positionRisk===2?'CROWDED':positionRisk===1?'ELEVATED':'NORMAL',source:(position.source||'OFR/CFTC')+' · '+String(position.date||'').slice(0,10),url:TREASURY_BASIS_LINKS.position},
     {name:'Treasury Futures Open Interest',value:(Number(oi.value)/1e6).toFixed(2)+'M',change:'WoW '+treasurySigned(oiWow,1,'%')+' · '+treasurySigned(Number(oi.change)/1e6,2,'M'),reading:oiRisk===2?'전체 포지션 규모 급변':oiRisk===1?'포지션 증가 속도 주의':'포지션 변화 안정',tone:treasuryRiskTone(oiRisk),signal:oiRisk===2?'FAST CHANGE':oiRisk===1?'BUILDING':'STABLE',source:(oi.source||'CFTC')+' · '+String(oi.date||'').slice(0,10),url:TREASURY_BASIS_LINKS.openInterest,method:'만기별 계약 단위가 다르므로 절대값보다 주간 변화율을 우선 봅니다.'},
-    {name:'Treasury Liquidity · MOVE Proxy',value:move.toFixed(1),change:'Daily '+treasurySigned(Number(liquidity.changePct||0),2,'%'),reading:moveRisk===2?'변동성·유동성 충격 위험':moveRisk===1?'국채시장 스트레스 주의':'국채 변동성 안정',tone:treasuryRiskTone(moveRisk),signal:moveRisk===2?'STRESS':moveRisk===1?'WATCH':'LIQUID',source:(liquidity.source||'TradingView')+' · '+String(liquidity.date||'').slice(0,10),url:TREASURY_BASIS_LINKS.liquidity,method:'직접 유동성 지수가 아니라 국채 옵션 변동성 프록시입니다.'}
+    {name:'Treasury Liquidity · MOVE Proxy',value:'원문 확인',compact:true,change:'직접 수집 미제공',reading:'MOVE는 국채 옵션 변동성 지표입니다.',tone:'info',signal:'SOURCE LINK',source:'TradingView에서 보기',url:TREASURY_BASIS_LINKS.liquidity,method:'현재 값을 확인하지 못했으므로 위험도를 자동 판정하지 않습니다.'}
   ];
   strip.innerHTML=items.map((item,index)=>treasuryMetricHtml(item,index+1)).join('');
-  if(status){status.className='basis-risk-badge '+level;status.textContent='BASIS RISK · '+levelText+' · '+liveCount+'/4 SOURCES';}
+  if(status){status.className='basis-risk-badge watch';status.textContent='BASIS MONITOR · '+liveCount+'/3 SOURCES · MOVE 원문 확인';}
 }
 async function fetchTreasuryRepoSignal(){
   const [sofrData,iorbData]=await Promise.all([fetchFredCsvData('SOFR',6000),fetchFredCsvData('IORB',6000)]);
@@ -2402,15 +2317,10 @@ async function fetchTreasuryOpenInterest(){
   if(!value)throw new Error('cftc values unavailable');
   return {value,change,date:latestDate.slice(0,10),source:'CFTC TFF'};
 }
-async function fetchTreasuryLiquidityProxy(){
-  const quotes=await fetchTradingViewBondQuotes(['TVC:MOVE']);const q=quotes.get('TVC:MOVE');
-  if(!q)throw new Error('move unavailable');
-  return {value:q.value,changePct:q.pct,date:q.date,source:'TradingView MOVE'};
-}
 async function fetchTreasuryBasisSnapshot(){
   const res=await fetchT('data/treasury-basis.json?_='+Date.now(),5000);if(!res.ok)throw new Error('basis snapshot unavailable');
   const data=await res.json();
-  if(!data?.repo||!data?.position||!data?.openInterest||!data?.liquidity)throw new Error('basis snapshot incomplete');
+  if(!data?.repo||!data?.position||!data?.openInterest)throw new Error('basis snapshot incomplete');
   return data;
 }
 async function fetchTreasuryBasisMonitor(){
@@ -2420,15 +2330,14 @@ async function fetchTreasuryBasisMonitor(){
   try{
     try{
       const snapshot=await fetchTreasuryBasisSnapshot();
-      renderTreasuryBasisMonitor(snapshot,4);
+      renderTreasuryBasisMonitor(snapshot,3);
       return;
     }catch(e){}
-    const settled=await Promise.allSettled([fetchTreasuryRepoSignal(),fetchTreasuryLeveragedPosition(),fetchTreasuryOpenInterest(),fetchTreasuryLiquidityProxy()]);
+    const settled=await Promise.allSettled([fetchTreasuryRepoSignal(),fetchTreasuryLeveragedPosition(),fetchTreasuryOpenInterest()]);
     const data={
       repo:settled[0].status==='fulfilled'?settled[0].value:TREASURY_BASIS_FALLBACK.repo,
       position:settled[1].status==='fulfilled'?settled[1].value:TREASURY_BASIS_FALLBACK.position,
-      openInterest:settled[2].status==='fulfilled'?settled[2].value:TREASURY_BASIS_FALLBACK.openInterest,
-      liquidity:settled[3].status==='fulfilled'?settled[3].value:TREASURY_BASIS_FALLBACK.liquidity
+      openInterest:settled[2].status==='fulfilled'?settled[2].value:TREASURY_BASIS_FALLBACK.openInterest
     };
     renderTreasuryBasisMonitor(data,settled.filter(result=>result.status==='fulfilled').length);
   }finally{treasuryBasisLoading=false;}
@@ -2503,9 +2412,8 @@ async function fetchYahooQuote(sym,skipWorker=false){
   }
   return null;
 }
-async function fetchMarketQuote(sym,tradingViewQuotes={}){
+async function fetchMarketQuote(sym){
   try{const w=await fetchWorkerQuote(sym);if(w)return w;}catch(e){}
-  if(tradingViewQuotes[sym])return tradingViewQuotes[sym];
   return fetchYahooQuote(sym,true);
 }
 async function fetchBitcoinQuote(fallbackQuote=null){
@@ -2758,6 +2666,11 @@ async function showMarketChart(key=currentMarketChartKey){
   if(title)title.textContent='CHART · '+cfg.label;
   if(meta)meta.textContent=chartRangeLabel(cfg.range||marketChartRange)+' 데이터 불러오는 중';
   if(box)box.innerHTML='<div class="chart-loading">차트 데이터 로딩 중...</div>';
+  if(EXTERNAL_MARKET_INDICES[key]){
+    if(meta)meta.textContent='외부 표시 제한 · 제공처에서 시세와 차트 확인';
+    if(box)box.innerHTML='<a class="chart-loading" href="'+escHtml(cfg.tv)+'" target="_blank" rel="noopener noreferrer">'+escHtml(cfg.label)+' TradingView 차트 열기 ↗</a>';
+    return;
+  }
   const data=await fetchMarketChartData(key);
   if(key!==currentMarketChartKey)return;
   if(data?.points?.length)renderMarketChart(data.points,cfg,data.source);
@@ -2791,11 +2704,29 @@ function setMarketChartRange(range){
   document.querySelectorAll('.chart-range-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.range===range));
   showMarketChart(currentMarketChartKey);
 }
+const EXTERNAL_MARKET_INDICES={sp500:'SP:SPX',nasdaq:'NASDAQ:IXIC',kospi:'KRX:KOSPI',kosdaq:'KRX:KOSDAQ',vix:'TVC:VIX'};
+function mountMarketSourceLinks(){
+  const theme=document.body.classList.contains('light')?'light':'dark';
+  Object.entries(EXTERNAL_MARKET_INDICES).forEach(([key,symbol])=>{
+    const card=document.querySelector('[data-chart-key="'+key+'"],[data-official-chart-key="'+key+'"]');
+    if(!card||card.dataset.widgetTheme===theme)return;
+    card.dataset.widgetTheme=theme;
+    card.removeAttribute('role');card.removeAttribute('tabindex');card.removeAttribute('data-chart-key');
+    card.dataset.officialChartKey=key;
+    const heading=document.createElement('div');heading.className='indicator-name';heading.textContent=MARKET_CHARTS[key].label;
+    const host=document.createElement('div');host.className='official-quote';
+    const value=document.createElement('div');value.className='indicator-value';value.textContent='원문에서 확인';
+    const note=document.createElement('div');note.className='indicator-note';note.textContent='시세·차트 외부 링크';host.append(value,note);
+    const link=document.createElement('a');link.href=MARKET_CHARTS[key].tv;link.target='_blank';link.rel='noopener noreferrer';link.className='indicator-source';link.textContent='TradingView 원문 ↗';
+    const chart=document.createElement('button');chart.type='button';chart.className='chart-range-btn';chart.textContent='차트';chart.addEventListener('click',()=>showMarketChart(key));
+    card.replaceChildren(heading,host,chart,link);
+  });
+}
 function bindMarketChartClicks(){
   document.querySelectorAll('[data-chart-key]').forEach(el=>{
     if(el.dataset.chartBound)return;el.dataset.chartBound='1';
-    el.addEventListener('click',()=>showMarketChart(el.dataset.chartKey));
-    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showMarketChart(el.dataset.chartKey);}});
+    el.addEventListener('click',e=>{if(el.dataset.chartKey&&!e.target.closest('a,button'))showMarketChart(el.dataset.chartKey);});
+    el.addEventListener('keydown',e=>{if(el.dataset.chartKey&&!e.target.closest('a,button')&&(e.key==='Enter'||e.key===' ')){e.preventDefault();showMarketChart(el.dataset.chartKey);}});
   });
 }
 async function fetchMarketDashboard(force=false){
@@ -2805,15 +2736,16 @@ async function fetchMarketDashboard(force=false){
   document.querySelectorAll('.indicator-value.loading,.watch-row span.loading').forEach(el=>{el.textContent='연결 중';});
   const sourceRows=[];
   const quotes={};let ok=0,fail=0;
-  const tradingViewQuotes=await fetchTradingViewMarketQuotes();
+  mountMarketSourceLinks();
   await Promise.all(MARKET_ITEMS.map(async item=>{
+    if(EXTERNAL_MARKET_INDICES[item.key])return;
     if(!item.value&&!item.watch&&item.key!=='us3m')return;
-    const q=await fetchMarketQuote(item.symbol,tradingViewQuotes);quotes[item.key]=q;
+    const q=await fetchMarketQuote(item.symbol);quotes[item.key]=q;
     if(q)ok++;else fail++;
     if(item.value)renderIndicator(item,q);
     if(item.watch)renderWatch(item.watch,q?fmtMarketNumber(q.price,item):'실패',q?pctClass(q.changePct||0):'market-flat');
   }));
-  const btc=await fetchBitcoinQuote(tradingViewQuotes['BTC-USD']);renderIndicator({value:'ind-btc',change:'chg-btc',source:'src-btc',prefix:'$',dec:0},btc);btc?ok++:fail++;
+  const btc=await fetchBitcoinQuote();renderIndicator({value:'ind-btc',change:'chg-btc',source:'src-btc',prefix:'$',dec:0},btc);btc?ok++:fail++;
   const fng=await fetchFearGreed();
   const fngVal=document.getElementById('ind-fng'),fngChg=document.getElementById('chg-fng'),fngSrc=document.getElementById('src-fng');
   if(fng){const fngCls=fearGreedClass(fng.value);ok++;fngVal.textContent=String(fearGreedDisplayValue(fng.value));fngVal.classList.remove('loading');fngVal.className='indicator-value '+fngCls;fngChg.className='indicator-change '+fngCls;fngChg.textContent=fng.label;fngSrc.textContent=fng.source;}else{fail++;fngVal.textContent='Worker 필요';fngVal.classList.remove('loading');fngVal.className='indicator-value market-flat';fngChg.className='indicator-change market-flat';fngChg.textContent='CNN 프록시 미연결';fngSrc.textContent='CNN 데이터는 Worker 프록시 필요';}
@@ -2823,9 +2755,8 @@ async function fetchMarketDashboard(force=false){
   renderWatch('watch-dubai','$'+DUBAI_CRUDE_FALLBACK.value.toFixed(2),'market-flat');
   const hy=await fetchFredLatest('BAMLH0A0HYM2')||HY_SPREAD_FALLBACK;
   if(hy?.value){renderWatch('watch-hy',hy.value.toFixed(2)+'%',hy.value>5?'market-down':'market-up');ok++;}else{renderWatch('watch-hy','실패');fail++;}
-  const tvOk=Object.keys(tradingViewQuotes).length;
   sourceRows.push({name:'시장 시세',state:ok?'ok':'error',text:ok+'개 성공'});
-  sourceRows.push({name:'TradingView Scan',state:tvOk?'ok':'warn',text:tvOk?tvOk+'개 연결':'보조 경로 사용'});
+  sourceRows.push({name:'주요 지수',state:'warn',text:'외부 표시 제한 · 원문 링크 제공'});
   sourceRows.push({name:'CoinGecko BTC',state:btc?'ok':'error',text:btc?'정상':'실패'});
   sourceRows.push({name:'CNN Fear & Greed',state:fng?'ok':'warn',text:fng?'정상':'Worker 필요'});
   sourceRows.push({name:'Crypto Fear & Greed',state:cfng?'ok':'error',text:cfng?'정상':'실패'});
@@ -3049,6 +2980,6 @@ setTimeout(initLiveData, 1500); // Start after map loads
 </script>
 <script defer src="assets/lucide-0.468.0.min.js"></script>
 <script defer src="assets/chart-4.4.8.umd.js"></script>
-<script type="module" src="assets/company-financials.mjs?v=20260909"></script>
+<script type="module" src="assets/company-financials.mjs?v=20260909-licensed"></script>
 </body>
 </html>

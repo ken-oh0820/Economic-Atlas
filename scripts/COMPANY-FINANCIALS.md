@@ -1,36 +1,31 @@
 # Company financials
 
-Menu 6 reads `data/company-financials/index.json` and per-symbol JSON snapshots.
-It attempts a current TradingView scan on company selection, with a 12-second
-timeout and the dated snapshot as fallback. No API keys are shipped to clients.
+Menu 6 embeds TradingView's official Fundamental Data and Screener widgets.
+The host does not read, extract, cache, transform, or redistribute widget data.
+The attribution and original-source links remain visible. Supported symbols,
+fields, availability, and update frequency are controlled by the provider.
 
-Run `node scripts/update-company-financials.mjs` to rebuild the listed US stock
-and depositary receipt universe. The GitHub workflow runs Monday-Saturday at
-09:35 UTC. ETFs are excluded. Unsupported symbols and missing financials are not
-invented. The TradingView scanner is an existing site integration, not a
-contracted, availability-guaranteed API. Its fields or accessibility may change.
+Ticker shortcuts are hand-maintained; other symbols can be entered with their
+exchange. SEC links open filings, not a financial-data API. No API key is used.
+There is no automated company-data workflow or published company JSON cache.
 
-## Interpretation
+The optional calculator accepts user-entered quarterly filing figures only.
+It does not read widget contents or persist inputs. Use consistent periods,
+currencies and units. CAPEX is a positive expenditure; maintenance/growth CAPEX
+is not estimated when issuers do not disclose that split.
 
-- Provider-standardized financials, including currency and per-share adjustments.
-- CAPEX cash outflows are displayed as positive expenditure.
-- Maintenance / growth CAPEX is not available as standardized fields; no split
-  is estimated. A future issuer-specific split must include its source and period.
-- EPS is diluted EPS; negative bases and zero bases do not get ordinary growth %.
-- History arrays retain null slots. Array positions represent provider quarters;
-  historical calendar dates are not fabricated.
-- Current operating income is available, but historical operating income is not
-  included by this endpoint. It accumulates in `operatingIncomeObservations` as
-  reporting quarters change. The UI labels missing history explicitly.
-- Histories are disabled when quarterly reporting frequency is not confirmed.
-- New listings, banks, funds, ADRs and companies with unusual reporting may lack
-  some fields or require reading the linked financial statements.
+Run `node scripts/company-financials.test.mjs` for calculation edge cases and
+`node scripts/data-access.test.mjs` for the collection-policy regression check.
 
-`node --test scripts/company-financials.test.mjs` tests comparison edge cases,
-history alignment, sign normalization, and reporting period accumulation.
+## Sources reviewed 2026-09-09
 
-SEC bulk access returned HTTP 403 locally and on GitHub Actions during setup.
-SEC links open the source search; they are not the source of this snapshot.
+- https://www.tradingview.com/widget-docs/widgets/symbol-details/fundamental-data/
+- https://www.tradingview.com/widget-docs/faq/data/
+- https://www.tradingview.com/policies/
 
-Vendored UI libraries: Lucide 0.468.0 (ISC) and Chart.js 4.4.8 (MIT). License
-notices are included in the distributed files. No build step is required.
+Official embedding is distinct from permission to download or republish data.
+This change is not a legal opinion or a license audit of other site providers.
+Future providers require a separate check of public-display and redistribution
+rights. Historical Git commits may still contain previously published files;
+removing those requires a separately approved history rewrite and cannot recall
+copies already downloaded by others.

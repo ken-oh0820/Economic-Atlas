@@ -4,6 +4,7 @@ body.company-mode #mainMenu,body.company-mode .layout,body.company-mode #indicat
 body.company-mode #companyDashboard{display:block}
 #companyDashboard *{letter-spacing:0}
 .cf-shell{max-width:1540px;margin:auto;padding:24px 24px 40px;--cf-muted:#9aadbf}
+.cf-official-widget{min-height:860px;margin:16px 0 22px}.cf-screener{min-height:580px;margin-top:16px}.cf-official-widget .tradingview-widget-container,.cf-screener .tradingview-widget-container{height:100%;width:100%}.tradingview-widget-copyright{font-size:12px;line-height:24px;text-align:center;color:var(--text-mid)}.tradingview-widget-copyright a{color:var(--accent);text-decoration:none}.cf-calculator{overflow:auto;margin:16px 0}.cf-calculator table{width:100%;border-collapse:collapse;min-width:790px}.cf-calculator th,.cf-calculator td{padding:9px;border-bottom:1px solid var(--border);text-align:left;font-size:12px}.cf-calculator input{width:130px}.cf-calculator output{display:block;min-width:95px}.cf-clear{border:1px solid var(--border);background:var(--surface);color:var(--text);padding:8px 12px;font:inherit;cursor:pointer}
 body.light .cf-shell{--cf-muted:#52687b}
 .cf-top,.cf-company-head,.cf-chart-head{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
 .cf-top h1{font-size:24px;line-height:1.3;margin:0 0 6px}
@@ -71,3 +72,9 @@ body.light .cf-up{color:#04784f}body.light .cf-down{color:#bb2444}
 @media(max-width:1150px){.cf-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}.cf-capex{grid-template-columns:1fr 1fr}.cf-capex .cf-note{grid-column:1/-1}}
 @media(max-width:680px){.cf-shell{padding:18px 12px 30px}.cf-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.cf-value{font-size:22px}.cf-top h1{font-size:21px}.cf-status{text-align:left}.cf-chart{height:250px}.cf-company-name{font-size:18px}.cf-comparison{grid-template-columns:1fr}.cf-comparison b{text-align:left}.cf-search-wrap{min-width:100%}.cf-metric{padding:13px 10px}.cf-chart-tooltip{left:50px;max-width:200px}}
 @media(prefers-reduced-motion:reduce){.cf-shell *{scroll-behavior:auto}}
+.official-quote{min-height:80px;width:100%;margin:8px 0}
+.official-quote .indicator-value{font-size:20px;line-height:1.5;color:var(--text-mid)}
+.indicator-card[data-official-chart-key]{min-width:0;overflow:visible}
+.indicator-card[data-official-chart-key]>.indicator-source{display:inline-block;margin-left:10px;font-size:11px}
+.market-chart-canvas:has(.tradingview-widget-container){height:290px;overflow:visible}
+.tradingview-widget-copyright{line-height:20px;min-height:20px}

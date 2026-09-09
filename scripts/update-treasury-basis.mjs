@@ -90,42 +90,20 @@ async function fetchOpenInterest() {
   return { value, change, date: latestDate.slice(0, 10), source: 'CFTC TFF' };
 }
 
-async function fetchLiquidity() {
-  const data = await fetchJson('https://scanner.tradingview.com/global/scan', {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-    body: JSON.stringify({
-      symbols: { tickers: ['TVC:MOVE'], query: { types: [] } },
-      columns: ['close', 'change'],
-    }),
-  });
-  const row = data?.data?.[0]?.d;
-  const value = Number(row?.[0]);
-  const changePct = Number(row?.[1]);
-  if (!Number.isFinite(value)) throw new Error('MOVE quote unavailable');
-  return {
-    value,
-    changePct: Number.isFinite(changePct) ? changePct : 0,
-    date: new Date().toISOString().slice(0, 10),
-    source: 'TradingView MOVE',
-  };
-}
-
-const results = await Promise.allSettled([fetchRepo(), fetchPosition(), fetchOpenInterest(), fetchLiquidity(), fetchMortgage()]);
+const results = await Promise.allSettled([fetchRepo(), fetchPosition(), fetchOpenInterest(), fetchMortgage()]);
 const next = {
   updatedAt: previous.updatedAt,
   repo: results[0].status === 'fulfilled' ? results[0].value : previous.repo,
   position: results[1].status === 'fulfilled' ? results[1].value : previous.position,
   openInterest: results[2].status === 'fulfilled' ? results[2].value : previous.openInterest,
-  liquidity: results[3].status === 'fulfilled' ? results[3].value : previous.liquidity,
-  mortgage: results[4].status === 'fulfilled' ? results[4].value : previous.mortgage,
+  mortgage: results[3].status === 'fulfilled' ? results[3].value : previous.mortgage,
 };
 
 const signature = value => JSON.stringify({ ...value, updatedAt: '' });
 if (signature(next) !== signature(previous)) {
   next.updatedAt = new Date().toISOString();
   await writeFile(outputPath, `${JSON.stringify(next, null, 2)}\n`);
-  console.log(`Market rate snapshot updated: ${results.filter(result => result.status === 'fulfilled').length}/5 sources`);
+  console.log(`Market rate snapshot updated: ${results.filter(result => result.status === 'fulfilled').length}/4 sources`);
 } else {
   console.log('Treasury basis snapshot is already current');
 }

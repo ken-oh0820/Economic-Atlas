@@ -18,12 +18,6 @@
     "date": "2026-09-01",
     "source": "CFTC TFF"
   },
-  "liquidity": {
-    "value": 76.1433,
-    "changePct": 4.156789253739503,
-    "date": "2026-09-09",
-    "source": "TradingView MOVE"
-  },
   "mortgage": {
     "value": 6.71,
     "prev": 6.66,
