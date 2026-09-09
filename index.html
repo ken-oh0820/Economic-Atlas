@@ -14,6 +14,7 @@
 <meta name="twitter:description" content="세계 경제 지도, 실시간 시장 지표, 환율, 원자재, 뉴스, FED 대차대조표를 한 곳에서 확인하는 대시보드">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
 <title>Ken's Economic Dashboard</title>
+<link rel="stylesheet" href="assets/company-financials.css?v=20260909">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -288,6 +289,11 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
         <span class="menu-card-index">05</span>
         <span><div class="menu-card-title">미국 경제 지표 해설</div><div class="menu-card-desc">미 국채시장과 달러 유동성을 움직이는 핵심 지표의 의미와 해석 기준을 정리합니다.</div></span>
         <span class="menu-card-enter">OPEN INDICATOR GUIDE →</span>
+      </button>
+      <button class="main-menu-card" onclick="switchView('company')">
+        <span class="menu-card-index">06</span>
+        <span><div class="menu-card-title">미국 기업 재무 분석</div><div class="menu-card-desc">기업별 CAPEX, 잉여현금흐름, EPS, 매출과 영업이익의 분기 실적을 확인합니다.</div></span>
+        <span class="menu-card-enter">OPEN COMPANY FINANCIALS →</span>
       </button>
     </div>
   </div>
@@ -648,6 +654,7 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
     </section>
   </div>
 </div>
+<section id="companyDashboard" aria-label="미국 기업 재무 분석"></section>
 <div class="us-guide-dashboard" id="usEconomyGuide">
   <div class="us-guide-shell">
     <div class="dashboard-top">
@@ -1117,8 +1124,9 @@ function clearMapTransientUi(){
 }
 function switchView(view){
   if(view!=='map')clearMapTransientUi();
-  document.body.classList.remove('menu-mode','map-mode','dashboard-mode','fed-mode','sites-mode','guide-mode');
-  document.body.classList.add(view==='dashboard'?'dashboard-mode':view==='fed'?'fed-mode':view==='sites'?'sites-mode':view==='guide'?'guide-mode':view==='map'?'map-mode':'menu-mode');
+  document.body.classList.remove('menu-mode','map-mode','dashboard-mode','fed-mode','sites-mode','guide-mode','company-mode');
+  document.body.classList.add(view==='company'?'company-mode':view==='dashboard'?'dashboard-mode':view==='fed'?'fed-mode':view==='sites'?'sites-mode':view==='guide'?'guide-mode':view==='map'?'map-mode':'menu-mode');
+  if(view==='company')window.dispatchEvent(new Event('company-view-open'));
   if(view==='map'&&map) setTimeout(()=>map.invalidateSize(),80);
   if(view==='dashboard') setTimeout(()=>{renderRateDecisionSchedules();bindMarketChartClicks();fetchMarketDashboard(true);fetchUsMacroDashboard();fetchTreasuryBasisMonitor();fetchGlobalRateDashboard();fetchBondYieldDashboard();showMarketChart(currentMarketChartKey);},80);
   if(view==='fed'){const f=document.getElementById('fedFrame');if(f&&f.getAttribute('src')==='about:blank')f.src=f.dataset.src;}
@@ -3039,5 +3047,8 @@ updateDesktopPanelButtons();
 placeAlliancePanel();
 setTimeout(initLiveData, 1500); // Start after map loads
 </script>
+<script defer src="assets/lucide-0.468.0.min.js"></script>
+<script defer src="assets/chart-4.4.8.umd.js"></script>
+<script type="module" src="assets/company-financials.mjs?v=20260909"></script>
 </body>
 </html>

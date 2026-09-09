@@ -18,19 +18,17 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@v4
         with:
-          python-version: '3.12'
-      - name: Build financial statements from official SEC bulk data
-        env:
-          SEC_USER_AGENT: EconomicDashboard 255784721+ken-oh0820@users.noreply.github.com
-        run: python scripts/update-company-financials.py
+          node-version: '22'
+      - name: Refresh company financials
+        run: node scripts/update-company-financials.mjs
       - name: Publish financial statements
         run: |
-          git add data/companies
+          git add data/company-financials
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Update SEC company financials"
+          git commit -m "Update company financials"
           git pull --rebase origin main
           git push
