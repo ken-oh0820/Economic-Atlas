@@ -15,6 +15,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
 <title>Ken's Economic Dashboard</title>
 <link rel="stylesheet" href="assets/company-financials.css?v=20260910-ui">
+<link rel="stylesheet" href="assets/main-menu.css?v=20260910-menu">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -256,48 +257,45 @@ body.map-mode #fedDashboard,body.dashboard-mode #fedDashboard,body.sites-mode #f
 </style>
 </head>
 <body class="menu-mode">
-<div class="main-menu" id="mainMenu">
+<main class="main-menu" id="mainMenu" aria-labelledby="mainMenuTitle">
   <div class="main-menu-inner">
-    <div>
-      <div class="main-menu-kicker">ECONOMIC ATLAS · CONTROL CENTER</div>
-      <div class="main-menu-title">Economic Dashboard</div>
-      <div class="main-menu-credit">Made by Ken</div>
-      <div class="main-menu-sub">세계 경제 지도, 시장 지표, 뉴스, 데이터 도구와 경제 지표 해설을 한 곳에서 여는 메인 허브입니다.</div>
-    </div>
-    <div class="main-menu-grid">
-      <button class="main-menu-card" onclick="switchView('map')">
-        <span class="menu-card-index">01</span>
-        <span><div class="menu-card-title">세계 경제 지도</div><div class="menu-card-desc">국가별 GDP, 무역, 인플레이션, 실업률과 자원·동맹 오버레이를 지도에서 확인합니다.</div></span>
-        <span class="menu-card-enter">ENTER MAP →</span>
+    <div class="menu-masthead"><div class="menu-brand"><span class="menu-brand-mark" aria-hidden="true"><i data-lucide="chart-no-axes-combined"></i></span><span>KEN'S WORKSPACE</span></div><span class="menu-masthead-label">ECONOMICS &amp; MARKETS</span></div>
+    <div class="menu-intro"><div><div class="main-menu-kicker">시장 · 정책 · 기업</div><h1 class="main-menu-title" id="mainMenuTitle">Economic Dashboard</h1><p class="main-menu-sub">글로벌 시장, 경제 정책, 기업 리서치.</p></div><span class="menu-section-label">워크스페이스 <b>06</b></span></div>
+    <nav class="main-menu-grid" aria-label="대시보드 메뉴">
+      <button type="button" class="main-menu-card menu-tone-teal" onclick="switchView('map')" aria-label="세계 경제 지도">
+        <span class="menu-card-top"><span class="menu-card-icon" aria-hidden="true"><i data-lucide="globe-2"></i></span><span class="menu-card-index">01</span></span>
+        <span class="menu-card-content"><span class="menu-card-category">GLOBAL ATLAS</span><span class="menu-card-title">세계 경제 지도</span><span class="menu-card-desc">국가별 경제 · 교역 · 자원</span></span>
+        <span class="menu-card-bottom"><span class="menu-card-enter">바로가기</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
       </button>
-      <button class="main-menu-card" onclick="switchView('dashboard')">
-        <span class="menu-card-index">02</span>
-        <span><div class="menu-card-title">지표 모니터링</div><div class="menu-card-desc">글로벌 자산, 한국 증시, 공포탐욕지수, VIX, 금리, 유동성 지표를 한눈에 보는 대시보드입니다.</div></span>
-        <span class="menu-card-enter">OPEN DASHBOARD →</span>
+      <button type="button" class="main-menu-card menu-tone-blue" onclick="switchView('dashboard')" aria-label="지표 모니터링">
+        <span class="menu-card-top"><span class="menu-card-icon" aria-hidden="true"><i data-lucide="chart-no-axes-combined"></i></span><span class="menu-card-index">02</span></span>
+        <span class="menu-card-content"><span class="menu-card-category">MARKET MONITOR</span><span class="menu-card-title">지표 모니터링</span><span class="menu-card-desc">시장 지수 · 금리 · 매크로</span></span>
+        <span class="menu-card-bottom"><span class="menu-card-enter">바로가기</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
       </button>
-      <button class="main-menu-card" onclick="switchView('fed')">
-        <span class="menu-card-index">03</span>
-        <span><div class="menu-card-title">연준 대차대조표</div><div class="menu-card-desc">H.4.1 PDF와 텍스트를 분석해 연준 자산, 지급준비금, TGA, 역레포와 지역 연준 데이터를 확인합니다.</div></span>
-        <span class="menu-card-enter">OPEN FED DASHBOARD →</span>
+      <button type="button" class="main-menu-card menu-tone-amber" onclick="switchView('fed')" aria-label="연준 대차대조표">
+        <span class="menu-card-top"><span class="menu-card-icon" aria-hidden="true"><i data-lucide="landmark"></i></span><span class="menu-card-index">03</span></span>
+        <span class="menu-card-content"><span class="menu-card-category">FED BALANCE SHEET</span><span class="menu-card-title">연준 대차대조표</span><span class="menu-card-desc">연준 자산 · 지급준비금 · 유동성</span></span>
+        <span class="menu-card-bottom"><span class="menu-card-enter">바로가기</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
       </button>
-      <button class="main-menu-card" onclick="switchView('sites')">
-        <span class="menu-card-index">04</span>
-        <span><div class="menu-card-title">투자 관련 사이트</div><div class="menu-card-desc">투자 리서치 도구와 Reuters·WSJ·백악관 등 미국 주요 뉴스를 함께 보는 정보 허브입니다.</div></span>
-        <span class="menu-card-enter">OPEN SITE HUB →</span>
+      <button type="button" class="main-menu-card menu-tone-coral" onclick="switchView('sites')" aria-label="투자 관련 사이트">
+        <span class="menu-card-top"><span class="menu-card-icon" aria-hidden="true"><i data-lucide="newspaper"></i></span><span class="menu-card-index">04</span></span>
+        <span class="menu-card-content"><span class="menu-card-category">RESEARCH DESK</span><span class="menu-card-title">투자 관련 사이트</span><span class="menu-card-desc">경제 뉴스 · 공시 · 투자 리서치</span></span>
+        <span class="menu-card-bottom"><span class="menu-card-enter">바로가기</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
       </button>
-      <button class="main-menu-card" onclick="switchView('guide')">
-        <span class="menu-card-index">05</span>
-        <span><div class="menu-card-title">미국 경제 지표 해설</div><div class="menu-card-desc">미 국채시장과 달러 유동성을 움직이는 핵심 지표의 의미와 해석 기준을 정리합니다.</div></span>
-        <span class="menu-card-enter">OPEN INDICATOR GUIDE →</span>
+      <button type="button" class="main-menu-card menu-tone-violet" onclick="switchView('guide')" aria-label="미국 경제 지표 해설">
+        <span class="menu-card-top"><span class="menu-card-icon" aria-hidden="true"><i data-lucide="book-open"></i></span><span class="menu-card-index">05</span></span>
+        <span class="menu-card-content"><span class="menu-card-category">ECONOMIC LIBRARY</span><span class="menu-card-title">미국 경제 지표 해설</span><span class="menu-card-desc">국채시장 · 달러 유동성 · 지표 해석</span></span>
+        <span class="menu-card-bottom"><span class="menu-card-enter">바로가기</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
       </button>
-      <button class="main-menu-card" onclick="switchView('company')">
-        <span class="menu-card-index">06</span>
-        <span><div class="menu-card-title">미국 기업 재무 분석</div><div class="menu-card-desc">기업별 CAPEX, 잉여현금흐름, EPS, 매출과 영업이익의 분기 실적을 확인합니다.</div></span>
-        <span class="menu-card-enter">OPEN COMPANY FINANCIALS →</span>
+      <button type="button" class="main-menu-card menu-tone-green" onclick="switchView('company')" aria-label="미국 기업 재무 분석">
+        <span class="menu-card-top"><span class="menu-card-icon" aria-hidden="true"><i data-lucide="building-2"></i></span><span class="menu-card-index">06</span></span>
+        <span class="menu-card-content"><span class="menu-card-category">COMPANY FINANCIALS</span><span class="menu-card-title">미국 기업 재무 분석</span><span class="menu-card-desc">CAPEX · 현금흐름 · 기업 실적</span></span>
+        <span class="menu-card-bottom"><span class="menu-card-enter">바로가기</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
       </button>
-    </div>
+    </nav>
+    <div class="menu-footer"><span>Economic Dashboard</span><span class="main-menu-credit">Made by <strong>Ken</strong></span></div>
   </div>
-</div>
+</main>
 <header>
 <div class="header-left">
   <button class="app-nav-btn" onclick="switchView('menu')">MENU</button>
@@ -2979,6 +2977,7 @@ placeAlliancePanel();
 setTimeout(initLiveData, 1500); // Start after map loads
 </script>
 <script defer src="assets/lucide-0.468.0.min.js"></script>
+<script defer src="assets/main-menu.js?v=20260910-menu"></script>
 <script defer src="assets/chart-4.4.8.umd.js"></script>
 <script type="module" src="assets/company-financials.mjs?v=20260910-ui"></script>
 </body>
